@@ -476,11 +476,21 @@ const Checkout = () => {
         city: p.city || "",
       };
 
-      if (
-        !Number.isFinite(addressObj.latitude) ||
-        !Number.isFinite(addressObj.longitude)
-      ) {
-        alert("Please select a valid address from map/search.");
+      // Reject (0, 0) too. Number.isFinite(0) is true, so a manually-typed
+      // address with no Google Places selection slips through the finite
+      // check with latitude=longitude=0 — then the slot picker filters
+      // every real vendor out by radius (haversine from origin is huge),
+      // the customer manages to "pick" a slot only if there's no other
+      // booking, and the payment-verify gate eventually rejects with
+      // "slot not available". Better to fail loudly here.
+      const latValid =
+        Number.isFinite(addressObj.latitude) && addressObj.latitude !== 0;
+      const lngValid =
+        Number.isFinite(addressObj.longitude) && addressObj.longitude !== 0;
+      if (!latValid || !lngValid) {
+        alert(
+          "Please pick your address from the map/search suggestions (we need exact coordinates, not just text).",
+        );
         return;
       }
 
