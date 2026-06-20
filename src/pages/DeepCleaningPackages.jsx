@@ -902,8 +902,22 @@ const DeepCleaningPackages = () => {
                                             selectedCity,
                                           );
 
-                                        if (!defaultPkg || !defaultCityConfig)
+                                        // Used to `return` silently when
+                                        // either was missing — the button
+                                        // looked broken because nothing
+                                        // happened. Tell the user instead.
+                                        if (!defaultPkg) {
+                                          alert(
+                                            "This service isn't available right now. Please try again in a moment.",
+                                          );
                                           return;
+                                        }
+                                        if (!defaultCityConfig) {
+                                          alert(
+                                            "We need your address before adding services. Please set your address first.",
+                                          );
+                                          return;
+                                        }
 
                                         updateCartItem(
                                           defaultPkg.name,

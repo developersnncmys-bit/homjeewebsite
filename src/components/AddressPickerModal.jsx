@@ -172,6 +172,72 @@ export default function AddressPickerModal({
     }
   }, [show, initialLatLng?.lat, initialLatLng?.lng]);
 
+  /* ----------------- Auto-grab current location on open ------------------ */
+  // When the modal opens fresh — no existing address, no real initial
+  // lat/lng (just the Bangalore default) — try the browser's geolocation
+  // API and reverse-geocode it so the user lands with their actual
+  // location pre-selected instead of having to search every time. The
+  // call is gated so editing an existing saved address doesn't blow it
+  // away. Permission denials and timeouts are swallowed silently — the
+  // map still works manually.
+  const autoLocatedRef = useRef(false);
+  useEffect(() => {
+    try {
+      if (!show || !mapsReady) return;
+      if (autoLocatedRef.current) return;
+
+      // Bypass if caller passed a real saved address.
+      const hasInitialAddress = !!(initialAddress && initialAddress.trim());
+      const initLat = Number(initialLatLng?.lat);
+      const initLng = Number(initialLatLng?.lng);
+      const hasRealInitialCoord =
+        Number.isFinite(initLat) &&
+        Number.isFinite(initLng) &&
+        !(initLat === 0 && initLng === 0) &&
+        // Bangalore default — treat as "no real coord".
+        !(Math.abs(initLat - 12.9716) < 0.0001 && Math.abs(initLng - 77.5946) < 0.0001);
+      if (hasInitialAddress || hasRealInitialCoord) {
+        autoLocatedRef.current = true;
+        return;
+      }
+
+      if (!navigator?.geolocation?.getCurrentPosition) return;
+      autoLocatedRef.current = true;
+
+      navigator.geolocation.getCurrentPosition(
+        (geo) => {
+          try {
+            const lat = Number(geo?.coords?.latitude);
+            const lng = Number(geo?.coords?.longitude);
+            if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+            // setFromLatLng pans the map, drops the marker, AND reverse-
+            // geocodes so the address + city fields populate themselves.
+            setFromLatLng({ lat, lng });
+          } catch (e) {
+            console.error("auto-geolocate apply failed:", e);
+          }
+        },
+        (err) => {
+          // Permission denied, blocked by browser, or timeout — fine.
+          // User can still pick manually.
+          console.warn("auto-geolocate skipped:", err?.message || err);
+        },
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60_000 },
+      );
+    } catch (e) {
+      console.error("auto-geolocate effect failed:", e);
+    }
+    // setFromLatLng intentionally omitted — it's a stable inline closure
+    // and the ref guard ensures one-shot behaviour per modal open.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show, mapsReady]);
+
+  // Reset the one-shot guard when the modal closes so the next open
+  // re-evaluates (e.g. user backed out and clicked Change Address again).
+  useEffect(() => {
+    if (!show) autoLocatedRef.current = false;
+  }, [show]);
+
   /* --------------------------- Reverse geocode ---------------------------- */
   const reverseGeocode = async (pos) => {
     try {
