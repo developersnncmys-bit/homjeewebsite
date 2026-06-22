@@ -205,7 +205,7 @@
 
 // export default SlotSelectionModal;
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import moment from "moment";
 
 // Format minutes -> "2 hrs", "30 mins", "2 hrs 30 mins". Returns null if 0/invalid.
@@ -236,6 +236,14 @@ const SlotSelectionModal = ({
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [slotReason, setSlotReason] = useState(null);
 
+  // Auto-roll forward: if the selected date has no available slots, the
+  // picker silently advances to the next date. Once it finds a date with
+  // slots — OR exhausts every day in the 8-day window — auto-rolling
+  // stops so the user's manual date selections are honoured from there.
+  const [autoRollDone, setAutoRollDone] = useState(false);
+  const [noSlotsForWeek, setNoSlotsForWeek] = useState(false);
+  const triedDatesRef = useRef(new Set());
+
   const dates = useMemo(() => {
     const today = new Date();
     return Array.from({ length: 8 }, (_, i) => {
@@ -251,16 +259,53 @@ const SlotSelectionModal = ({
     });
   }, []);
 
-  // ✅ Auto-select today's date when modal opens
+  // ✅ Auto-select today's date when modal opens and reset auto-roll state.
   useEffect(() => {
     try {
       if (show && dates.length > 0) {
+        triedDatesRef.current = new Set();
+        setAutoRollDone(false);
+        setNoSlotsForWeek(false);
         setSelectedDate(dates[0].value);
       }
     } catch (err) {
       console.error("Auto-select date error:", err);
     }
   }, [show, dates]);
+
+  // Auto-roll forward when the current date has no slots. Runs after
+  // each slot fetch resolves. Stops once any date returns slots OR every
+  // date in the 8-day window has been tried.
+  useEffect(() => {
+    try {
+      if (!show || !selectedDate || loadingSlots) return;
+      if (autoRollDone) return;
+
+      triedDatesRef.current.add(selectedDate);
+
+      if (Array.isArray(availableSlots) && availableSlots.length > 0) {
+        setAutoRollDone(true);
+        return;
+      }
+
+      const currentIdx = dates.findIndex((d) => d.value === selectedDate);
+      for (let i = currentIdx + 1; i < dates.length; i++) {
+        if (!triedDatesRef.current.has(dates[i].value)) {
+          setSelectedDate(dates[i].value);
+          return;
+        }
+      }
+
+      // No more untried dates AND no slots anywhere — switch to the
+      // thank-you-for-enquiry view.
+      if (triedDatesRef.current.size >= dates.length) {
+        setNoSlotsForWeek(true);
+        setAutoRollDone(true);
+      }
+    } catch (err) {
+      console.error("Auto-roll slot date error:", err);
+    }
+  }, [show, availableSlots, loadingSlots, selectedDate, dates, autoRollDone]);
 
   // ✅ Fetch slots when date changes
   useEffect(() => {
@@ -415,6 +460,45 @@ const SlotSelectionModal = ({
           zIndex: 1001,
         }}
       >
+        {/* When every date in the 8-day window auto-rolled with no
+            available slots, the booking flow can't proceed. Show a
+            thank-you-for-enquiry message instead of the date picker so
+            the customer doesn't sit on an empty grid. Admin gets the
+            lead via the createEnquiryLead capture that ran at sign-in. */}
+        {noSlotsForWeek ? (
+          <div style={{ textAlign: "center", padding: "30px 10px" }}>
+            <div
+              style={{
+                fontSize: 48,
+                lineHeight: 1,
+                color: "#FF0000",
+                marginBottom: 12,
+              }}
+            >
+              ✓
+            </div>
+            <h3 style={{ marginBottom: 8 }}>Thank you for your enquiry!</h3>
+            <p style={{ color: "#555", fontSize: 14, marginBottom: 20 }}>
+              We're fully booked for the next several days. Our team will
+              reach out to you shortly to schedule a time that works.
+            </p>
+            <button
+              onClick={onClose}
+              style={{
+                background: "#FF0000",
+                color: "#fff",
+                border: "none",
+                padding: "10px 24px",
+                borderRadius: 8,
+                cursor: "pointer",
+                fontSize: 14,
+              }}
+            >
+              Close
+            </button>
+          </div>
+        ) : (
+          <>
         <h3 style={{ marginBottom: 5 }}>
           When should the professional arrive?
         </h3>
@@ -578,6 +662,8 @@ const SlotSelectionModal = ({
         >
           {buttonText}
         </button>
+          </>
+        )}
       </div>
     </>
   );

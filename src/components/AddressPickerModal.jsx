@@ -502,7 +502,7 @@ export default function AddressPickerModal({
     try {
       // ✅ only validate house number if it is NOT disabled
       if (!houseNumber?.trim()) {
-        alert("House/Flat Number is required");
+        alert("House No. & Building Name is required");
         return;
       }
 
@@ -637,12 +637,12 @@ export default function AddressPickerModal({
 
             <Form.Group className="mb-3">
               <Form.Label>
-                House/Flat Number <span style={{ color: "red" }}>*</span>
+                House No. & Building Name <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Control
                 value={houseNumber}
                 onChange={(e) => setHouseNumber(e.target.value)}
-                placeholder={"Enter House/Flat Number"}
+                placeholder={"Enter House No. & Building Name"}
                 disabled={!mapsReady}
                 style={{
                   backgroundColor: "white",
