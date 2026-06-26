@@ -25,28 +25,31 @@ function PopupModal({ show, message, onSave }) {
         <div className="py-4 px-3" style={{ textAlign: "center" }}>
           {success ? (
             <>
+              {/* Green circled tick — matches the vendor app's success icon.
+                  The tick itself dismisses the modal. */}
               <button
                 type="button"
                 onClick={onSave}
                 aria-label="Close"
                 style={{
-                  width: 64,
-                  height: 64,
-                  borderRadius: "50%",
-                  background: "#22c55e",
-                  color: "#fff",
+                  background: "transparent",
                   border: "none",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 36,
-                  lineHeight: 1,
+                  padding: 0,
                   cursor: "pointer",
                   marginBottom: 12,
-                  boxShadow: "0 2px 8px rgba(34,197,94,0.35)",
+                  display: "inline-flex",
                 }}
               >
-                ✓
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="11" fill="#E6F7EE" />
+                  <path
+                    d="M7 12.5l3 3 7-7"
+                    stroke="#1FA463"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </button>
               <h6 className="mt-2 mb-0" style={{ fontWeight: 600 }}>
                 {message?.promptTile || "Booking Confirmed"}

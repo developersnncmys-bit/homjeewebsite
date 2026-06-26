@@ -16,6 +16,16 @@ function PaymentSuccessModal({ show, bookingData, paidAmount, onClose }) {
     };
   }, [show]);
 
+  // Auto-redirect to the home page 3s after success so the user isn't left
+  // stuck on the confirmation modal. Cleared if the modal closes first.
+  useEffect(() => {
+    if (!show) return undefined;
+    const timer = setTimeout(() => {
+      window.location.href = "/";
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [show]);
+
   // console.log("paidAmount", paidAmount);
 
   return (

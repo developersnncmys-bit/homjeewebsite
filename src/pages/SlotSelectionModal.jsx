@@ -206,6 +206,7 @@
 // export default SlotSelectionModal;
 
 import React, { useEffect, useState, useMemo, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // Format minutes -> "2 hrs", "30 mins", "2 hrs 30 mins". Returns null if 0/invalid.
@@ -235,6 +236,12 @@ const SlotSelectionModal = ({
   const [unavailableSlots, setUnavailableSlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [slotReason, setSlotReason] = useState(null);
+  // The date that `availableSlots`/`unavailableSlots` currently reflect. Used
+  // to stop the auto-roll from deciding on a date BEFORE its slots have been
+  // fetched (which previously skipped a day that actually had slots).
+  const [loadedDate, setLoadedDate] = useState(null);
+
+  const navigate = useNavigate();
 
   // Auto-roll forward: if the selected date has no available slots, the
   // picker silently advances to the next date. Once it finds a date with
@@ -266,46 +273,13 @@ const SlotSelectionModal = ({
         triedDatesRef.current = new Set();
         setAutoRollDone(false);
         setNoSlotsForWeek(false);
+        setLoadedDate(null);
         setSelectedDate(dates[0].value);
       }
     } catch (err) {
       console.error("Auto-select date error:", err);
     }
   }, [show, dates]);
-
-  // Auto-roll forward when the current date has no slots. Runs after
-  // each slot fetch resolves. Stops once any date returns slots OR every
-  // date in the 8-day window has been tried.
-  useEffect(() => {
-    try {
-      if (!show || !selectedDate || loadingSlots) return;
-      if (autoRollDone) return;
-
-      triedDatesRef.current.add(selectedDate);
-
-      if (Array.isArray(availableSlots) && availableSlots.length > 0) {
-        setAutoRollDone(true);
-        return;
-      }
-
-      const currentIdx = dates.findIndex((d) => d.value === selectedDate);
-      for (let i = currentIdx + 1; i < dates.length; i++) {
-        if (!triedDatesRef.current.has(dates[i].value)) {
-          setSelectedDate(dates[i].value);
-          return;
-        }
-      }
-
-      // No more untried dates AND no slots anywhere — switch to the
-      // thank-you-for-enquiry view.
-      if (triedDatesRef.current.size >= dates.length) {
-        setNoSlotsForWeek(true);
-        setAutoRollDone(true);
-      }
-    } catch (err) {
-      console.error("Auto-roll slot date error:", err);
-    }
-  }, [show, availableSlots, loadingSlots, selectedDate, dates, autoRollDone]);
 
   // ✅ Fetch slots when date changes
   useEffect(() => {
@@ -336,6 +310,9 @@ const SlotSelectionModal = ({
         console.error("Failed to fetch slots", err);
       } finally {
         setLoadingSlots(false);
+        // Mark which date the slots now reflect, so the auto-roll only acts
+        // on a fully-fetched day.
+        setLoadedDate(selectedDate);
       }
     };
 
@@ -413,6 +390,55 @@ const SlotSelectionModal = ({
     }
   }, [availableSlots, unavailableSlots, selectedDate]);
 
+  // Auto-roll forward ONLY when the currently selected date has genuinely no
+  // selectable slot — and only after that date's slots have actually been
+  // fetched. Judged on filteredSlots (the selectable tiles the user sees, with
+  // today's "now + 2h" cut-off applied), not the raw availableSlots. This is
+  // what keeps the picker on the earliest day that has slots instead of
+  // jumping to the next day prematurely.
+  useEffect(() => {
+    try {
+      if (!show || !selectedDate || loadingSlots) return;
+      if (autoRollDone) return;
+      // Wait until availableSlots reflect THIS date (fetch finished).
+      if (loadedDate !== selectedDate) return;
+
+      triedDatesRef.current.add(selectedDate);
+
+      const hasSelectable = filteredSlots.some((s) => s.available);
+      if (hasSelectable) {
+        // This day has at least one bookable slot — keep it selected.
+        setAutoRollDone(true);
+        return;
+      }
+
+      const currentIdx = dates.findIndex((d) => d.value === selectedDate);
+      for (let i = currentIdx + 1; i < dates.length; i++) {
+        if (!triedDatesRef.current.has(dates[i].value)) {
+          setSelectedDate(dates[i].value);
+          return;
+        }
+      }
+
+      // No more untried dates AND no slots anywhere — switch to the
+      // thank-you-for-enquiry view.
+      if (triedDatesRef.current.size >= dates.length) {
+        setNoSlotsForWeek(true);
+        setAutoRollDone(true);
+      }
+    } catch (err) {
+      console.error("Auto-roll slot date error:", err);
+    }
+  }, [
+    show,
+    filteredSlots,
+    loadingSlots,
+    selectedDate,
+    loadedDate,
+    dates,
+    autoRollDone,
+  ]);
+
   // if currently selected slot becomes invalid after filtering, clear it
   useEffect(() => {
     try {
@@ -425,6 +451,23 @@ const SlotSelectionModal = ({
       console.error("selectedTimeSlot validate error:", e);
     }
   }, [filteredSlots, selectedTimeSlot]);
+
+  // Once the "fully booked / thank-you-for-enquiry" view is showing, auto
+  // redirect to the home page after 5s so the customer isn't left stuck on
+  // it. Manual "Close" still works; the timer is cleared if the modal closes
+  // or this view goes away first.
+  useEffect(() => {
+    if (!show || !noSlotsForWeek) return;
+    const t = setTimeout(() => {
+      try {
+        onClose?.();
+        navigate("/");
+      } catch (err) {
+        console.error("enquiry auto-redirect error:", err);
+      }
+    }, 5000);
+    return () => clearTimeout(t);
+  }, [show, noSlotsForWeek, onClose, navigate]);
 
   const canProceed = selectedDate && selectedTimeSlot;
 
@@ -467,16 +510,23 @@ const SlotSelectionModal = ({
             lead via the createEnquiryLead capture that ran at sign-in. */}
         {noSlotsForWeek ? (
           <div style={{ textAlign: "center", padding: "30px 10px" }}>
-            <div
-              style={{
-                fontSize: 48,
-                lineHeight: 1,
-                color: "#FF0000",
-                marginBottom: 12,
-              }}
+            {/* Green circled tick — matches the vendor app's success icon. */}
+            <svg
+              width="72"
+              height="72"
+              viewBox="0 0 24 24"
+              fill="none"
+              style={{ marginBottom: 12 }}
             >
-              ✓
-            </div>
+              <circle cx="12" cy="12" r="11" fill="#E6F7EE" />
+              <path
+                d="M7 12.5l3 3 7-7"
+                stroke="#1FA463"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
             <h3 style={{ marginBottom: 8 }}>Thank you for your enquiry!</h3>
             <p style={{ color: "#555", fontSize: 14, marginBottom: 20 }}>
               We're fully booked for the next several days. Our team will
