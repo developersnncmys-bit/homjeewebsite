@@ -1,14 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "../CartContext";
-import furnishedTypesOfCleaning from "/media/bunglowtypeofservices.webp";
-import furnishedWhatWeClean from "/media/whatweclean.jpeg";
-import furnishedKitchen from "/media/kitchen.jpeg";
-import furnishedFloor from "/media/floor.jpeg";
-import furnishedBathroom from "/media/bathroom.webp";
-import furnishedBalcony from "/media/bolcany.jpeg"; // Verify if should be 'balcony'
-import furnishedIncludes from "/media/bunglowincludes.webp";
-import furnishedExcludes from "/media/Excludes.jpeg";
-import furnishedWhatWeDo from "/media/whatwedo.jpeg";
+import WhatWeCleanImages from "./WhatWeCleanImages";
 
 const BookByRoomModal = ({ pkgGroup, closeModal }) => {
   const { updateCartItem, getQuantity } = useContext(CartContext);
@@ -278,35 +270,7 @@ const BookByRoomModal = ({ pkgGroup, closeModal }) => {
               ))}
             </div>
           ))}
-          <div style={{ textAlign: "center", marginTop: "15px" }}>
-            {[
-              { src: furnishedTypesOfCleaning, alt: "Types of cleaning" },
-              { src: furnishedWhatWeClean, alt: "What we clean" },
-              { src: furnishedKitchen, alt: "Kitchen" },
-              { src: furnishedBathroom, alt: "Bathroom" },
-              { src: furnishedBalcony, alt: "Balcony" },
-              { src: furnishedFloor, alt: "Floor" },
-              { src: furnishedIncludes, alt: "Includes" },
-              { src: furnishedExcludes, alt: "Excludes" },
-              { src: furnishedWhatWeDo, alt: "What we do" },
-            ].map((image, index) => (
-              <img
-                key={index}
-                src={image.src}
-                alt={image.alt}
-                style={{
-                  width: "450px",
-                  height: "auto",
-                  border: "1px solid #e0e0e0",
-                  borderRadius: "8px",
-                  marginBottom: "15px",
-                }}
-                onError={(e) =>
-                  console.error(`Failed to load image: ${image.src}`)
-                }
-              />
-            ))}
-          </div>
+          <WhatWeCleanImages room={pkgGroup?.[0]?.name?.split(" - ")[0]} />
         </div>
         {totalQuantity > 0 && (
           <div
