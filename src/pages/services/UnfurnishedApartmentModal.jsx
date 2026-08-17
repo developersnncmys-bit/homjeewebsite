@@ -1,14 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "../CartContext";
-import unfurnishedTypesOfCleaning from "/media/unfurnishedservice.webp";
-import unfurnishedWhatWeClean from "/media/whatweclean.jpeg";
-import unfurnishedIncludes from "/media/unfurnishedinclued.webp";
-import unfurnishedExcludes from "/media/unfurnishedexclude.webp";
-import furnishedKitchen from "/media/kitchen.jpeg";
-import furnishedFloor from "/media/floor.jpeg";
-import furnishedBathroom from "/media/bathroom.webp";
-import furnishedBalcony from "/media/bolcany.jpeg";
-import furnishedWhatWeDo from "/media/whatwedo.jpeg";
+import CleaningComparisonTable from "./CleaningComparisonTable";
 
 const UnfurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
   const { updateCartItem, getQuantity } = useContext(CartContext);
@@ -244,35 +236,7 @@ const UnfurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
               </div>
             </div>
           ))}
-          <div style={{ textAlign: "center", marginTop: "15px" }}>
-            {[
-              { src: unfurnishedTypesOfCleaning, alt: "Types of cleaning" },
-              { src: unfurnishedWhatWeClean, alt: "What we clean" },
-              { src: furnishedKitchen, alt: "Kitchen" },
-              { src: furnishedBathroom, alt: "Bathroom" },
-              { src: furnishedBalcony, alt: "Balcony" },
-              { src: furnishedFloor, alt: "Floor" },
-              { src: unfurnishedIncludes, alt: "Includes" },
-              { src: unfurnishedExcludes, alt: "Excludes" },
-              { src: furnishedWhatWeDo, alt: "What we do" },
-            ].map((image, index) => (
-              <img
-                key={index}
-                src={image.src}
-                alt={image.alt}
-                style={{
-                  width: "400px",
-                  height: "auto",
-                  border: "1px solid #e0e0e0",
-                  borderRadius: "8px",
-                  marginBottom: "15px",
-                }}
-                onError={(e) =>
-                  console.error(`Failed to load image: ${image.src}`)
-                }
-              />
-            ))}
-          </div>
+          <CleaningComparisonTable variant="unfurnished" />
         </div>
         {totalQuantity > 0 && (
           <div
