@@ -1,16 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "../CartContext";
-
-// Consistent import paths
-import furnishedTypesOfCleaning from "/media/typesofcleaning.jpeg";
-import furnishedWhatWeClean from "/media/whatweclean.jpeg";
-import furnishedKitchen from "/media/kitchen.jpeg";
-import furnishedFloor from "/media/floor.jpeg";
-import furnishedBathroom from "/media/bathroom.webp";
-import furnishedBalcony from "/media/bolcany.jpeg";
-import furnishedIncludes from "/media/includes.jpeg";
-import furnishedExcludes from "/media/Excludes.jpeg"; // Verify case sensitivity of file name
-import furnishedWhatWeDo from "/media/whatwedo.jpeg";
+import CleaningComparisonTable from "./CleaningComparisonTable";
 
 const FurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
   const { updateCartItem, getQuantity } = useContext(CartContext);
@@ -252,35 +242,7 @@ const FurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
               </div>
             </div>
           ))}
-          <div style={{ textAlign: "center", marginTop: "15px" }}>
-            {[
-              { src: furnishedTypesOfCleaning, alt: "Types of cleaning" },
-              { src: furnishedWhatWeClean, alt: "What we clean" },
-              { src: furnishedKitchen, alt: "Kitchen" },
-              { src: furnishedBathroom, alt: "Bathroom" },
-              { src: furnishedBalcony, alt: "Balcony" },
-              { src: furnishedFloor, alt: "Floor" },
-              { src: furnishedIncludes, alt: "Includes" },
-              { src: furnishedExcludes, alt: "Excludes" },
-              { src: furnishedWhatWeDo, alt: "What we do" },
-            ].map((image, index) => (
-              <img
-                key={index}
-                src={image.src}
-                alt={image.alt}
-                style={{
-                  width: "450px",
-                  height: "auto",
-                  border: "1px solid #e0e0e0",
-                  borderRadius: "8px",
-                  marginBottom: "15px",
-                }}
-                onError={(e) =>
-                  console.error(`Failed to load image: ${image.src}`)
-                }
-              />
-            ))}
-          </div>
+          <CleaningComparisonTable variant="furnished" />
         </div>
         {totalQuantity > 0 && (
           <div
