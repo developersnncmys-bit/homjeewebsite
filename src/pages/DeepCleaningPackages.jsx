@@ -715,7 +715,8 @@ const DeepCleaningPackages = () => {
                             }}
                           />
 
-                          {getQuantity(currentPkg.name, service) > 0 ? (
+                          {pkgGroup.length === 1 &&
+                          getQuantity(currentPkg.name, service) > 0 ? (
                             <div
                               style={{
                                 display: "inline-flex",
@@ -810,7 +811,7 @@ const DeepCleaningPackages = () => {
                                     <div
                                       onClick={() => {
                                         try {
-                                          if (service === "Mini services") {
+                                          if (pkgGroup.length === 1) {
                                             updateCartItem(
                                               currentPkg.name,
                                               currentCityConfig.price,
@@ -894,7 +895,7 @@ const DeepCleaningPackages = () => {
                                 <button
                                   onClick={() => {
                                     try {
-                                      if (service === "Mini services") {
+                                      if (pkgGroup.length === 1) {
                                         const defaultPkg = pkgGroup[0];
                                         const defaultCityConfig =
                                           getCityConfigForPackage(
