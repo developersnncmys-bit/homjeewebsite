@@ -413,8 +413,17 @@ const DeepCleaningPackages = () => {
   };
 
   const scrollToService = (service) => {
-    if (serviceRefs.current[service]) {
-      serviceRefs.current[service].scrollIntoView({ behavior: "smooth" });
+    const el = serviceRefs.current[service];
+    if (!el) return;
+    // The service sections live inside the inner ".scroll-section" container
+    // (max-height + overflow), so scrollIntoView fought with the page scroll
+    // and only worked for the first few items. Scroll the inner container
+    // directly to the section's offset — reliable for every service.
+    const container = el.closest(".scroll-section");
+    if (container) {
+      container.scrollTo({ top: el.offsetTop, behavior: "smooth" });
+    } else {
+      el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
