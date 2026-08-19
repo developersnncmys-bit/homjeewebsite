@@ -96,12 +96,13 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
                 alignItems: "flex-start",
               }}
               onClick={() => {
-                if (getQuantity(pkg.name) === 0) {
+                if (getQuantity(pkg.name, serviceName) === 0) {
                   updateCartItem(
                     pkg.name,
                     pkg.price,
                     1,
-                    pkg.teamMembers,
+                    serviceName,
+                          pkg.teamMembers,
                     pkg.duration,
                     pkg.coinsForVendor,
                   );
@@ -142,7 +143,7 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
                 </ul>
               </div>
               <div style={{ marginLeft: "15px", marginTop: "8px" }}>
-                {getQuantity(pkg.name) > 0 ? (
+                {getQuantity(pkg.name, serviceName) > 0 ? (
                   <div
                     style={{
                       display: "inline-flex",
@@ -159,6 +160,7 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
                           pkg.name,
                           pkg.price,
                           -1,
+                          serviceName,
                           pkg.teamMembers,
                           pkg.duration,
                           pkg.coinsForVendor,
@@ -176,7 +178,7 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
                       −
                     </button>
                     <span style={{ padding: "5px 15px", fontSize: "14px" }}>
-                      {getQuantity(pkg.name)}
+                      {getQuantity(pkg.name, serviceName)}
                     </span>
                     <button
                       onClick={(e) => {
@@ -185,6 +187,7 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
                           pkg.name,
                           pkg.price,
                           1,
+                          serviceName,
                           pkg.teamMembers,
                           pkg.duration,
                           pkg.coinsForVendor,
@@ -222,7 +225,7 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
             </div>
           ))}
         </div>
-        {pkgGroup.some((pkg) => getQuantity(pkg.name) > 0) && (
+        {pkgGroup.some((pkg) => getQuantity(pkg.name, serviceName) > 0) && (
           <div
             style={{
               borderTop: "1px solid #ddd",
@@ -235,12 +238,12 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
           >
             <div style={{ fontWeight: "bold", fontSize: "16px" }}>
               {pkgGroup.reduce(
-                (total, pkg) => total + getQuantity(pkg.name),
+                (total, pkg) => total + getQuantity(pkg.name, serviceName),
                 0,
               )}{" "}
               × ₹
               {pkgGroup.reduce(
-                (total, pkg) => total + getQuantity(pkg.name) * pkg.price,
+                (total, pkg) => total + getQuantity(pkg.name, serviceName) * pkg.price,
                 0,
               )}
             </div>

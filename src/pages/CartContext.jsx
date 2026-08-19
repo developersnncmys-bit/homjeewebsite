@@ -39,6 +39,14 @@ export const CartProvider = ({ children }) => {
     // Extract package prefix (e.g., "1 BHK Cleaning" from "1 BHK Cleaning - Premium")
     const prefix = name.split(" - ")[0];
 
+    // Book By Room and Mini Services let a customer keep MULTIPLE different
+    // sub-options of the same group at once (e.g. one Furnished bedroom AND
+    // one Unfurnished bedroom, or several mini appliances). Apartment/Bungalow
+    // tiers stay single-select — picking a new tier replaces the old one.
+    const isMultiSelect = ["book by room", "mini services"].includes(
+      String(service).toLowerCase()
+    );
+
     setCartItems((prevCart) => {
       // Find existing item with the exact same name AND service
       const exactMatch = prevCart.find(
@@ -68,8 +76,9 @@ export const CartProvider = ({ children }) => {
             ? { ...item, quantity: updatedQuantity }
             : item
         );
-      } else if (prefixMatch && delta > 0) {
+      } else if (prefixMatch && delta > 0 && !isMultiSelect) {
         // If a different item with the same prefix exists, replace it
+        // (single-select groups only — Apartment/Bungalow tiers).
         console.log(
           `Replacing item with prefix: ${prefix} for service: ${service} with ${name} (₹${price})`
         );

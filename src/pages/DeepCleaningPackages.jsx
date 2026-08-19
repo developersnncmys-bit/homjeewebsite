@@ -864,7 +864,19 @@ const DeepCleaningPackages = () => {
                                           fontSize: "14px",
                                         }}
                                       >
-                                        {specificCartItem.quantity}
+                                        {cartItems
+                                          .filter(
+                                            (ci) =>
+                                              pkgGroup.some(
+                                                (pkg) => pkg.name === ci.name,
+                                              ) &&
+                                              String(ci.service).toLowerCase() ===
+                                                service.toLowerCase(),
+                                          )
+                                          .reduce(
+                                            (sum, ci) => sum + ci.quantity,
+                                            0,
+                                          )}
                                       </span>
                                       <button
                                         style={{
