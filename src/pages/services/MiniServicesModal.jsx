@@ -137,8 +137,8 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
                     color: "#333",
                   }}
                 >
-                  <li>{pkg.details}</li>
-                  <li>{pkg.extras}</li>
+                  {pkg.details && <li>{pkg.details}</li>}
+                  {pkg.extras && <li>{pkg.extras}</li>}
                 </ul>
               </div>
               <div style={{ marginLeft: "15px", marginTop: "8px" }}>

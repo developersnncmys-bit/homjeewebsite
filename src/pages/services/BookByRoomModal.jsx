@@ -168,8 +168,8 @@ const BookByRoomModal = ({ pkgGroup, closeModal }) => {
                         color: "#333",
                       }}
                     >
-                      <li>{pkg.details || "No details available"}</li>
-                      <li>{pkg.extras || "No extras available"}</li>
+                      {pkg.details && <li>{pkg.details}</li>}
+                      {pkg.extras && <li>{pkg.extras}</li>}
                     </ul>
                   </div>
                   <div style={{ marginLeft: "15px", marginTop: "8px" }}>

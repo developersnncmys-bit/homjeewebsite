@@ -101,10 +101,10 @@ const AddressModal = ({
 
   // Construct dynamic Google Maps embed URL
   const mapUrl = searchInput
-    ? `https://www.google.com/maps/embed/v1/place?key=AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g=${encodeURIComponent(
+    ? `https://www.google.com/maps/embed/v1/place?key=AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g=${encodeURIComponent(
         searchInput
       )}&zoom=14`
-    : `https://www.google.com/maps/embed/v1/place?key=AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g=India&zoom=4`;
+    : `https://www.google.com/maps/embed/v1/place?key=AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g=India&zoom=4`;
 
   if (!show) return null;
   // console.log("searchInput", searchInput);

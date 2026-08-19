@@ -1,8 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Carousel, Form, Modal } from "react-bootstrap";
+import icSatisfaction from "../assets/ic-satisfaction.svg";
+import icEco from "../assets/ic-eco.svg";
+import icTrained from "../assets/trained-pro.png";
+import icQuote from "../assets/quote-icon.png";
+import icOntime from "../assets/ontime.png";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import serviceBg from "../assets/service-bg.svg";
+import bannerImg from "../assets/banner-neutral.png";
 import exterior from "../assets/exterior.png";
 import map from "../assets/map.png";
 import searchLocation from "../assets/search-location.png";
@@ -20,6 +26,7 @@ import wallpaperBanner from "../assets/wallpaper-banner.png";
 import checkIcon from "../assets/check-green.png";
 import crossIcon from "../assets/cross-red.png";
 import homjeeLogo from "../assets/logohomjee.png";
+import bannerLogo from "../assets/homjee-logo.png";
 import bgBrands from "../assets/brands-bg.png";
 import logoBerger from "../assets/brand-berger.png";
 import logoDulux from "../assets/brand-dulux.png";
@@ -113,8 +120,8 @@ const Deepcleaning = () => {
   const [showSlotModal, setShowSlotModal] = useState(false);
   const { setSelectedSlot } = useSelectedSlotContext();
 
-  const GOOGLE_MAPS_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
-  const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
   const inputRefs = useRef([]);
   const openAddressAfterOptionCloseRef = useRef(false);
@@ -400,7 +407,7 @@ const Deepcleaning = () => {
   };
 
   const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
+    setPhoneNumber(e.target.value.replace(/\D/g, "").slice(0, 10));
   };
 
   const handleOtpChange = (e, index) => {
@@ -535,12 +542,12 @@ const Deepcleaning = () => {
   const features = [
     "Final Pay after 100% quality satisfaction",
     "Full material procurement",
-    "100% packaging & masking",
-    "Trained experts & advanced tools",
-    "Daily quality checks & dedicated manager",
+    "100% Eco-friendly supplies",
+    "Trained Expert & industrial equipment",
+    "Multi-point quality checks & on-site supervisor",
     "Free Insurance for damages of up to ₹10,000",
-    "1 Yr service warranty against chipping , bubbling",
-    "Timely completion & clean up",
+    "7-Day re-clean assurance",
+    "On-time execution & post-clean reset",
   ];
 
   const randomAvatars = [
@@ -553,47 +560,84 @@ const Deepcleaning = () => {
 
   const reviewers = [
     {
-      name: "Rajesh Kumar",
-      img: "https://images.unsplash.com/photo-1694871420373-e9c1031b91ee?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:0]{index=0}
+      name: "Rohan Sharma",
+      img: "https://images.unsplash.com/photo-1694871420373-e9c1031b91ee?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       review:
-        "Very happy with the service. The Homjee team is very professional and arrived right on time. They brought big vacuum machines and special tools for every corner. My house looks brand new now. Highly recommended!",
+        "Excellent work by the Homjee deep cleaning team. They thoroughly cleaned my 2BHK, including hard-to-reach areas behind the appliances. The washrooms look brand new now. Very professional behavior!",
     },
     {
-      name: "Priya Sharma",
-      img: "https://images.pexels.com/photos/32198550/pexels-photo-32198550.jpeg", // :contentReference[oaicite:1]{index=1}
+      name: "Amitabh Joshi",
+      img: "https://images.pexels.com/photos/32198550/pexels-photo-32198550.jpeg",
       review:
-        "I was worried about harsh smells, but Homjee uses eco-friendly chemicals that are safe for kids and pets. The cleaners were very polite and did a thorough job. Great experience overall.",
+        "I was worried about my delicate furniture and electronics, but the team shifted everything carefully, deep cleaned the entire area, and placed all items back in their original position. Very neat and reliable work!",
     },
     {
-      name: "Amit Patel",
-      img: "https://images.unsplash.com/photo-1549045337-967927d923c0?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:2]{index=2}
+      name: "Priya Nair",
+      img: "https://images.unsplash.com/photo-1549045337-967927d923c0?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       review:
-        "Best deep cleaning service I have used so far. They don't just sweep, they bring professional machines for floor scrubbing and sofa cleaning. Every tile in my kitchen is shining. Thank you, Homjee!",
+        "The team arrived right on time with heavy-duty machines and safe, eco-friendly chemicals. There were no harsh chemical smells after the service, which was great for my kids and pets. Truly top-class cleaning!",
     },
     {
-      name: "Sunita Iyer",
-      img: "https://images.pexels.com/photos/14180403/pexels-photo-14180403.jpeg", // :contentReference[oaicite:3]{index=3}
+      name: "Siddharth Kapoor",
+      img: "https://images.pexels.com/photos/14180403/pexels-photo-14180403.jpeg",
       review:
-        "The team is very hardworking. They moved the furniture and cleaned areas I usually can’t reach. It is good to know they use eco-friendly products. Professional service at a fair price.",
+        "Homjee's pricing is completely transparent — no extra demands or hidden charges at the end. The supervisor did a full multi-point check with me before I paid. Pay after 100% satisfaction is real. Highly recommended!",
     },
     {
-      name: "Vikram Singh",
-      img: "https://plus.unsplash.com/premium_photo-1689977871600-e755257fb5f8?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:4]{index=4}
+      name: "Neha Kulshrestha",
+      img: "https://plus.unsplash.com/premium_photo-1689977871600-e755257fb5f8?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       review:
-        "Impressive work by the Homjee team. They are well-equipped with all the necessary machinery and cleaning kits. They spent 5 hours and made sure the entire flat was spotless. Very satisfied.",
+        "We got our 3BHK deep cleaned before moving in, and the transformation was unbelievable. They used single-disc scrubbers to scrub off years of tough grease and stains. The house looks brand new!",
+    },
+    {
+      name: "Vikram Patel",
+      img: "https://images.unsplash.com/photo-1694871420373-e9c1031b91ee?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "Punctual, polite, and extremely hard-working staff. They cleaned every corner of the kitchen and tiles, disposed of all the waste properly, and reset the whole house. 5-star service for sure!",
+    },
+    {
+      name: "Sunita Deshmukh",
+      img: "https://images.pexels.com/photos/32198550/pexels-photo-32198550.jpeg",
+      review:
+        "Choosing a good home cleaning service used to be stressful, but Homjee made it effortless. The dedicated site supervisor kept me updated throughout, and the finish is flawless. Will definitely book again!",
+    },
+    {
+      name: "Deepak Mehta",
+      img: "https://images.unsplash.com/photo-1549045337-967927d923c0?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "The team did a phenomenal job on our kitchen and living room. They managed to lift stubborn oil grease and grout stains that wouldn't go away with normal cleaning. Punctual, polite, and completely hassle-free!",
     },
   ];
 
   const faqData = [
-    "Are your painters trained and experienced professionals?",
-    "What if Paint/Primer/Tools are required in the middle of  the service?",
-    "Who will clean up the house after the service?",
-    "What if I have an issue or doubt which I need to resolve during painting?",
-    "Can I choose my preferred paint brand and colour for the project?",
-    "Will the painting process cause disruptions to my daily routine?",
+    {
+      q: "Are your cleaning professionals trained and background-verified?",
+      a: "Yes, absolutely. All Homjee cleaning experts undergo strict background verification, police verification, and intensive hands-on training. They are trained in handling specialized machinery, surface-specific chemical applications, and hygienic deep-cleaning protocols for homes and offices.",
+    },
+    {
+      q: "What if additional cleaning chemicals, specialized tools, or equipment are required mid-service?",
+      a: "You don't have to arrange a single thing. Our cleaning team arrives fully equipped with heavy-duty machines (vacuum extractors, single-disc scrubbers) and specialized eco-friendly chemicals. If any extra supplies or specialized tools are needed during the service, our team manages it directly without interrupting your work.",
+    },
+    {
+      q: "Who handles the shifting and rearranging of furniture during the cleaning?",
+      a: "Our team handles it entirely. We will shift the furniture before cleaning, perform a complete deep clean of the area, and then rearrange everything back to its original position — leaving your home perfectly set up and ready to use.",
+    },
+    {
+      q: "Who do I contact if I have special instructions or feedback during the service?",
+      a: "Every Homjee deep cleaning job is assigned a dedicated Site Supervisor. You can communicate any specific requirements, areas needing extra attention, or queries directly to your supervisor at any point during the cleaning process for instant resolution.",
+    },
+    {
+      q: "Are the cleaning chemicals safe for my children, pets, and delicate surfaces?",
+      a: "Yes! We use certified, non-toxic, eco-friendly cleaning chemicals that effectively sanitize and remove tough stains without leaving harmful residue or harsh fumes. Our team also selects specific products tailored to delicate surfaces like marble, hardwood, leather, or fabric to ensure complete safety against damage.",
+    },
+    {
+      q: "How do recurring cleaning passes (weekly, bi-weekly, monthly) work?",
+      a: "Our flexible cleaning passes allow you to book once and enjoy continuous cleanliness. You select your preferred frequency and time slot (e.g., bi-weekly washroom or kitchen cleaning), and our team automatically arrives on schedule. You can manage, pause, or reschedule your visits with complete flexibility.",
+    },
   ];
 
   const [openIndex, setOpenIndex] = useState(null);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -672,14 +716,14 @@ const Deepcleaning = () => {
             position: "relative",
           }}
         >
-          <Carousel interval={3000} controls={true} indicators={false}>
+          <Carousel interval={3000} controls={true} indicators={false} className="hm-hero-carousel">
             <Carousel.Item>
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={serviceBg}
+                  src={bannerImg}
                   alt="Slide 1"
-                  style={{ height: "400px", objectFit: "cover" }}
+                  style={{ height: "320px", objectFit: "cover" }}
                 />
                 <div className="custom-bar-indicators">
                   <div className="bar active" />
@@ -692,9 +736,9 @@ const Deepcleaning = () => {
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={serviceBg}
+                  src={bannerImg}
                   alt="Slide 2"
-                  style={{ height: "400px", objectFit: "cover" }}
+                  style={{ height: "320px", objectFit: "cover" }}
                 />
                 <div className="custom-bar-indicators">
                   <div className="bar" />
@@ -703,6 +747,11 @@ const Deepcleaning = () => {
               </div>
             </Carousel.Item>
           </Carousel>
+          {/* clean banner image + HTML service name (no baked-in text) */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 3, borderRadius: "30px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.5))", pointerEvents: "none" }}>
+            <span style={{ color: "#fff", fontWeight: 800, fontSize: "46px", textAlign: "center", maxWidth: "88%", lineHeight: 1.2, textShadow: "0 2px 14px rgba(0,0,0,0.6)", fontFamily: "Poppins, sans-serif" }}><img src={bannerLogo} alt="Homjee" style={{ height: "1.55em", marginRight: "0.05em", verticalAlign: "-0.4em" }} />Cleaning Services</span>
+            <img src={vectoricon} alt="" style={{ width: "210px", height: "auto", marginTop: "10px" }} />
+          </div>
 
           <style>{`
         .carousel-wrapper {
@@ -730,6 +779,18 @@ const Deepcleaning = () => {
           width: 40px;
           background-color: red;
         }
+        /* plain white chevron arrows above the overlay (like House Painting) */
+        .hm-hero-carousel .carousel-control-prev,
+        .hm-hero-carousel .carousel-control-next { z-index: 5; opacity: 1; }
+        .hm-hero-carousel .carousel-control-prev-icon {
+          -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.5 2L4.5 8l6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.5 2L4.5 8l6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+        }
+        .hm-hero-carousel .carousel-control-next-icon {
+          -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 2l6 6-6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 2l6 6-6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+        }
+
       `}</style>
 
           {/* Back Button */}
@@ -770,12 +831,12 @@ const Deepcleaning = () => {
             position: "relative",
           }}
         >
-          <Carousel interval={3000} controls={true} indicators={false}>
+          <Carousel interval={3000} controls={true} indicators={false} className="hm-hero-carousel">
             <Carousel.Item>
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={paintingservice}
+                  src={bannerImg}
                   alt="Slide 1"
                   style={{ height: "", objectFit: "cover" }}
                 />
@@ -790,7 +851,7 @@ const Deepcleaning = () => {
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={paintingservice}
+                  src={bannerImg}
                   alt="Slide 2"
                   style={{ height: "", objectFit: "cover" }}
                 />
@@ -801,6 +862,11 @@ const Deepcleaning = () => {
               </div>
             </Carousel.Item>
           </Carousel>
+          {/* clean banner image + HTML service name (no baked-in text) */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 3, borderRadius: "30px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.5))", pointerEvents: "none" }}>
+            <span style={{ color: "#fff", fontWeight: 800, fontSize: "26px", textAlign: "center", maxWidth: "88%", lineHeight: 1.2, textShadow: "0 2px 14px rgba(0,0,0,0.6)", fontFamily: "Poppins, sans-serif" }}><img src={bannerLogo} alt="Homjee" style={{ height: "1.55em", marginRight: "0.05em", verticalAlign: "-0.4em" }} />Cleaning Services</span>
+            <img src={vectoricon} alt="" style={{ width: "210px", height: "auto", marginTop: "10px" }} />
+          </div>
 
           <style>{`
         .carousel-wrapper {
@@ -879,7 +945,7 @@ const Deepcleaning = () => {
               display: "inline-block",
             }}
           >
-            Book A Site Visit For At Home Consultation
+            Book Your Home Deep Cleaning Service
             <img
               src={vectoricon}
               alt=""
@@ -899,9 +965,13 @@ const Deepcleaning = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              flexWrap: "wrap",
-              gap: "20px",
+              flexWrap: "nowrap",
+              alignItems: "center",
+              gap: "16px",
               marginTop: "30px",
+              maxWidth: "1050px",
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
             <input
@@ -911,7 +981,8 @@ const Deepcleaning = () => {
                 padding: "12px 20px",
                 borderRadius: "12px",
                 border: "1px solid #ccc",
-                minWidth: "500px",
+                minWidth: 0,
+                flex: 1,
                 fontSize: "14px",
                 backgroundColor: "#fff5f1",
                 outline: "none",
@@ -931,31 +1002,30 @@ const Deepcleaning = () => {
                 borderRadius: "12px",
                 backgroundColor: "#fff5f1",
                 border: "1px solid #ccc",
-                minWidth: "500px",
+                minWidth: 0,
+                flex: 1,
                 fontSize: "14px",
                 outline: "none",
                 color: "#000",
               }}
             />
+            <button
+              onClick={responseLoader ? null : handleProceedClick}
+              style={{
+                padding: "12px 36px",
+                border: "1px solid #e60000",
+                color: "#e60000",
+                fontWeight: "700",
+                backgroundColor: "transparent",
+                borderRadius: "999px",
+                fontSize: "16px",
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+              }}
+            >
+              PROCEED
+            </button>
           </div>
-
-          <button
-            // onClick={() => setResponseLoader(true)}
-            onClick={responseLoader ? null : handleProceedClick}
-            style={{
-              marginTop: "30px",
-              padding: "12px 40px",
-              border: "1px solid #e60000",
-              color: "#e60000",
-              fontWeight: "700",
-              backgroundColor: "transparent",
-              borderRadius: "999px",
-              fontSize: "16px",
-              cursor: "pointer",
-            }}
-          >
-            PROCEED
-          </button>
 
           {/* OTP Modal */}
           {showModal && !isLocationModalVisible && (
@@ -989,42 +1059,19 @@ const Deepcleaning = () => {
                   border: "1px solid #e60000",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <h3
-                    style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}
-                  >
-                    OTP
+                <div style={{ position: "relative", marginBottom: "16px" }}>
+                  <h3 style={{ fontSize: "24px", fontWeight: "bold", margin: 0, textAlign: "center" }}>
+                    Verify OTP
                   </h3>
                   <button
                     onClick={handleCloseModal}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      fontSize: "24px",
-                      cursor: "pointer",
-                    }}
+                    style={{ position: "absolute", top: "-2px", right: "0", background: "none", border: "none", fontSize: "24px", cursor: "pointer", lineHeight: 1, color: "#333" }}
                   >
                     ×
                   </button>
                 </div>
-                <p style={{ fontSize: "16px", marginBottom: "20px" }}>
-                  Enter OTP sent to number {phoneNumber}
-                </p>
-                <p
-                  style={{
-                    fontSize: "12px",
-                    marginBottom: "20px",
-                    color: "red",
-                  }}
-                >
-                  development: {otpValue}
+                <p style={{ fontSize: "14px", color: "#666", margin: "0 0 22px", textAlign: "center" }}>
+                  Enter the 4-digit OTP sent to your WhatsApp
                 </p>
                 <div
                   style={{
@@ -1113,8 +1160,8 @@ const Deepcleaning = () => {
               display: "inline-block",
             }}
           >
-            Book A Site Visit For At <br />
-            Home Consultation
+            Book Your Home Deep <br />
+            Cleaning Service
             <img
               src={vectoricon}
               alt=""
@@ -1238,7 +1285,7 @@ const Deepcleaning = () => {
             textAlign: "center",
           }}
         >
-          For All Your Home Painting Needs
+          For All Your Home Cleaning Needs
         </h2>
         <img
           src={vectoricon}
@@ -1278,23 +1325,23 @@ const Deepcleaning = () => {
           >
             {[
               {
-                title: "Interiors & Exteriors",
-                subtitle: "Color Your Home Inside Out",
+                title: "Full Home Cleaning",
+                subtitle: "For A Home That Looks Brand New",
                 img: exterior,
               },
               {
-                title: "Wood Polish",
-                subtitle: "Shine Your Home Like Never Before",
+                title: "Kitchen Cleaning",
+                subtitle: "Say Goodbye To Tough Oil & Grease",
                 img: woodpolish,
               },
               {
-                title: "Texture",
-                subtitle: "Elevate Your Space With Wall Beautification",
+                title: "Bathroom Cleaning",
+                subtitle: "Hard Water Stains? Grout Grime? Gone!",
                 img: texture,
               },
               {
-                title: "Waterproofing",
-                subtitle: "Seal, Shield, & Sustain Your Home",
+                title: "Sofa Cleaning",
+                subtitle: "We Clean Where You Lounge",
                 img: waterproofing,
               },
             ].map((service, index) => (
@@ -1357,19 +1404,19 @@ const Deepcleaning = () => {
           >
             {[
               {
-                title: "Interiors & exteriors",
+                title: "Full Home Cleaning",
                 img: exterior,
               },
               {
-                title: "Wood polish",
+                title: "Kitchen Cleaning",
                 img: woodpolish,
               },
               {
-                title: "Texture",
+                title: "Bathroom Cleaning",
                 img: texture,
               },
               {
-                title: "Waterproofing",
+                title: "Sofa Cleaning",
                 img: waterproofing,
               },
             ].map((service, index) => (
@@ -1460,7 +1507,7 @@ const Deepcleaning = () => {
                   whiteSpace: "nowrap",
                 }}
               >
-                100 % Quality with Transparency
+                Clean Handshake, Guaranteed !!
               </h2>
               <img
                 src={vectoricon}
@@ -1487,7 +1534,7 @@ const Deepcleaning = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              A fresh coat for a fresh start
+              Building Trust, One Clean Home at a Time
             </p>
           </div>
         </div>
@@ -1540,7 +1587,7 @@ const Deepcleaning = () => {
                   whiteSpace: "nowrap",
                 }}
               >
-                100% Quality with <br /> Transparency
+                Clean Handshake, <br /> Guaranteed !!
               </h2>
               <img
                 src={vectoricon}
@@ -1567,7 +1614,7 @@ const Deepcleaning = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              A fresh coat for a fresh start
+              Building Trust, One Clean Home at a Time
             </p>
           </div>
         </div>
@@ -1632,29 +1679,31 @@ const Deepcleaning = () => {
             {[
               {
                 bg: "#e8d7ff",
-                icon: ontime,
-                title: "On-time Completion\nGuarantee",
+                icon: icSatisfaction,
+                title: "100% Satisfaction\nGuarantee",
               },
               {
                 bg: "#d9ecff",
-                icon: warrantyIcon,
-                title: "1-Year\nWarranty",
+                icon: icEco,
+                title: "Safe & Eco-Friendly\nChemicals",
               },
               {
                 bg: "#ccf0f7",
-                icon: postservice,
-                title: "Post Service\nCleaning",
+                icon: icTrained,
+                title: "Trained\nProfessionals",
               },
               {
                 bg: "#e6dbff",
-                icon: quoteIcon,
-                title: "Accurate Quotations,\nNo Hidden Charges",
+                icon: icQuote,
+                noCircle: true,
+                title: "Upfront Pricing,\nZero Hidden Fees",
               },
               {
                 bg: "#ccf7ec",
-                icon: freeinsurance,
-                title: "Free Insurance",
-                subtitle: "for damages of up to ₹10,000",
+                icon: icOntime,
+                noCircle: true,
+                title: "Strict On-Time\nExecution",
+                subtitle: "",
               },
             ].map((item, index) => (
               <div
@@ -1673,11 +1722,7 @@ const Deepcleaning = () => {
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                 }}
               >
-                <img
-                  src={item.icon}
-                  alt=""
-                  style={{ width: "80px", marginBottom: "20px" }}
-                />
+                <div style={{ width: "68px", height: "68px", borderRadius: "50%", border: item.noCircle ? "none" : "1.5px solid " + ({ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"), display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><span style={{ width: item.noCircle ? "64px" : "48px", height: item.noCircle ? "64px" : "48px", display: "inline-block", backgroundColor: { "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1", WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})`, WebkitMaskSize: "contain", maskSize: "contain", WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskPosition: "center", maskPosition: "center" }} /></div>
                 <h3
                   style={{
                     fontSize: "14px",
@@ -1761,29 +1806,31 @@ const Deepcleaning = () => {
             {[
               {
                 bg: "#e8d7ff",
-                icon: ontime,
-                title: "On-time Completion\nGuarantee",
+                icon: icSatisfaction,
+                title: "100% Satisfaction\nGuarantee",
               },
               {
                 bg: "#d9ecff",
-                icon: warrantyIcon,
-                title: "1-Year\nWarranty",
+                icon: icEco,
+                title: "Safe & Eco-Friendly\nChemicals",
               },
               {
                 bg: "#ccf0f7",
-                icon: postservice,
-                title: "Post Service\nCleaning",
+                icon: icTrained,
+                title: "Trained\nProfessionals",
               },
               {
                 bg: "#e6dbff",
-                icon: quoteIcon,
-                title: "Accurate Quotations,\nNo Hidden Charges",
+                icon: icQuote,
+                noCircle: true,
+                title: "Upfront Pricing,\nZero Hidden Fees",
               },
               {
                 bg: "#ccf7ec",
-                icon: freeinsurance,
-                title: "Free Insurance",
-                subtitle: "for damages of up to ₹10,000",
+                icon: icOntime,
+                noCircle: true,
+                title: "Strict On-Time\nExecution",
+                subtitle: "",
               },
             ].map((item, index) => (
               <div
@@ -1800,11 +1847,7 @@ const Deepcleaning = () => {
                   gap: "20px",
                 }}
               >
-                <img
-                  src={item.icon}
-                  alt=""
-                  style={{ width: "60px", height: "60px", flexShrink: 0 }}
-                />
+                <div style={{ width: "56px", height: "56px", borderRadius: "50%", border: item.noCircle ? "none" : "1.5px solid " + ({ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}><span style={{ width: item.noCircle ? "56px" : "42px", height: item.noCircle ? "56px" : "42px", display: "inline-block", backgroundColor: { "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1", WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})`, WebkitMaskSize: "contain", maskSize: "contain", WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskPosition: "center", maskPosition: "center" }} /></div>
                 <div>
                   <h3
                     style={{
@@ -1883,7 +1926,7 @@ const Deepcleaning = () => {
               lineHeight: '1.2',
             }}
           >
-            Wallpaper And <br /> Wall Panels
+            Flexible Cleaning <br /> Passes
           </h2> */}
               <h2
                 style={{
@@ -1896,7 +1939,7 @@ const Deepcleaning = () => {
                 }}
               >
                 <span style={{ position: "relative", display: "inline-block" }}>
-                  Wallpaper
+                  Flexible
                   <img
                     src={vectoricon}
                     alt="underline"
@@ -1911,9 +1954,9 @@ const Deepcleaning = () => {
                     }}
                   />
                 </span>{" "}
-                And
+                Cleaning
                 <br />
-                <span style={{ marginTop: "1%" }}>Wall Panels</span>
+                <span style={{ marginTop: "1%" }}>Passes</span>
               </h2>
             </div>
 
@@ -1927,7 +1970,7 @@ const Deepcleaning = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              Bringing Life To Your Surrounding
+              Automated Cleaning On Your Schedule
             </p>
           </div>
         </div>
@@ -1978,7 +2021,7 @@ const Deepcleaning = () => {
               lineHeight: '1.2',
             }}
           >
-            Wallpaper And <br /> Wall Panels
+            Flexible Cleaning <br /> Passes
           </h2> */}
               <h2
                 style={{
@@ -1991,7 +2034,7 @@ const Deepcleaning = () => {
                 }}
               >
                 <span style={{ position: "relative", display: "inline-block" }}>
-                  Wallpaper
+                  Flexible
                   <img
                     src={vectoricon}
                     alt="underline"
@@ -2006,9 +2049,9 @@ const Deepcleaning = () => {
                     }}
                   />
                 </span>{" "}
-                And
+                Cleaning
                 <br />
-                <span style={{ marginTop: "1%" }}>Wall Panels</span>
+                <span style={{ marginTop: "1%" }}>Passes</span>
               </h2>
             </div>
 
@@ -2022,7 +2065,7 @@ const Deepcleaning = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              Bringing Life To Your Surrounding
+              Automated Cleaning On Your Schedule
             </p>
           </div>
         </div>
@@ -2258,208 +2301,6 @@ const Deepcleaning = () => {
         </div>
       </div>
 
-      {/* package */}
-      {/* Desktop Version */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            borderRadius: "30px",
-            padding: "50px 20px",
-            width: "1200px",
-            margin: "40px auto",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-          }}
-        >
-          <div style={{ textAlign: "center", marginBottom: "30px" }}>
-            <h2 style={{ fontSize: "28px", fontWeight: "600" }}>
-              Choose Your Package
-            </h2>
-            <p style={{ fontSize: "16px", color: "#666" }}>
-              Select the best package that suits your needs
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "30px",
-            }}
-          >
-            {[
-              {
-                name: "Basic",
-                price: "₹999",
-                features: ["1 Room Cleaning", "1 Bathroom", "Dry Dusting"],
-              },
-              {
-                name: "Standard",
-                price: "₹1999",
-                features: [
-                  "2 BHK Cleaning",
-                  "2 Bathrooms",
-                  "Wet & Dry Dusting",
-                ],
-              },
-              {
-                name: "Premium",
-                price: "₹2999",
-                features: [
-                  "3 BHK Full Cleaning",
-                  "3 Bathrooms",
-                  "Deep Sanitization",
-                ],
-              },
-            ].map((pkg, index) => (
-              <div
-                key={index}
-                style={{
-                  border: "1px solid #ddd",
-                  borderRadius: "20px",
-                  padding: "30px 20px",
-                  textAlign: "center",
-                  backgroundColor: "#fafafa",
-                }}
-              >
-                <h4 style={{ fontWeight: "600", marginBottom: "10px" }}>
-                  {pkg.name}
-                </h4>
-                <h3
-                  style={{
-                    color: "#e60000",
-                    fontWeight: "700",
-                    marginBottom: "20px",
-                  }}
-                >
-                  {pkg.price}
-                </h3>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    padding: 0,
-                    marginBottom: "20px",
-                  }}
-                >
-                  {pkg.features.map((f, i) => (
-                    <li
-                      key={i}
-                      style={{ marginBottom: "8px", fontSize: "14px" }}
-                    >
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  style={{
-                    backgroundColor: "#e60000",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "30px",
-                    padding: "10px 24px",
-                    fontWeight: 500,
-                    fontSize: "15px",
-                  }}
-                >
-                  Select
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Version */}
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            borderRadius: "20px",
-            padding: "30px 16px",
-            margin: "20px",
-            boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
-          }}
-        >
-          <div style={{ textAlign: "center", marginBottom: "20px" }}>
-            <h3 style={{ fontSize: "22px", fontWeight: "600" }}>
-              Choose Your Package
-            </h3>
-            <p style={{ fontSize: "14px", color: "#777" }}>
-              Select a plan that fits your need
-            </p>
-          </div>
-
-          {[
-            {
-              name: "Basic",
-              price: "₹999",
-              features: ["1 Room Cleaning", "1 Bathroom", "Dry Dusting"],
-            },
-            {
-              name: "Standard",
-              price: "₹1999",
-              features: ["2 BHK Cleaning", "2 Bathrooms", "Wet & Dry Dusting"],
-            },
-            {
-              name: "Premium",
-              price: "₹2999",
-              features: [
-                "3 BHK Full Cleaning",
-                "3 Bathrooms",
-                "Deep Sanitization",
-              ],
-            },
-          ].map((pkg, index) => (
-            <div
-              key={index}
-              style={{
-                border: "1px solid #eee",
-                borderRadius: "16px",
-                padding: "24px 16px",
-                marginBottom: "20px",
-                textAlign: "center",
-                backgroundColor: "#fdfdfd",
-              }}
-            >
-              <h4 style={{ fontWeight: "600", marginBottom: "8px" }}>
-                {pkg.name}
-              </h4>
-              <h3
-                style={{
-                  color: "#e60000",
-                  fontWeight: "700",
-                  marginBottom: "16px",
-                }}
-              >
-                {pkg.price}
-              </h3>
-              <ul
-                style={{ listStyle: "none", padding: 0, marginBottom: "16px" }}
-              >
-                {pkg.features.map((f, i) => (
-                  <li key={i} style={{ marginBottom: "6px", fontSize: "13px" }}>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Button
-                style={{
-                  backgroundColor: "#e60000",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "25px",
-                  padding: "8px 20px",
-                  fontWeight: 500,
-                  fontSize: "14px",
-                }}
-              >
-                Select
-              </Button>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* premium brands */}
       <div className="d-none d-lg-block">
         <div
@@ -2491,7 +2332,7 @@ const Deepcleaning = () => {
                 marginTop: "15%",
               }}
             >
-              Premium brands, <span style={{ color: "" }}>for you</span>
+              Advanced tools, <span style={{ color: "" }}>for a deeper, healthier clean</span>
               <img
                 src={vectoricon}
                 alt=""
@@ -2581,9 +2422,9 @@ const Deepcleaning = () => {
                 lineHeight: 1.3,
               }}
             >
-              Premium Brands,
+              Advanced Tools,
               <br />
-              For You
+              For a Deeper, Healthier Clean
             </h2>
             <img
               src={vectoricon}
@@ -2641,516 +2482,93 @@ const Deepcleaning = () => {
       </div>
 
       {/* our process */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            background: "#fff",
-            padding: "60px 20px",
-            textAlign: "center",
-          }}
-        >
-          {/* Main Heading */}
-          <h2
-            style={{
-              fontSize: "40px",
-              fontWeight: "600",
-              fontFamily: "Poppins, sans-serif",
-              color: "#111",
-              marginBottom: "10px",
-              position: "relative",
-              display: "inline-block",
-            }}
-          >
-            Our Process
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "50px",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
-
-          <div
-            style={{
-              background: "#fff",
-              padding: "60px 20px",
-              textAlign: "center",
-            }}
-          >
-            {/* Carousel */}
-            <Carousel
-              indicators={true}
-              controls={true}
-              interval={4000}
-              className="how-carousel"
-              nextIcon={
-                <span className="carousel-control-next-icon custom-icon" />
-              }
-              prevIcon={
-                <span className="carousel-control-prev-icon custom-icon" />
-              }
-            >
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
+      {(() => {
+        const PROC_STEPS = [
+          "Select Your Custom Package",
+          "Schedule On Preferred Date & Slot",
+          "Confirm With Booking Amount",
+          "Professional Team Arrival",
+          "Deep Cleaning With Modern Tools",
+          "Final Inspection & Handoff",
+        ];
+        const groups = [];
+        for (let i = 0; i < PROC_STEPS.length; i += 3) groups.push(PROC_STEPS.slice(i, i + 3));
+        const stepImg = (gi) => (gi % 3 === 0 ? step1 : gi % 3 === 1 ? step2 : step3);
+        return (
+          <>
+            <div className="d-none d-lg-block">
+              <div style={{ background: "#fff", padding: "60px 20px", textAlign: "center" }}>
+                <h2
+                  style={{
+                    fontSize: "40px", fontWeight: "600", fontFamily: "Poppins, sans-serif",
+                    color: "#111", marginBottom: "10px", position: "relative", display: "inline-block",
+                  }}
                 >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
+                  Our Process
                   <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
+                    src={vectoricon}
+                    alt=""
+                    style={{
+                      position: "absolute", bottom: "-14px", left: "50px", width: "130px",
+                      height: "auto", borderRadius: "10px", pointerEvents: "none",
+                    }}
                   />
+                </h2>
 
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
+                <div style={{ background: "#fff", padding: "60px 20px", textAlign: "center" }}>
+                  <Carousel
+                    indicators={true}
+                    controls={true}
+                    interval={4000}
+                    className="how-carousel"
+                    nextIcon={<span className="carousel-control-next-icon custom-icon" />}
+                    prevIcon={<span className="carousel-control-prev-icon custom-icon" />}
                   >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
+                    {groups.map((group, ci) => (
+                      <Carousel.Item key={ci}>
+                        <div className="d-flex justify-content-between align-items-center flex-wrap" style={{ padding: "0 5%" }}>
+                          {group.map((step, i) => {
+                            const gi = ci * 3 + i;
+                            return (
+                              <React.Fragment key={i}>
+                                <div
+                                  style={{
+                                    width: "25%",
+                                    backgroundColor: i % 2 === 0 ? "red" : "#000",
+                                    borderRadius: "25px",
+                                    padding: "20px",
+                                    color: "#fff",
+                                    transform: i === 0 ? "rotate(-2deg)" : i === 2 ? "rotate(2deg)" : "none",
+                                  }}
+                                >
+                                  <img src={stepImg(gi)} alt={`Step ${gi + 1}`} style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }} />
+                                  <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
+                                    0{gi + 1} <br />
+                                    <strong>{step}</strong>
+                                  </h5>
+                                </div>
+                                {i < group.length - 1 && (
+                                  <img src={arrowicon} alt="arrow" style={{ width: "70px", margin: "0 15px" }} />
+                                )}
+                              </React.Fragment>
+                            );
+                          })}
+                        </div>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
 
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-            </Carousel>
-
-            {/* Custom styles for arrows and line indicators */}
-            <style>{`
+                  <style>{`
     .how-carousel .carousel-control-prev,
     .how-carousel .carousel-control-next {
-      width: 40px;
-      height: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #fff;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      opacity: 1;
+      width: 40px; height: 40px; top: 50%; transform: translateY(-50%);
+      background-color: #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); opacity: 1;
     }
-    .how-carousel .carousel-control-prev {
-      left: -10px;
-    }
-    .how-carousel .carousel-control-next {
-      right: -10px;
-    }
+    .how-carousel .carousel-control-prev { left: -10px; }
+    .how-carousel .carousel-control-next { right: -10px; }
   .custom-icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  background-color: #e60000; /* red color arrow */
+  display: inline-block; width: 20px; height: 20px;
+  mask-size: contain; mask-repeat: no-repeat; mask-position: center; background-color: #e60000;
 }
 .carousel-control-prev-icon.custom-icon {
   mask-image: url("data:image/svg+xml;utf8,<svg fill='red' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16'><path d='M11 1L3 8l8 7' stroke='red' stroke-width='2' fill='none'/></svg>");
@@ -3158,122 +2576,45 @@ const Deepcleaning = () => {
 .carousel-control-next-icon.custom-icon {
   mask-image: url("data:image/svg+xml;utf8,<svg fill='red' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16'><path d='M5 1l8 7-8 7' stroke='red' stroke-width='2' fill='none'/></svg>");
 }
-
-
-    .carousel-indicators {
-      bottom: -63px;
+    .how-carousel .carousel-indicators { bottom: -63px; }
+    .how-carousel .carousel-indicators [data-bs-target] {
+      width: 30px; height: 4px; border-radius: 5px; background-color: #ccc; margin: 0 5px;
     }
-    .carousel-indicators [data-bs-target] {
-      width: 30px;
-      height: 4px;
-      border-radius: 5px;
-      background-color: #ccc;
-      margin: 0 5px;
-    }
-    .carousel-indicators .active {
-      background-color: red;
-      width: 40px;
-    }
+    .how-carousel .carousel-indicators .active { background-color: red; width: 40px; }
   `}</style>
-          </div>
-        </div>
-      </div>
-      <div
-        className="d-block d-lg-none"
-        style={{
-          background: "#fff",
-          padding: "30px 15px",
-          textAlign: "center",
-        }}
-      >
-        {/* Section Title */}
-        <h3
-          style={{
-            fontWeight: 700,
-            fontSize: "20px",
-            marginBottom: "20px",
-          }}
-        >
-          Our Process
-        </h3>
-
-        <div
-          style={{
-            overflowX: "auto",
-            display: "flex",
-            gap: "16px",
-            paddingLeft: "15px",
-            scrollSnapType: "x mandatory",
-          }}
-        >
-          {[
-            { img: step1, bg: "red", label: "01", title: "At Home Consult" },
-            {
-              img: step2,
-              bg: "#000",
-              label: "02",
-              title: "Measurements & Quotes",
-            },
-            {
-              img: step3,
-              bg: "red",
-              label: "03",
-              title: "Booking Confirmation",
-            },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              style={{
-                minWidth: "85%",
-                flexShrink: 0,
-                scrollSnapAlign: "start",
-                backgroundColor: item.bg,
-                borderRadius: "25px",
-                padding: "20px",
-                color: "#fff",
-              }}
-            >
-              <img
-                src={item.img}
-                alt={`Step ${item.label}`}
-                style={{ width: "100%", borderRadius: "15px" }}
-              />
-              <h5 style={{ marginTop: "20px", fontSize: "16px" }}>
-                {item.label} <br />
-                <strong>{item.title}</strong>
-              </h5>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
 
-        {/* Indicators (optional, static) */}
-        <div className="d-flex gap-2 mt-3" style={{ justifyContent: "center" }}>
-          <div
-            style={{
-              width: "30px",
-              height: "4px",
-              backgroundColor: "red",
-              borderRadius: "4px",
-            }}
-          ></div>
-          <div
-            style={{
-              width: "20px",
-              height: "4px",
-              backgroundColor: "#ccc",
-              borderRadius: "4px",
-            }}
-          ></div>
-          <div
-            style={{
-              width: "20px",
-              height: "4px",
-              backgroundColor: "#ccc",
-              borderRadius: "4px",
-            }}
-          ></div>
-        </div>
-      </div>
+            <div className="d-block d-lg-none" style={{ background: "#fff", padding: "30px 15px", textAlign: "center" }}>
+              <h3 style={{ fontWeight: 700, fontSize: "20px", marginBottom: "20px" }}>Our Process</h3>
+              <div style={{ overflowX: "auto", display: "flex", gap: "16px", paddingLeft: "15px", scrollSnapType: "x mandatory" }}>
+                {PROC_STEPS.map((step, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      minWidth: "85%", flexShrink: 0, scrollSnapAlign: "start",
+                      backgroundColor: idx % 2 === 0 ? "red" : "#000",
+                      borderRadius: "25px", padding: "20px", color: "#fff",
+                    }}
+                  >
+                    <img src={stepImg(idx)} alt={`Step ${idx + 1}`} style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }} />
+                    <h5 style={{ marginTop: "18px", fontSize: "16px", minHeight: "4.4em" }}>
+                      0{idx + 1} <br />
+                      <strong>{step}</strong>
+                    </h5>
+                  </div>
+                ))}
+              </div>
+              <div className="d-flex gap-2 mt-3" style={{ justifyContent: "center" }}>
+                <div style={{ width: "30px", height: "4px", backgroundColor: "red", borderRadius: "4px" }} />
+                <div style={{ width: "20px", height: "4px", backgroundColor: "#ccc", borderRadius: "4px" }} />
+                <div style={{ width: "20px", height: "4px", backgroundColor: "#ccc", borderRadius: "4px" }} />
+              </div>
+            </div>
+          </>
+        );
+      })()}
 
       {/* trained profestional */}
       <div className="d-none d-lg-block">
@@ -3313,7 +2654,7 @@ const Deepcleaning = () => {
                 fontWeight: "bold",
               }}
             >
-              We only choose the finest painters
+              We only choose the finest Cleaners
             </p>
             <p
               style={{
@@ -3393,7 +2734,7 @@ const Deepcleaning = () => {
                 fontWeight: "bold",
               }}
             >
-              We only choose the finest painters
+              We only choose the finest Cleaners
             </p>
             <p
               style={{
@@ -3727,7 +3068,7 @@ const Deepcleaning = () => {
                 padding: "8px 24px",
                 fontSize: "14px",
               }}
-            >
+             href="/projects">
               EXPLORE ALL
             </Button>
           </div>
@@ -4097,7 +3438,7 @@ const Deepcleaning = () => {
               padding: "6px 16px",
               fontSize: "12px",
             }}
-          >
+           href="/projects">
             EXPLORE ALL
           </Button>
         </div>
@@ -4142,7 +3483,7 @@ const Deepcleaning = () => {
 
           {/* FAQ Items */}
           <div style={{ marginTop: "40px" }}>
-            {faqData.map((question, index) => (
+            {faqData.map((item, index) => (
               <div
                 key={index}
                 onClick={() => toggle(index)}
@@ -4164,17 +3505,16 @@ const Deepcleaning = () => {
                   }}
                 >
                   <span style={{ fontWeight: 500, fontSize: "16px" }}>
-                    {question}
+                    {item.q}
                   </span>
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                     {openIndex === index ? "−" : "+"}
                   </span>
                 </div>
                 {openIndex === index && (
-                  <p style={{ marginTop: "12px", color: "#555" }}>
+                  <p style={{ marginTop: "12px", color: "#555", textAlign: "left" }}>
                     {/* You can customize this text per FAQ */}
-                    Yes, all our painters are trained through a certified
-                    onboarding and background verification process.
+                    {item.a}
                   </p>
                 )}
               </div>
@@ -4225,7 +3565,7 @@ const Deepcleaning = () => {
 
           {/* FAQ List */}
           <div style={{ marginTop: "40px" }}>
-            {faqData.map((question, index) => (
+            {faqData.map((item, index) => (
               <div
                 key={index}
                 onClick={() => toggle(index)}
@@ -4253,7 +3593,7 @@ const Deepcleaning = () => {
                       textAlign: "left",
                     }}
                   >
-                    {question}
+                    {item.q}
                   </span>
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                     {openIndex === index ? "−" : "+"}
@@ -4269,8 +3609,7 @@ const Deepcleaning = () => {
                     }}
                   >
                     {/* You can replace this with real answers per question if needed */}
-                    Yes, all our painters are trained through a certified
-                    onboarding and background verification process.
+                    {item.a}
                   </p>
                 )}
               </div>
@@ -4335,7 +3674,7 @@ const Deepcleaning = () => {
           >
             <div style={{ flex: "1 1 260px", padding: "10px" }}>
               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-                4.94{" "}
+                4.95{" "}
                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
                   /5
                 </span>
@@ -4439,7 +3778,7 @@ const Deepcleaning = () => {
             All Reviews
           </h3>
 
-          {reviewers.map((person, index) => (
+          {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
             <div
               key={index}
               style={{
@@ -4466,9 +3805,7 @@ const Deepcleaning = () => {
                 <h4 style={{ margin: "0 0 4px", fontSize: "16px" }}>
                   {person.name}
                 </h4>
-                <span style={{ fontSize: "13px", color: "#777" }}>
-                  PageMaker
-                </span>
+                
                 <p style={{ marginTop: "10px", fontSize: "14px" }}>
                   {person.review}
                 </p>
@@ -4488,10 +3825,7 @@ const Deepcleaning = () => {
                 borderRadius: "999px",
                 fontWeight: "600",
                 cursor: "pointer",
-              }}
-            >
-              LOAD MORE
-            </button>
+              }} onClick={() => setShowAllReviews((v) => !v)}>{showAllReviews ? "SHOW LESS" : "LOAD MORE"}</button>
           </div>
         </div>
       </div>
@@ -4552,7 +3886,7 @@ const Deepcleaning = () => {
             {/* Rating Box */}
             <div style={{ flex: "1 1 260px", padding: "10px" }}>
               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-                4.94{" "}
+                4.95{" "}
                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
                   /5
                 </span>
@@ -4653,7 +3987,7 @@ const Deepcleaning = () => {
             All Reviews
           </h3>
 
-          {reviewers.map((person, index) => (
+          {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
             <div
               key={index}
               style={{
@@ -4700,15 +4034,7 @@ const Deepcleaning = () => {
                     >
                       {person.name}
                     </h4>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        color: "#777",
-                        textAlign: "left",
-                      }}
-                    >
-                      PageMaker
-                    </span>
+                    
                   </div>
                   <div
                     style={{
@@ -4749,10 +4075,7 @@ const Deepcleaning = () => {
                 borderRadius: "999px",
                 fontWeight: "600",
                 cursor: "pointer",
-              }}
-            >
-              LOAD MORE
-            </button>
+              }} onClick={() => setShowAllReviews((v) => !v)}>{showAllReviews ? "SHOW LESS" : "LOAD MORE"}</button>
           </div>
         </div>
       </div>
@@ -5000,8 +4323,8 @@ export default Deepcleaning;
 //   const [showSlotModal, setShowSlotModal] = useState(false);
 //   const { setSelectedSlot } = useSelectedSlotContext();
 
-//   const GOOGLE_MAPS_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
-//   const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+//   const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+//   const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
 //   const inputRefs = useRef([]);
 //   const openAddressAfterOptionCloseRef = useRef(false);
@@ -5025,8 +4348,8 @@ export default Deepcleaning;
 //     showChangeButton: false,
 //   });
 
-//   // const GOOGLE_MAPS_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
-//   // const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+//   // const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+//   // const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
 //   // const handleProceedClick = async () => {
 //   //   try {
@@ -5454,12 +4777,12 @@ export default Deepcleaning;
 //   const features = [
 //     "Final Pay after 100% quality satisfaction",
 //     "Full material procurement",
-//     "100% packaging & masking",
-//     "Trained experts & advanced tools",
-//     "Daily quality checks & dedicated manager",
+//     "100% Eco-friendly supplies",
+//     "Trained Expert & industrial equipment",
+//     "Multi-point quality checks & on-site supervisor",
 //     "Free Insurance for damages of up to ₹10,000",
-//     "1 Yr service warranty against chipping , bubbling",
-//     "Timely completion & clean up",
+//     "7-Day re-clean assurance",
+//     "On-time execution & post-clean reset",
 //   ];
 
 //   const randomAvatars = [
@@ -5580,12 +4903,12 @@ export default Deepcleaning;
 //             position: "relative",
 //           }}
 //         >
-//           <Carousel interval={3000} controls={true} indicators={false}>
+//           <Carousel interval={3000} controls={true} indicators={false} className="hm-hero-carousel">
 //             <Carousel.Item>
 //               <div className="carousel-wrapper">
 //                 <img
 //                   className="d-block w-100"
-//                   src={serviceBg}
+//                   src={bannerImg}
 //                   alt="Slide 1"
 //                   style={{ height: "400px", objectFit: "cover" }}
 //                 />
@@ -5600,7 +4923,7 @@ export default Deepcleaning;
 //               <div className="carousel-wrapper">
 //                 <img
 //                   className="d-block w-100"
-//                   src={serviceBg}
+//                   src={bannerImg}
 //                   alt="Slide 2"
 //                   style={{ height: "400px", objectFit: "cover" }}
 //                 />
@@ -5678,12 +5001,12 @@ export default Deepcleaning;
 //             position: "relative",
 //           }}
 //         >
-//           <Carousel interval={3000} controls={true} indicators={false}>
+//           <Carousel interval={3000} controls={true} indicators={false} className="hm-hero-carousel">
 //             <Carousel.Item>
 //               <div className="carousel-wrapper">
 //                 <img
 //                   className="d-block w-100"
-//                   src={paintingservice}
+//                   src={bannerImg}
 //                   alt="Slide 1"
 //                   style={{ height: "", objectFit: "cover" }}
 //                 />
@@ -5698,7 +5021,7 @@ export default Deepcleaning;
 //               <div className="carousel-wrapper">
 //                 <img
 //                   className="d-block w-100"
-//                   src={paintingservice}
+//                   src={bannerImg}
 //                   alt="Slide 2"
 //                   style={{ height: "", objectFit: "cover" }}
 //                 />
@@ -5787,7 +5110,7 @@ export default Deepcleaning;
 //               display: "inline-block",
 //             }}
 //           >
-//             Book A Site Visit For At Home Consultation
+//             Book Your Home Deep Cleaning Service
 //             <img
 //               src={vectoricon}
 //               alt=""
@@ -6145,7 +5468,7 @@ export default Deepcleaning;
 //             textAlign: "center",
 //           }}
 //         >
-//           For All Your Home Painting Needs
+//           For All Your Home Cleaning Needs
 //         </h2>
 //         <img
 //           src={vectoricon}
@@ -6185,23 +5508,23 @@ export default Deepcleaning;
 //           >
 //             {[
 //               {
-//                 title: "Interiors & Exteriors",
-//                 subtitle: "Color Your Home Inside Out",
+//                 title: "Full Home Cleaning",
+//                 subtitle: "For A Home That Looks Brand New",
 //                 img: exterior,
 //               },
 //               {
-//                 title: "Wood Polish",
-//                 subtitle: "Shine Your Home Like Never Before",
+//                 title: "Kitchen Cleaning",
+//                 subtitle: "Say Goodbye To Tough Oil & Grease",
 //                 img: woodpolish,
 //               },
 //               {
-//                 title: "Texture",
-//                 subtitle: "Elevate Your Space With Wall Beautification",
+//                 title: "Bathroom Cleaning",
+//                 subtitle: "Hard Water Stains? Grout Grime? Gone!",
 //                 img: texture,
 //               },
 //               {
-//                 title: "Waterproofing",
-//                 subtitle: "Seal, Shield, & Sustain Your Home",
+//                 title: "Sofa Cleaning",
+//                 subtitle: "We Clean Where You Lounge",
 //                 img: waterproofing,
 //               },
 //             ].map((service, index) => (
@@ -6264,19 +5587,19 @@ export default Deepcleaning;
 //           >
 //             {[
 //               {
-//                 title: "Interiors & exteriors",
+//                 title: "Full Home Cleaning",
 //                 img: exterior,
 //               },
 //               {
-//                 title: "Wood polish",
+//                 title: "Kitchen Cleaning",
 //                 img: woodpolish,
 //               },
 //               {
-//                 title: "Texture",
+//                 title: "Bathroom Cleaning",
 //                 img: texture,
 //               },
 //               {
-//                 title: "Waterproofing",
+//                 title: "Sofa Cleaning",
 //                 img: waterproofing,
 //               },
 //             ].map((service, index) => (
@@ -6367,7 +5690,7 @@ export default Deepcleaning;
 //                   whiteSpace: "nowrap",
 //                 }}
 //               >
-//                 100 % Quality with Transparency
+//                 Clean Handshake, Guaranteed !!
 //               </h2>
 //               <img
 //                 src={vectoricon}
@@ -6394,7 +5717,7 @@ export default Deepcleaning;
 //                 whiteSpace: "nowrap",
 //               }}
 //             >
-//               A fresh coat for a fresh start
+//               Building Trust, One Clean Home at a Time
 //             </p>
 //           </div>
 //         </div>
@@ -6447,7 +5770,7 @@ export default Deepcleaning;
 //                   whiteSpace: "nowrap",
 //                 }}
 //               >
-//                 100% Quality with <br /> Transparency
+//                 Clean Handshake, <br /> Guaranteed !!
 //               </h2>
 //               <img
 //                 src={vectoricon}
@@ -6474,7 +5797,7 @@ export default Deepcleaning;
 //                 whiteSpace: "nowrap",
 //               }}
 //             >
-//               A fresh coat for a fresh start
+//               Building Trust, One Clean Home at a Time
 //             </p>
 //           </div>
 //         </div>
@@ -6540,28 +5863,28 @@ export default Deepcleaning;
 //               {
 //                 bg: "#e8d7ff",
 //                 icon: ontime,
-//                 title: "On-time Completion\nGuarantee",
+//                 title: "100% Satisfaction\nGuarantee",
 //               },
 //               {
 //                 bg: "#d9ecff",
 //                 icon: warrantyIcon,
-//                 title: "1-Year\nWarranty",
+//                 title: "Safe & Eco-Friendly\nChemicals",
 //               },
 //               {
 //                 bg: "#ccf0f7",
 //                 icon: postservice,
-//                 title: "Post Service\nCleaning",
+//                 title: "Trained\nProfessionals",
 //               },
 //               {
 //                 bg: "#e6dbff",
 //                 icon: quoteIcon,
-//                 title: "Accurate Quotations,\nNo Hidden Charges",
+//                 title: "Upfront Pricing,\nZero Hidden Fees",
 //               },
 //               {
 //                 bg: "#ccf7ec",
 //                 icon: freeinsurance,
-//                 title: "Free Insurance",
-//                 subtitle: "for damages of up to ₹10,000",
+//                 title: "Strict On-Time\nExecution",
+//                 subtitle: "",
 //               },
 //             ].map((item, index) => (
 //               <div
@@ -6669,28 +5992,28 @@ export default Deepcleaning;
 //               {
 //                 bg: "#e8d7ff",
 //                 icon: ontime,
-//                 title: "On-time Completion\nGuarantee",
+//                 title: "100% Satisfaction\nGuarantee",
 //               },
 //               {
 //                 bg: "#d9ecff",
 //                 icon: warrantyIcon,
-//                 title: "1-Year\nWarranty",
+//                 title: "Safe & Eco-Friendly\nChemicals",
 //               },
 //               {
 //                 bg: "#ccf0f7",
 //                 icon: postservice,
-//                 title: "Post Service\nCleaning",
+//                 title: "Trained\nProfessionals",
 //               },
 //               {
 //                 bg: "#e6dbff",
 //                 icon: quoteIcon,
-//                 title: "Accurate Quotations,\nNo Hidden Charges",
+//                 title: "Upfront Pricing,\nZero Hidden Fees",
 //               },
 //               {
 //                 bg: "#ccf7ec",
 //                 icon: freeinsurance,
-//                 title: "Free Insurance",
-//                 subtitle: "for damages of up to ₹10,000",
+//                 title: "Strict On-Time\nExecution",
+//                 subtitle: "",
 //               },
 //             ].map((item, index) => (
 //               <div
@@ -6790,7 +6113,7 @@ export default Deepcleaning;
 //               lineHeight: '1.2',
 //             }}
 //           >
-//             Wallpaper And <br /> Wall Panels
+//             Flexible Cleaning <br /> Passes
 //           </h2> */}
 //               <h2
 //                 style={{
@@ -6834,7 +6157,7 @@ export default Deepcleaning;
 //                 whiteSpace: "nowrap",
 //               }}
 //             >
-//               Bringing Life To Your Surrounding
+//               Automated Cleaning On Your Schedule
 //             </p>
 //           </div>
 //         </div>
@@ -6885,7 +6208,7 @@ export default Deepcleaning;
 //               lineHeight: '1.2',
 //             }}
 //           >
-//             Wallpaper And <br /> Wall Panels
+//             Flexible Cleaning <br /> Passes
 //           </h2> */}
 //               <h2
 //                 style={{
@@ -6929,7 +6252,7 @@ export default Deepcleaning;
 //                 whiteSpace: "nowrap",
 //               }}
 //             >
-//               Bringing Life To Your Surrounding
+//               Automated Cleaning On Your Schedule
 //             </p>
 //           </div>
 //         </div>
@@ -7398,7 +6721,7 @@ export default Deepcleaning;
 //                 marginTop: "15%",
 //               }}
 //             >
-//               Premium brands, <span style={{ color: "" }}>for you</span>
+//               Advanced tools, <span style={{ color: "" }}>for a deeper, healthier clean</span>
 //               <img
 //                 src={vectoricon}
 //                 alt=""
@@ -7623,9 +6946,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7651,9 +6974,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7680,9 +7003,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7708,9 +7031,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7736,9 +7059,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7765,9 +7088,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7793,9 +7116,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7821,9 +7144,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7850,9 +7173,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7878,9 +7201,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7906,9 +7229,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7935,9 +7258,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7963,9 +7286,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7991,9 +7314,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -8020,9 +7343,9 @@ export default Deepcleaning;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -8113,18 +7436,18 @@ export default Deepcleaning;
 //           }}
 //         >
 //           {[
-//             { img: step1, bg: "red", label: "01", title: "At Home Consult" },
+//             { img: step1, bg: "red", label: "01", title: "At Home Consultation" },
 //             {
 //               img: step2,
 //               bg: "#000",
 //               label: "02",
-//               title: "Measurements & Quotes",
+//               title: "Measurements & Quotations",
 //             },
 //             {
 //               img: step3,
 //               bg: "red",
 //               label: "03",
-//               title: "Booking Confirmation",
+//               title: "Confirm With Booking Amount",
 //             },
 //           ].map((item, idx) => (
 //             <div
@@ -8142,9 +7465,9 @@ export default Deepcleaning;
 //               <img
 //                 src={item.img}
 //                 alt={`Step ${item.label}`}
-//                 style={{ width: "100%", borderRadius: "15px" }}
+//                 style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //               />
-//               <h5 style={{ marginTop: "20px", fontSize: "16px" }}>
+//               <h5 style={{ marginTop: "18px", fontSize: "16px", minHeight: "4.4em" }}>
 //                 {item.label} <br />
 //                 <strong>{item.title}</strong>
 //               </h5>
@@ -8219,7 +7542,7 @@ export default Deepcleaning;
 //                 fontWeight: "bold",
 //               }}
 //             >
-//               We only choose the finest painters
+//               We only choose the finest Cleaners
 //             </p>
 //             <p
 //               style={{
@@ -8299,7 +7622,7 @@ export default Deepcleaning;
 //                 fontWeight: "bold",
 //               }}
 //             >
-//               We only choose the finest painters
+//               We only choose the finest Cleaners
 //             </p>
 //             <p
 //               style={{
@@ -9047,7 +8370,7 @@ export default Deepcleaning;
 
 //           {/* FAQ Items */}
 //           <div style={{ marginTop: "40px" }}>
-//             {faqData.map((question, index) => (
+//             {faqData.map((item, index) => (
 //               <div
 //                 key={index}
 //                 onClick={() => toggle(index)}
@@ -9069,14 +8392,14 @@ export default Deepcleaning;
 //                   }}
 //                 >
 //                   <span style={{ fontWeight: 500, fontSize: "16px" }}>
-//                     {question}
+//                     {item.q}
 //                   </span>
 //                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
 //                     {openIndex === index ? "−" : "+"}
 //                   </span>
 //                 </div>
 //                 {openIndex === index && (
-//                   <p style={{ marginTop: "12px", color: "#555" }}>
+//                   <p style={{ marginTop: "12px", color: "#555", textAlign: "left" }}>
 //                     {/* You can customize this text per FAQ */}
 //                     Yes, all our painters are trained through a certified
 //                     onboarding and background verification process.
@@ -9130,7 +8453,7 @@ export default Deepcleaning;
 
 //           {/* FAQ List */}
 //           <div style={{ marginTop: "40px" }}>
-//             {faqData.map((question, index) => (
+//             {faqData.map((item, index) => (
 //               <div
 //                 key={index}
 //                 onClick={() => toggle(index)}
@@ -9158,7 +8481,7 @@ export default Deepcleaning;
 //                       textAlign: "left",
 //                     }}
 //                   >
-//                     {question}
+//                     {item.q}
 //                   </span>
 //                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
 //                     {openIndex === index ? "−" : "+"}
@@ -9240,7 +8563,7 @@ export default Deepcleaning;
 //           >
 //             <div style={{ flex: "1 1 260px", padding: "10px" }}>
 //               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-//                 4.94{" "}
+//                 4.95{" "}
 //                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
 //                   /5
 //                 </span>
@@ -9344,7 +8667,7 @@ export default Deepcleaning;
 //             All Reviews
 //           </h3>
 
-//           {reviewers.map((person, index) => (
+//           {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
 //             <div
 //               key={index}
 //               style={{
@@ -9457,7 +8780,7 @@ export default Deepcleaning;
 //             {/* Rating Box */}
 //             <div style={{ flex: "1 1 260px", padding: "10px" }}>
 //               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-//                 4.94{" "}
+//                 4.95{" "}
 //                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
 //                   /5
 //                 </span>
@@ -9558,7 +8881,7 @@ export default Deepcleaning;
 //             All Reviews
 //           </h3>
 
-//           {reviewers.map((person, index) => (
+//           {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
 //             <div
 //               key={index}
 //               style={{

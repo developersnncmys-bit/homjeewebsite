@@ -695,8 +695,8 @@ const DeepCleaningPackages = () => {
                               margin: "10px 0",
                             }}
                           >
-                            <li>{currentPkg.details}</li>
-                            <li>{currentPkg.extras}</li>
+                            {currentPkg.details && <li>{currentPkg.details}</li>}
+                            {currentPkg.extras && <li>{currentPkg.extras}</li>}
                           </ul>
 
                           <p

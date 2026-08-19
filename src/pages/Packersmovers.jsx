@@ -1,7 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Carousel, Form, Modal } from "react-bootstrap";
+import { Truck, ShieldCheck, BadgeCheck, ReceiptText, MapPin } from "lucide-react";
+import hpInsurance from "../assets/freeinsurance.png";
+import hpQuote from "../assets/quote-icon.png";
+import pmOntime from "../assets/pm-ontime.png";
+import pmMovers from "../assets/pm-movers.png";
+import pmGps from "../assets/pm-gps.png";
 import serviceBg from "../assets/service-bg.svg";
+import bannerImg from "../assets/banner-neutral.png";
 import exterior from "../assets/exterior.png";
 import map from "../assets/map.png";
 import searchLocation from "../assets/search-location.png";
@@ -19,6 +26,7 @@ import wallpaperBanner from "../assets/wallpaper-banner.png";
 import checkIcon from "../assets/check-green.png";
 import crossIcon from "../assets/cross-red.png";
 import homjeeLogo from "../assets/logohomjee.png";
+import bannerLogo from "../assets/homjee-logo.png";
 import bgBrands from "../assets/brands-bg.png";
 import logoBerger from "../assets/brand-berger.png";
 import logoDulux from "../assets/brand-dulux.png";
@@ -104,8 +112,8 @@ const Packersmovers = () => {
 
   const [currentUser, setCurrentUser] = useState(() => getStoredUser());
   const userId = currentUser?._id;
-  const GOOGLE_MAPS_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
-  const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -417,14 +425,14 @@ const Packersmovers = () => {
   const videos = [testimonialVideo, testimonialVideo, testimonialVideo];
   const inputRefs = useRef([]);
   const features = [
-    "Final Pay after 100% quality satisfaction",
-    "Full material procurement",
-    "100% packaging & masking",
-    "Trained experts & advanced tools",
-    "Daily quality checks & dedicated manager",
-    "Free Insurance for damages of up to ₹10,000",
-    "1 Yr service warranty against chipping , bubbling",
-    "Timely completion & clean up",
+    "Final pay after safe delivery & item verification",
+    "Heavy-duty corrugated boxes, bubble wraps & foam sheets",
+    "Scratch-proof furniture wrapping & floor corner guards",
+    "Expert disassembling & reassembling of beds & wardrobes",
+    "Dedicated move manager & real-time tracking updates",
+    "Transit insurance coverage for full peace of mind",
+    "Safe handling assurance with specialized lifting gear",
+    "Timely delivery, placement & debris cleanup",
   ];
 
   const randomAvatars = [
@@ -436,45 +444,81 @@ const Packersmovers = () => {
   ];
 
   const reviewers = [
-  {
-    name: "Harish Choudhary",
-    img: "https://images.unsplash.com/photo-1609252509102-aa73ff792667?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:0]{index=0}
-    review:
-      "Shifted my household items with Homjee Packers & Movers recently. The team was very professional and packed everything with high-quality bubble wrap and boxes. Not a single item was damaged. Very happy with their service!",
-  },
-  {
-    name: "Meena Solanki",
-    img: "https://images.pexels.com/photos/7813769/pexels-photo-7813769.jpeg", // :contentReference[oaicite:1]{index=1}
-    review:
-      "I was worried about moving my kitchen glass items, but the Homjee team handled everything so carefully. They are very punctual and reached my new house exactly on time. Best packers and movers service I have used so far."
-  },
-  {
-    name: "Abhinav Saxena",
-    img: "https://images.unsplash.com/photo-1601665778378-98563fb0edd7?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:2]{index=2}
-    review:
-      "Homjee made my shifting very easy and stress-free. The staff is polite and they know how to handle heavy furniture properly. They even helped in placing the items in the right rooms at my new place. Highly recommended!",
-  },
-  {
-    name: "Jyoti Malhotra",
-    img: "https://images.pexels.com/photos/17993730/pexels-photo-17993730.jpeg", // :contentReference[oaicite:3]{index=3}
-    review:
-      "Very professional and honest service. The pricing was clear from the start and there were no hidden charges. They used good quality packing material for my electronics and delivered everything safely. Great experience!",
-  },
-  {
-    name: "Nitin Gadkari",
-    img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=848&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:4]{index=4}
-    review:
-      "Excellent team work by Homjee Packers & Movers. They arrived early in the morning and finished the packing and loading very quickly. The delivery was on time and the unloading was done very neatly. A very reliable team.",
-  },
-];
+    {
+      name: "Vishal Deshmukh",
+      img: "https://images.unsplash.com/photo-1694871420373-e9c1031b91ee?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "Exceptional moving service by the Homjee team! They packed our entire 2BHK in just a few hours using high-quality bubble wrap and sturdy boxes. Everything arrived at our new apartment without a single scratch. Highly professional!",
+    },
+    {
+      name: "Nikhil Saxena",
+      img: "https://images.pexels.com/photos/32198550/pexels-photo-32198550.jpeg",
+      review:
+        "I was stressed about moving my heavy wooden bed and refrigerator, but Homjee made it completely hassle-free. They disassembled the furniture carefully, wrapped each piece, and reassembled everything perfectly at the new site. Excellent experience!",
+    },
+    {
+      name: "Shweta Kulkarni",
+      img: "https://images.unsplash.com/photo-1549045337-967927d923c0?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "The live tracking feature gave us complete peace of mind during our intercity move. The move manager stayed in touch throughout the journey, and the truck arrived exactly on the promised time. Extremely reliable team!",
+    },
+    {
+      name: "Abhinav Pandey",
+      img: "https://images.pexels.com/photos/14180403/pexels-photo-14180403.jpeg",
+      review:
+        "Homjee's pricing is totally transparent. The original quotation was exact, and there were no last-minute demands or hidden labor charges on moving day. Pay after safe delivery gave me full confidence!",
+    },
+    {
+      name: "Megha Joshi",
+      img: "https://plus.unsplash.com/premium_photo-1689977871600-e755257fb5f8?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "Shifted our 3BHK locally, and I couldn't be happier. The handlers were extremely polite and took special care of our fragile glassware and TV. They even helped place all the heavy furniture in the right rooms.",
+    },
+    {
+      name: "Suresh Menon",
+      img: "https://images.unsplash.com/photo-1694871420373-e9c1031b91ee?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "Punctual, polite, and well-equipped staff. They brought their own toolkits, furniture protectors, and extra packing boxes. The unloading and unpacking were super swift. 5-star relocation service!",
+    },
+    {
+      name: "Divya Singhal",
+      img: "https://images.pexels.com/photos/32198550/pexels-photo-32198550.jpeg",
+      review:
+        "Finding a reliable packer and mover used to be a gamble, but Homjee set a high standard. Their dedicated move supervisor managed everything end-to-end, leaving no mess or empty boxes behind. I will definitely recommend them!",
+    },
+    {
+      name: "Tarun Chawla",
+      img: "https://images.unsplash.com/photo-1549045337-967927d923c0?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "The team did an outstanding job moving my bike and apartment items safely. Zero dents, zero delays, and completely hassle-free execution from start to finish!",
+    },
+  ];
 
   const faqData = [
-    "Are your painters trained and experienced professionals?",
-    "What if Paint/Primer/Tools are required in the middle of  the service?",
-    "Who will clean up the house after the service?",
-    "What if I have an issue or doubt which I need to resolve during painting?",
-    "Can I choose my preferred paint brand and colour for the project?",
-    "Will the painting process cause disruptions to my daily routine?",
+    {
+      q: "Are your packing and moving staff trained and background-verified?",
+      a: "Yes, absolutely. All Homjee relocation specialists undergo strict background verification and rigorous training in professional packing, heavy furniture lifting, fragile item handling, and safe loading techniques.",
+    },
+    {
+      q: "What if additional packing materials or boxes are required on moving day?",
+      a: "You don't have to arrange a single thing. Our moving team arrives with extra heavy-duty boxes, bubble wraps, and stretch films. If additional packing materials are needed during the move, our team manages it directly without halting work.",
+    },
+    {
+      q: "Who handles disassembling and reassembling large furniture?",
+      a: "Our team handles it entirely. We carefully disassemble your beds, wardrobes, and dining tables before packing, safely transport them, and reassemble them at your new home — placing everything exactly where you want it.",
+    },
+    {
+      q: "Who do I contact for updates during transit?",
+      a: "Every Homjee relocation is assigned a dedicated Move Manager. You will receive live GPS tracking links and can directly call your manager at any point during transit for real-time location updates and queries.",
+    },
+    {
+      q: "Are my fragile goods, glass items, and electronics safe during transit?",
+      a: "Yes! We use specialized multi-layer packaging — including heavy-duty bubble wrap, foam corner guards, wooden crating for delicate items, and moisture-proof stretch film — to ensure zero damage during movement.",
+    },
+    {
+      q: "How does transit insurance and damage coverage work?",
+      a: "We provide comprehensive transit insurance options covering your household belongings against accidental damage during transit. In the rare event of damage, our support team initiates a swift claim settlement process.",
+    },
   ];
 
   const handleCloseModal = () => {
@@ -488,7 +532,7 @@ const Packersmovers = () => {
   };
 
   const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
+    setPhoneNumber(e.target.value.replace(/\D/g, "").slice(0, 10));
   };
 
   // ✅ OTP typing (FIXED: index bounds)
@@ -708,6 +752,7 @@ const Packersmovers = () => {
   };
 
   const [openIndex, setOpenIndex] = useState(null);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -727,14 +772,14 @@ const Packersmovers = () => {
             position: "relative",
           }}
         >
-          <Carousel interval={3000} controls={true} indicators={false}>
+          <Carousel interval={3000} controls={true} indicators={false} className="hm-hero-carousel">
             <Carousel.Item>
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={serviceBg}
+                  src={bannerImg}
                   alt="Slide 1"
-                  style={{ height: "400px", objectFit: "cover" }}
+                  style={{ height: "320px", objectFit: "cover" }}
                 />
                 <div className="custom-bar-indicators">
                   <div className="bar active" />
@@ -747,9 +792,9 @@ const Packersmovers = () => {
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={serviceBg}
+                  src={bannerImg}
                   alt="Slide 2"
-                  style={{ height: "400px", objectFit: "cover" }}
+                  style={{ height: "320px", objectFit: "cover" }}
                 />
                 <div className="custom-bar-indicators">
                   <div className="bar" />
@@ -758,6 +803,11 @@ const Packersmovers = () => {
               </div>
             </Carousel.Item>
           </Carousel>
+          {/* clean banner image + HTML service name (no baked-in text) */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 3, borderRadius: "30px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.5))", pointerEvents: "none" }}>
+            <span style={{ color: "#fff", fontWeight: 800, fontSize: "46px", textAlign: "center", maxWidth: "88%", lineHeight: 1.2, textShadow: "0 2px 14px rgba(0,0,0,0.6)", fontFamily: "Poppins, sans-serif" }}><img src={bannerLogo} alt="Homjee" style={{ height: "1.55em", marginRight: "0.05em", verticalAlign: "-0.4em" }} />Packers & Movers Services</span>
+            <img src={vectoricon} alt="" style={{ width: "210px", height: "auto", marginTop: "10px" }} />
+          </div>
 
           <style>{`
         .carousel-wrapper {
@@ -785,6 +835,18 @@ const Packersmovers = () => {
           width: 40px;
           background-color: red;
         }
+        /* plain white chevron arrows above the overlay (like House Painting) */
+        .hm-hero-carousel .carousel-control-prev,
+        .hm-hero-carousel .carousel-control-next { z-index: 5; opacity: 1; }
+        .hm-hero-carousel .carousel-control-prev-icon {
+          -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.5 2L4.5 8l6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.5 2L4.5 8l6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+        }
+        .hm-hero-carousel .carousel-control-next-icon {
+          -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 2l6 6-6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 2l6 6-6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+        }
+
       `}</style>
 
           {/* Back Button */}
@@ -825,12 +887,12 @@ const Packersmovers = () => {
             position: "relative",
           }}
         >
-          <Carousel interval={3000} controls={true} indicators={false}>
+          <Carousel interval={3000} controls={true} indicators={false} className="hm-hero-carousel">
             <Carousel.Item>
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={paintingservice}
+                  src={bannerImg}
                   alt="Slide 1"
                   style={{ height: "", objectFit: "cover" }}
                 />
@@ -845,7 +907,7 @@ const Packersmovers = () => {
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={paintingservice}
+                  src={bannerImg}
                   alt="Slide 2"
                   style={{ height: "", objectFit: "cover" }}
                 />
@@ -856,6 +918,11 @@ const Packersmovers = () => {
               </div>
             </Carousel.Item>
           </Carousel>
+          {/* clean banner image + HTML service name (no baked-in text) */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 3, borderRadius: "30px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.5))", pointerEvents: "none" }}>
+            <span style={{ color: "#fff", fontWeight: 800, fontSize: "26px", textAlign: "center", maxWidth: "88%", lineHeight: 1.2, textShadow: "0 2px 14px rgba(0,0,0,0.6)", fontFamily: "Poppins, sans-serif" }}><img src={bannerLogo} alt="Homjee" style={{ height: "1.55em", marginRight: "0.05em", verticalAlign: "-0.4em" }} />Packers & Movers Services</span>
+            <img src={vectoricon} alt="" style={{ width: "210px", height: "auto", marginTop: "10px" }} />
+          </div>
 
           <style>{`
         .carousel-wrapper {
@@ -934,7 +1001,7 @@ const Packersmovers = () => {
               display: "inline-block",
             }}
           >
-            Book A Site Visit For At Home Consultation
+            Book Your Hassle-Free Relocation
             <img
               src={vectoricon}
               alt=""
@@ -954,9 +1021,13 @@ const Packersmovers = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              flexWrap: "wrap",
-              gap: "20px",
+              flexWrap: "nowrap",
+              alignItems: "center",
+              gap: "16px",
               marginTop: "30px",
+              maxWidth: "1050px",
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
             <input
@@ -966,7 +1037,8 @@ const Packersmovers = () => {
                 padding: "12px 20px",
                 borderRadius: "12px",
                 border: "1px solid #ccc",
-                minWidth: "500px",
+                minWidth: 0,
+                flex: 1,
                 fontSize: "14px",
                 backgroundColor: "#fff5f1",
                 outline: "none",
@@ -986,30 +1058,30 @@ const Packersmovers = () => {
                 borderRadius: "12px",
                 backgroundColor: "#fff5f1",
                 border: "1px solid #ccc",
-                minWidth: "500px",
+                minWidth: 0,
+                flex: 1,
                 fontSize: "14px",
                 outline: "none",
                 color: "black",
               }}
             />
+            <button
+              onClick={handleProceedClick}
+              style={{
+                padding: "12px 36px",
+                border: "1px solid #e60000",
+                color: "#e60000",
+                fontWeight: "700",
+                backgroundColor: "transparent",
+                borderRadius: "999px",
+                fontSize: "16px",
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+              }}
+            >
+              PROCEED
+            </button>
           </div>
-
-          <button
-            onClick={handleProceedClick}
-            style={{
-              marginTop: "30px",
-              padding: "12px 40px",
-              border: "1px solid #e60000",
-              color: "#e60000",
-              fontWeight: "700",
-              backgroundColor: "transparent",
-              borderRadius: "999px",
-              fontSize: "16px",
-              cursor: "pointer",
-            }}
-          >
-            PROCEED
-          </button>
 
           {/* OTP Modal */}
           {showModal && !isLocationModalVisible && (
@@ -1044,42 +1116,19 @@ const Packersmovers = () => {
                   border: "1px solid #e60000",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <h3
-                    style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}
-                  >
-                    OTP
+                <div style={{ position: "relative", marginBottom: "16px" }}>
+                  <h3 style={{ fontSize: "24px", fontWeight: "bold", margin: 0, textAlign: "center" }}>
+                    Verify OTP
                   </h3>
                   <button
                     onClick={handleCloseModal}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      fontSize: "24px",
-                      cursor: "pointer",
-                    }}
+                    style={{ position: "absolute", top: "-2px", right: "0", background: "none", border: "none", fontSize: "24px", cursor: "pointer", lineHeight: 1, color: "#333" }}
                   >
                     ×
                   </button>
                 </div>
-                <p style={{ fontSize: "16px", marginBottom: "20px" }}>
-                  Enter OTP sent to number {phoneNumber}
-                </p>
-                <p
-                  style={{
-                    fontSize: "12px",
-                    marginBottom: "20px",
-                    color: "red",
-                  }}
-                >
-                  development: {otpValue}
+                <p style={{ fontSize: "14px", color: "#666", margin: "0 0 22px", textAlign: "center" }}>
+                  Enter the 4-digit OTP sent to your WhatsApp
                 </p>
                 <div
                   style={{
@@ -1168,8 +1217,8 @@ const Packersmovers = () => {
               display: "inline-block",
             }}
           >
-            Book A Site Visit For At <br />
-            Home Consultation
+            Book Your Hassle-Free <br />
+            Relocation
             <img
               src={vectoricon}
               alt=""
@@ -1260,7 +1309,7 @@ const Packersmovers = () => {
             textAlign: "center",
           }}
         >
-          For All Your Home Painting Needs
+          For All Your Home Moving & Relocation Needs
         </h2>
         <img
           src={vectoricon}
@@ -1293,7 +1342,7 @@ const Packersmovers = () => {
             textAlign: "center",
           }}
         >
-          For All Your Home Painting Needs
+          For All Your Home Moving & Relocation Needs
         </h2>
         <img
           src={vectoricon}
@@ -1333,23 +1382,23 @@ const Packersmovers = () => {
           >
             {[
               {
-                title: "Interiors & Exteriors",
-                subtitle: "Color Your Home Inside Out",
+                title: "Complete Home Relocation",
+                subtitle: "Safe, Smooth & Seamless Transit Across Cities",
                 img: exterior,
               },
               {
-                title: "Wood Polish",
-                subtitle: "Shine Your Home Like Never Before",
+                title: "Local Home Shifting",
+                subtitle: "Fast & Careful Within-City Moving Solutions",
                 img: woodpolish,
               },
               {
-                title: "Texture",
-                subtitle: "Elevate Your Space With Wall Beautification",
+                title: "Intercity / Outstation Moving",
+                subtitle: "Secure Long-Distance Transport With Live Tracking",
                 img: texture,
               },
               {
-                title: "Waterproofing",
-                subtitle: "Seal, Shield, & Sustain Your Home",
+                title: "Vehicle Transport & Storage",
+                subtitle: "Safe Bike, Car & Short-Term Warehouse Storage",
                 img: waterproofing,
               },
             ].map((service, index) => (
@@ -1412,19 +1461,19 @@ const Packersmovers = () => {
           >
             {[
               {
-                title: "Interiors & exteriors",
+                title: "Complete Home Relocation",
                 img: exterior,
               },
               {
-                title: "Wood polish",
+                title: "Local Home Shifting",
                 img: woodpolish,
               },
               {
-                title: "Texture",
+                title: "Intercity / Outstation Moving",
                 img: texture,
               },
               {
-                title: "Waterproofing",
+                title: "Vehicle Transport & Storage",
                 img: waterproofing,
               },
             ].map((service, index) => (
@@ -1515,7 +1564,7 @@ const Packersmovers = () => {
                   whiteSpace: "nowrap",
                 }}
               >
-                100 % Quality with Transparency
+                Zero Damage Guarantee, Guaranteed !!
               </h2>
               <img
                 src={vectoricon}
@@ -1542,7 +1591,7 @@ const Packersmovers = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              A fresh coat for a fresh start
+              Moving Homes, Preserving Comfort
             </p>
           </div>
         </div>
@@ -1595,7 +1644,7 @@ const Packersmovers = () => {
                   whiteSpace: "nowrap",
                 }}
               >
-                100% Quality with <br /> Transparency
+                Zero Damage Guarantee, <br /> Guaranteed !!
               </h2>
               <img
                 src={vectoricon}
@@ -1622,7 +1671,7 @@ const Packersmovers = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              A fresh coat for a fresh start
+              Moving Homes, Preserving Comfort
             </p>
           </div>
         </div>
@@ -1687,29 +1736,36 @@ const Packersmovers = () => {
             {[
               {
                 bg: "#e8d7ff",
-                icon: ontime,
-                title: "On-time Completion\nGuarantee",
+                Icon: Truck,
+                img: pmOntime,
+                title: "Guaranteed On-Time\nDelivery",
               },
               {
                 bg: "#d9ecff",
-                icon: warrantyIcon,
-                title: "1-Year\nWarranty",
+                Icon: ShieldCheck,
+                img: hpInsurance,
+                noCircle: true,
+                title: "Damage Protection\nInsurance",
               },
               {
                 bg: "#ccf0f7",
-                icon: postservice,
-                title: "Post Service\nCleaning",
+                Icon: BadgeCheck,
+                img: pmMovers,
+                title: "Trained & Vetted\nMovers",
               },
               {
                 bg: "#e6dbff",
-                icon: quoteIcon,
-                title: "Accurate Quotations,\nNo Hidden Charges",
+                Icon: ReceiptText,
+                img: hpQuote,
+                noCircle: true,
+                title: "Transparent Quotes,\nZero Hidden Fees",
               },
               {
                 bg: "#ccf7ec",
-                icon: freeinsurance,
-                title: "Free Insurance",
-                subtitle: "for damages of up to ₹10,000",
+                Icon: MapPin,
+                img: pmGps,
+                title: "Live GPS Vehicle\nTracking",
+                subtitle: "",
               },
             ].map((item, index) => (
               <div
@@ -1728,11 +1784,7 @@ const Packersmovers = () => {
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                 }}
               >
-                <img
-                  src={item.icon}
-                  alt=""
-                  style={{ width: "80px", marginBottom: "20px" }}
-                />
+                <div style={{ width: "68px", height: "68px", borderRadius: "50%", border: item.noCircle ? "none" : "1.5px solid " + ({ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"), display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>{item.img ? (<span style={{ width: item.noCircle ? "64px" : "48px", height: item.noCircle ? "64px" : "48px", display: "inline-block", backgroundColor: { "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1", WebkitMaskImage: `url(${item.img})`, maskImage: `url(${item.img})`, WebkitMaskSize: "contain", maskSize: "contain", WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskPosition: "center", maskPosition: "center" }} />) : (<item.Icon size={32} color={{ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"} strokeWidth={1.5} />)}</div>
                 <h3
                   style={{
                     fontSize: "14px",
@@ -1816,29 +1868,36 @@ const Packersmovers = () => {
             {[
               {
                 bg: "#e8d7ff",
-                icon: ontime,
-                title: "On-time Completion\nGuarantee",
+                Icon: Truck,
+                img: pmOntime,
+                title: "Guaranteed On-Time\nDelivery",
               },
               {
                 bg: "#d9ecff",
-                icon: warrantyIcon,
-                title: "1-Year\nWarranty",
+                Icon: ShieldCheck,
+                img: hpInsurance,
+                noCircle: true,
+                title: "Damage Protection\nInsurance",
               },
               {
                 bg: "#ccf0f7",
-                icon: postservice,
-                title: "Post Service\nCleaning",
+                Icon: BadgeCheck,
+                img: pmMovers,
+                title: "Trained & Vetted\nMovers",
               },
               {
                 bg: "#e6dbff",
-                icon: quoteIcon,
-                title: "Accurate Quotations,\nNo Hidden Charges",
+                Icon: ReceiptText,
+                img: hpQuote,
+                noCircle: true,
+                title: "Transparent Quotes,\nZero Hidden Fees",
               },
               {
                 bg: "#ccf7ec",
-                icon: freeinsurance,
-                title: "Free Insurance",
-                subtitle: "for damages of up to ₹10,000",
+                Icon: MapPin,
+                img: pmGps,
+                title: "Live GPS Vehicle\nTracking",
+                subtitle: "",
               },
             ].map((item, index) => (
               <div
@@ -1855,11 +1914,7 @@ const Packersmovers = () => {
                   gap: "20px",
                 }}
               >
-                <img
-                  src={item.icon}
-                  alt=""
-                  style={{ width: "60px", height: "60px", flexShrink: 0 }}
-                />
+                <div style={{ width: "56px", height: "56px", borderRadius: "50%", border: item.noCircle ? "none" : "1.5px solid " + ({ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{item.img ? (<span style={{ width: item.noCircle ? "56px" : "42px", height: item.noCircle ? "56px" : "42px", display: "inline-block", backgroundColor: { "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1", WebkitMaskImage: `url(${item.img})`, maskImage: `url(${item.img})`, WebkitMaskSize: "contain", maskSize: "contain", WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskPosition: "center", maskPosition: "center" }} />) : (<item.Icon size={28} color={{ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"} strokeWidth={1.5} />)}</div>
                 <div>
                   <h3
                     style={{
@@ -1925,7 +1980,7 @@ const Packersmovers = () => {
                 marginBottom: "16px",
               }}
             >
-              Newly Launched
+              Stress-Free Relocation
             </div>
             <br />
             {/* Heading with underline */}
@@ -1938,7 +1993,7 @@ const Packersmovers = () => {
               lineHeight: '1.2',
             }}
           >
-            Wallpaper And <br /> Wall Panels
+            Multi-Layer Protective <br /> Packing
           </h2> */}
               <h2
                 style={{
@@ -1951,7 +2006,7 @@ const Packersmovers = () => {
                 }}
               >
                 <span style={{ position: "relative", display: "inline-block" }}>
-                  Wallpaper
+                  Multi-Layer
                   <img
                     src={vectoricon}
                     alt="underline"
@@ -1966,9 +2021,9 @@ const Packersmovers = () => {
                     }}
                   />
                 </span>{" "}
-                And
+                Protective
                 <br />
-                <span style={{ marginTop: "1%" }}>Wall Panels</span>
+                <span style={{ marginTop: "1%" }}>Packing</span>
               </h2>
             </div>
 
@@ -1982,7 +2037,7 @@ const Packersmovers = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              Bringing Life To Your Surrounding
+              Unpack, Unbox & Settle-In Support
             </p>
           </div>
         </div>
@@ -2020,7 +2075,7 @@ const Packersmovers = () => {
                 marginBottom: "16px",
               }}
             >
-              Newly Launched
+              Stress-Free Relocation
             </div>
             <br />
             {/* Heading with underline */}
@@ -2033,7 +2088,7 @@ const Packersmovers = () => {
               lineHeight: '1.2',
             }}
           >
-            Wallpaper And <br /> Wall Panels
+            Multi-Layer Protective <br /> Packing
           </h2> */}
               <h2
                 style={{
@@ -2046,7 +2101,7 @@ const Packersmovers = () => {
                 }}
               >
                 <span style={{ position: "relative", display: "inline-block" }}>
-                  Wallpaper
+                  Multi-Layer
                   <img
                     src={vectoricon}
                     alt="underline"
@@ -2061,9 +2116,9 @@ const Packersmovers = () => {
                     }}
                   />
                 </span>{" "}
-                And
+                Protective
                 <br />
-                <span style={{ marginTop: "1%" }}>Wall Panels</span>
+                <span style={{ marginTop: "1%" }}>Packing</span>
               </h2>
             </div>
 
@@ -2077,7 +2132,7 @@ const Packersmovers = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              Bringing Life To Your Surrounding
+              Unpack, Unbox & Settle-In Support
             </p>
           </div>
         </div>
@@ -2166,7 +2221,7 @@ const Packersmovers = () => {
                   key={`feature-${index}`}
                   style={{
                     fontSize: "16px",
-                    padding: "14px 0",
+                    padding: "7px 0",
                     fontWeight: "500",
                   }}
                 >
@@ -2175,7 +2230,7 @@ const Packersmovers = () => {
                 <div
                   style={{
                     textAlign: "center",
-                    padding: "14px 0",
+                    padding: "7px 0",
                     width: "70%",
                     backgroundColor: "#e8f5e9",
                   }}
@@ -2186,7 +2241,7 @@ const Packersmovers = () => {
                 <div
                   style={{
                     textAlign: "center",
-                    padding: "14px 0",
+                    padding: "7px 0",
                     backgroundColor: "#ffebee",
                     width: "70%",
                   }}
@@ -2280,7 +2335,7 @@ const Packersmovers = () => {
                   key={`feature-${index}`}
                   style={{
                     fontSize: "14px",
-                    padding: "14px 0",
+                    padding: "7px 0",
                     fontWeight: "500",
                   }}
                 >
@@ -2289,7 +2344,7 @@ const Packersmovers = () => {
                 <div
                   style={{
                     textAlign: "center",
-                    padding: "14px 0",
+                    padding: "7px 0",
                     width: "70%",
                     // backgroundColor: '#e8f5e9',
                   }}
@@ -2300,7 +2355,7 @@ const Packersmovers = () => {
                 <div
                   style={{
                     textAlign: "center",
-                    padding: "14px 0",
+                    padding: "7px 0",
                     // backgroundColor: '#ffebee',
                     width: "70%",
                   }}
@@ -2344,7 +2399,7 @@ const Packersmovers = () => {
                 marginTop: "15%",
               }}
             >
-              Premium brands, <span style={{ color: "" }}>for you</span>
+              Secure Fleet & <span style={{ color: "" }}>packing standards</span>
               <img
                 src={vectoricon}
                 alt=""
@@ -2371,7 +2426,7 @@ const Packersmovers = () => {
               padding: "20px 0",
             }}
           >
-            {[logoBerger, logoDulux, logoAsian, logoOpus].map((img, index) => (
+            {["Hettich", "Hafele", "CenturyPly", "Greenlam"].map((name, index) => (
               <div
                 key={index}
                 style={{
@@ -2386,15 +2441,7 @@ const Packersmovers = () => {
                   justifyContent: "center",
                 }}
               >
-                <img
-                  src={img}
-                  alt={`brand-${index}`}
-                  style={{
-                    width: "160px",
-                    height: "100px",
-                    objectFit: "contain",
-                  }}
-                />
+                <span style={{ fontWeight: 700, fontSize: "18px", color: "#111", textAlign: "center", lineHeight: 1.2 }}>{name}</span>
               </div>
             ))}
           </div>
@@ -2434,9 +2481,9 @@ const Packersmovers = () => {
                 lineHeight: 1.3,
               }}
             >
-              Premium Brands,
+              Secure Fleet &
               <br />
-              For You
+              Packing Standards
             </h2>
             <img
               src={vectoricon}
@@ -2464,7 +2511,7 @@ const Packersmovers = () => {
               maxWidth: "360px",
             }}
           >
-            {[logoBerger, logoDulux, logoAsian, logoOpus].map((img, index) => (
+            {["Hettich", "Hafele", "CenturyPly", "Greenlam"].map((name, index) => (
               <div
                 key={index}
                 style={{
@@ -2478,15 +2525,7 @@ const Packersmovers = () => {
                   justifyContent: "center",
                 }}
               >
-                <img
-                  src={img}
-                  alt={`brand-${index}`}
-                  style={{
-                    maxWidth: "140px",
-                    maxHeight: "80px",
-                    objectFit: "contain",
-                  }}
-                />
+                <span style={{ fontWeight: 700, fontSize: "18px", color: "#111", textAlign: "center", lineHeight: 1.2 }}>{name}</span>
               </div>
             ))}
           </div>
@@ -2494,516 +2533,93 @@ const Packersmovers = () => {
       </div>
 
       {/* our process */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            background: "#fff",
-            padding: "60px 20px",
-            textAlign: "center",
-          }}
-        >
-          {/* Main Heading */}
-          <h2
-            style={{
-              fontSize: "40px",
-              fontWeight: "600",
-              fontFamily: "Poppins, sans-serif",
-              color: "#111",
-              marginBottom: "10px",
-              position: "relative",
-              display: "inline-block",
-            }}
-          >
-            Our Process
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "50px",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
-
-          <div
-            style={{
-              background: "#fff",
-              padding: "60px 20px",
-              textAlign: "center",
-            }}
-          >
-            {/* Carousel */}
-            <Carousel
-              indicators={true}
-              controls={true}
-              interval={4000}
-              className="how-carousel"
-              nextIcon={
-                <span className="carousel-control-next-icon custom-icon" />
-              }
-              prevIcon={
-                <span className="carousel-control-prev-icon custom-icon" />
-              }
-            >
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
+      {(() => {
+        const PROC_STEPS = [
+          "Free Consultation & Home Survey",
+          "Itemized Quote & Inventory List",
+          "Confirm Schedule with Booking Amount",
+          "Professional Multi-Layer Packing",
+          "Safe Transit & Timely Transport",
+          "Unloading, Reassembly & Final Handoff",
+        ];
+        const groups = [];
+        for (let i = 0; i < PROC_STEPS.length; i += 3) groups.push(PROC_STEPS.slice(i, i + 3));
+        const stepImg = (gi) => (gi % 3 === 0 ? step1 : gi % 3 === 1 ? step2 : step3);
+        return (
+          <>
+            <div className="d-none d-lg-block">
+              <div style={{ background: "#fff", padding: "60px 20px", textAlign: "center" }}>
+                <h2
+                  style={{
+                    fontSize: "40px", fontWeight: "600", fontFamily: "Poppins, sans-serif",
+                    color: "#111", marginBottom: "10px", position: "relative", display: "inline-block",
+                  }}
                 >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
+                  Our Process
                   <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
+                    src={vectoricon}
+                    alt=""
+                    style={{
+                      position: "absolute", bottom: "-14px", left: "50px", width: "130px",
+                      height: "auto", borderRadius: "10px", pointerEvents: "none",
+                    }}
                   />
+                </h2>
 
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
+                <div style={{ background: "#fff", padding: "60px 20px", textAlign: "center" }}>
+                  <Carousel
+                    indicators={true}
+                    controls={true}
+                    interval={4000}
+                    className="how-carousel"
+                    nextIcon={<span className="carousel-control-next-icon custom-icon" />}
+                    prevIcon={<span className="carousel-control-prev-icon custom-icon" />}
                   >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
+                    {groups.map((group, ci) => (
+                      <Carousel.Item key={ci}>
+                        <div className="d-flex justify-content-between align-items-center flex-wrap" style={{ padding: "0 5%" }}>
+                          {group.map((step, i) => {
+                            const gi = ci * 3 + i;
+                            return (
+                              <React.Fragment key={i}>
+                                <div
+                                  style={{
+                                    width: "25%",
+                                    backgroundColor: i % 2 === 0 ? "red" : "#000",
+                                    borderRadius: "25px",
+                                    padding: "20px",
+                                    color: "#fff",
+                                    transform: i === 0 ? "rotate(-2deg)" : i === 2 ? "rotate(2deg)" : "none",
+                                  }}
+                                >
+                                  <img src={stepImg(gi)} alt={`Step ${gi + 1}`} style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }} />
+                                  <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
+                                    0{gi + 1} <br />
+                                    <strong>{step}</strong>
+                                  </h5>
+                                </div>
+                                {i < group.length - 1 && (
+                                  <img src={arrowicon} alt="arrow" style={{ width: "70px", margin: "0 15px" }} />
+                                )}
+                              </React.Fragment>
+                            );
+                          })}
+                        </div>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
 
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-            </Carousel>
-
-            {/* Custom styles for arrows and line indicators */}
-            <style>{`
+                  <style>{`
     .how-carousel .carousel-control-prev,
     .how-carousel .carousel-control-next {
-      width: 40px;
-      height: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #fff;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      opacity: 1;
+      width: 40px; height: 40px; top: 50%; transform: translateY(-50%);
+      background-color: #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); opacity: 1;
     }
-    .how-carousel .carousel-control-prev {
-      left: -10px;
-    }
-    .how-carousel .carousel-control-next {
-      right: -10px;
-    }
+    .how-carousel .carousel-control-prev { left: -10px; }
+    .how-carousel .carousel-control-next { right: -10px; }
   .custom-icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  background-color: #e60000; /* red color arrow */
+  display: inline-block; width: 20px; height: 20px;
+  mask-size: contain; mask-repeat: no-repeat; mask-position: center; background-color: #e60000;
 }
 .carousel-control-prev-icon.custom-icon {
   mask-image: url("data:image/svg+xml;utf8,<svg fill='red' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16'><path d='M11 1L3 8l8 7' stroke='red' stroke-width='2' fill='none'/></svg>");
@@ -3011,122 +2627,45 @@ const Packersmovers = () => {
 .carousel-control-next-icon.custom-icon {
   mask-image: url("data:image/svg+xml;utf8,<svg fill='red' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16'><path d='M5 1l8 7-8 7' stroke='red' stroke-width='2' fill='none'/></svg>");
 }
-
-
-    .carousel-indicators {
-      bottom: -63px;
+    .how-carousel .carousel-indicators { bottom: -63px; }
+    .how-carousel .carousel-indicators [data-bs-target] {
+      width: 30px; height: 4px; border-radius: 5px; background-color: #ccc; margin: 0 5px;
     }
-    .carousel-indicators [data-bs-target] {
-      width: 30px;
-      height: 4px;
-      border-radius: 5px;
-      background-color: #ccc;
-      margin: 0 5px;
-    }
-    .carousel-indicators .active {
-      background-color: red;
-      width: 40px;
-    }
+    .how-carousel .carousel-indicators .active { background-color: red; width: 40px; }
   `}</style>
-          </div>
-        </div>
-      </div>
-      <div
-        className="d-block d-lg-none"
-        style={{
-          background: "#fff",
-          padding: "30px 15px",
-          textAlign: "center",
-        }}
-      >
-        {/* Section Title */}
-        <h3
-          style={{
-            fontWeight: 700,
-            fontSize: "20px",
-            marginBottom: "20px",
-          }}
-        >
-          Our Process
-        </h3>
-
-        <div
-          style={{
-            overflowX: "auto",
-            display: "flex",
-            gap: "16px",
-            paddingLeft: "15px",
-            scrollSnapType: "x mandatory",
-          }}
-        >
-          {[
-            { img: step1, bg: "red", label: "01", title: "At Home Consult" },
-            {
-              img: step2,
-              bg: "#000",
-              label: "02",
-              title: "Measurements & Quotes",
-            },
-            {
-              img: step3,
-              bg: "red",
-              label: "03",
-              title: "Booking Confirmation",
-            },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              style={{
-                minWidth: "85%",
-                flexShrink: 0,
-                scrollSnapAlign: "start",
-                backgroundColor: item.bg,
-                borderRadius: "25px",
-                padding: "20px",
-                color: "#fff",
-              }}
-            >
-              <img
-                src={item.img}
-                alt={`Step ${item.label}`}
-                style={{ width: "100%", borderRadius: "15px" }}
-              />
-              <h5 style={{ marginTop: "20px", fontSize: "16px" }}>
-                {item.label} <br />
-                <strong>{item.title}</strong>
-              </h5>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
 
-        {/* Indicators (optional, static) */}
-        <div className="d-flex gap-2 mt-3" style={{ justifyContent: "center" }}>
-          <div
-            style={{
-              width: "30px",
-              height: "4px",
-              backgroundColor: "red",
-              borderRadius: "4px",
-            }}
-          ></div>
-          <div
-            style={{
-              width: "20px",
-              height: "4px",
-              backgroundColor: "#ccc",
-              borderRadius: "4px",
-            }}
-          ></div>
-          <div
-            style={{
-              width: "20px",
-              height: "4px",
-              backgroundColor: "#ccc",
-              borderRadius: "4px",
-            }}
-          ></div>
-        </div>
-      </div>
+            <div className="d-block d-lg-none" style={{ background: "#fff", padding: "30px 15px", textAlign: "center" }}>
+              <h3 style={{ fontWeight: 700, fontSize: "20px", marginBottom: "20px" }}>Our Process</h3>
+              <div style={{ overflowX: "auto", display: "flex", gap: "16px", paddingLeft: "15px", scrollSnapType: "x mandatory" }}>
+                {PROC_STEPS.map((step, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      minWidth: "85%", flexShrink: 0, scrollSnapAlign: "start",
+                      backgroundColor: idx % 2 === 0 ? "red" : "#000",
+                      borderRadius: "25px", padding: "20px", color: "#fff",
+                    }}
+                  >
+                    <img src={stepImg(idx)} alt={`Step ${idx + 1}`} style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }} />
+                    <h5 style={{ marginTop: "18px", fontSize: "16px", minHeight: "4.4em" }}>
+                      0{idx + 1} <br />
+                      <strong>{step}</strong>
+                    </h5>
+                  </div>
+                ))}
+              </div>
+              <div className="d-flex gap-2 mt-3" style={{ justifyContent: "center" }}>
+                <div style={{ width: "30px", height: "4px", backgroundColor: "red", borderRadius: "4px" }} />
+                <div style={{ width: "20px", height: "4px", backgroundColor: "#ccc", borderRadius: "4px" }} />
+                <div style={{ width: "20px", height: "4px", backgroundColor: "#ccc", borderRadius: "4px" }} />
+              </div>
+            </div>
+          </>
+        );
+      })()}
 
       {/* trained profestional */}
       <div className="d-none d-lg-block">
@@ -3166,7 +2705,7 @@ const Packersmovers = () => {
                 fontWeight: "bold",
               }}
             >
-              We only choose the finest painters
+              We only choose the finest relocation specialists & handlers
             </p>
             <p
               style={{
@@ -3246,7 +2785,7 @@ const Packersmovers = () => {
                 fontWeight: "bold",
               }}
             >
-              We only choose the finest painters
+              We only choose the finest relocation specialists & handlers
             </p>
             <p
               style={{
@@ -3580,7 +3119,7 @@ const Packersmovers = () => {
                 padding: "8px 24px",
                 fontSize: "14px",
               }}
-            >
+             href="/projects">
               EXPLORE ALL
             </Button>
           </div>
@@ -3950,7 +3489,7 @@ const Packersmovers = () => {
               padding: "6px 16px",
               fontSize: "12px",
             }}
-          >
+           href="/projects">
             EXPLORE ALL
           </Button>
         </div>
@@ -3995,7 +3534,7 @@ const Packersmovers = () => {
 
           {/* FAQ Items */}
           <div style={{ marginTop: "40px" }}>
-            {faqData.map((question, index) => (
+            {faqData.map((item, index) => (
               <div
                 key={index}
                 onClick={() => toggle(index)}
@@ -4017,17 +3556,16 @@ const Packersmovers = () => {
                   }}
                 >
                   <span style={{ fontWeight: 500, fontSize: "16px" }}>
-                    {question}
+                    {item.q}
                   </span>
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                     {openIndex === index ? "−" : "+"}
                   </span>
                 </div>
                 {openIndex === index && (
-                  <p style={{ marginTop: "12px", color: "#555" }}>
+                  <p style={{ marginTop: "12px", color: "#555", textAlign: "left" }}>
                     {/* You can customize this text per FAQ */}
-                    Yes, all our painters are trained through a certified
-                    onboarding and background verification process.
+                    {item.a}
                   </p>
                 )}
               </div>
@@ -4078,7 +3616,7 @@ const Packersmovers = () => {
 
           {/* FAQ List */}
           <div style={{ marginTop: "40px" }}>
-            {faqData.map((question, index) => (
+            {faqData.map((item, index) => (
               <div
                 key={index}
                 onClick={() => toggle(index)}
@@ -4106,7 +3644,7 @@ const Packersmovers = () => {
                       textAlign: "left",
                     }}
                   >
-                    {question}
+                    {item.q}
                   </span>
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                     {openIndex === index ? "−" : "+"}
@@ -4122,8 +3660,7 @@ const Packersmovers = () => {
                     }}
                   >
                     {/* You can replace this with real answers per question if needed */}
-                    Yes, all our painters are trained through a certified
-                    onboarding and background verification process.
+                    {item.a}
                   </p>
                 )}
               </div>
@@ -4188,7 +3725,7 @@ const Packersmovers = () => {
           >
             <div style={{ flex: "1 1 260px", padding: "10px" }}>
               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-                4.94{" "}
+                4.95{" "}
                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
                   /5
                 </span>
@@ -4292,7 +3829,7 @@ const Packersmovers = () => {
             All Reviews
           </h3>
 
-          {reviewers.map((person, index) => (
+          {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
             <div
               key={index}
               style={{
@@ -4319,9 +3856,7 @@ const Packersmovers = () => {
                 <h4 style={{ margin: "0 0 4px", fontSize: "16px" }}>
                   {person.name}
                 </h4>
-                <span style={{ fontSize: "13px", color: "#777" }}>
-                  PageMaker
-                </span>
+                
                 <p style={{ marginTop: "10px", fontSize: "14px" }}>
                   {person.review}
                 </p>
@@ -4341,10 +3876,7 @@ const Packersmovers = () => {
                 borderRadius: "999px",
                 fontWeight: "600",
                 cursor: "pointer",
-              }}
-            >
-              LOAD MORE
-            </button>
+              }} onClick={() => setShowAllReviews((v) => !v)}>{showAllReviews ? "SHOW LESS" : "LOAD MORE"}</button>
           </div>
         </div>
       </div>
@@ -4405,7 +3937,7 @@ const Packersmovers = () => {
             {/* Rating Box */}
             <div style={{ flex: "1 1 260px", padding: "10px" }}>
               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-                4.94{" "}
+                4.95{" "}
                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
                   /5
                 </span>
@@ -4506,7 +4038,7 @@ const Packersmovers = () => {
             All Reviews
           </h3>
 
-          {reviewers.map((person, index) => (
+          {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
             <div
               key={index}
               style={{
@@ -4553,15 +4085,7 @@ const Packersmovers = () => {
                     >
                       {person.name}
                     </h4>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        color: "#777",
-                        textAlign: "left",
-                      }}
-                    >
-                      PageMaker
-                    </span>
+                    
                   </div>
                   <div
                     style={{
@@ -4602,10 +4126,7 @@ const Packersmovers = () => {
                 borderRadius: "999px",
                 fontWeight: "600",
                 cursor: "pointer",
-              }}
-            >
-              LOAD MORE
-            </button>
+              }} onClick={() => setShowAllReviews((v) => !v)}>{showAllReviews ? "SHOW LESS" : "LOAD MORE"}</button>
           </div>
         </div>
       </div>

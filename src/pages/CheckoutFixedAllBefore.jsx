@@ -65,7 +65,7 @@ const Checkout = () => {
   console.log("showSelectedSlot", showSelectedSlot);
 
   const handleCurrentLocation = () => {
-    const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+    const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by this browser.");

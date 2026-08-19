@@ -1,7 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Carousel, Form, Modal } from "react-bootstrap";
+import { CalendarCheck, ShieldCheck, PencilRuler, ReceiptText, LayoutDashboard } from "lucide-react";
+import hpOntime from "../assets/ontime.png";
+import hpQuote from "../assets/quote-icon.png";
+import icWarranty from "../assets/warranty-10yr.png";
+import icDesigner from "../assets/designer.png";
+import icCustomPlan from "../assets/custom-plan.png";
 import serviceBg from "../assets/service-bg.svg";
+import bannerImg from "../assets/banner-neutral.png";
 import exterior from "../assets/exterior.png";
 import map from "../assets/map.png";
 import searchLocation from "../assets/search-location.png";
@@ -19,6 +26,7 @@ import wallpaperBanner from "../assets/wallpaper-banner.png";
 import checkIcon from "../assets/check-green.png";
 import crossIcon from "../assets/cross-red.png";
 import homjeeLogo from "../assets/logohomjee.png";
+import bannerLogo from "../assets/homjee-logo.png";
 import bgBrands from "../assets/brands-bg.png";
 import logoBerger from "../assets/brand-berger.png";
 import logoDulux from "../assets/brand-dulux.png";
@@ -108,8 +116,8 @@ const Homeinterior = () => {
   const [currentUser, setCurrentUser] = useState(() => getStoredUser());
   const userId = currentUser?._id; // ✅ use this everywhere
 
-  const GOOGLE_MAPS_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
-  const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -130,14 +138,14 @@ const Homeinterior = () => {
   const openAddressAfterOptionCloseRef = useRef(false);
 
   const features = [
-    "Final Pay after 100% quality satisfaction",
-    "Full material procurement",
-    "100% packaging & masking",
-    "Trained experts & advanced tools",
-    "Daily quality checks & dedicated manager",
-    "Free Insurance for damages of up to ₹10,000",
-    "1 Yr service warranty against chipping , bubbling",
-    "Timely completion & clean up",
+    "Pay after milestone inspection & approval",
+    "Premium branded factory-finished materials",
+    "Complete site protection during execution",
+    "Expert designers & precision modular fitting",
+    "Daily progress tracking & dedicated project manager",
+    "Free cover for transit & installation safety",
+    "10-Year warranty on woodwork & hardware",
+    "Guaranteed handover date & post-installation cleanup",
   ];
 
   const randomAvatars = [
@@ -149,46 +157,81 @@ const Homeinterior = () => {
   ];
 
   const reviewers = [
-  {
-    name: "Manish Sharma",
-    img: "https://plus.unsplash.com/premium_photo-1663040643667-a793a0f118bc?q=80&w=388&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:0]{index=0}
-    review:
-      "Homjee provides the best end-to-end interior service. They managed the entire design and execution perfectly, and the fact that they also handle painting and deep cleaning is a huge plus point. I got a completely finished, sparkling clean home on the promised date.",
-  },
-  {
-    name: "Rashmi Verma",
-    img: "https://images.pexels.com/photos/31447236/pexels-photo-31447236.jpeg", // :contentReference[oaicite:1]{index=1}
-    review:
-      "I am very impressed with the home interiors done by Homjee. Their design team is very creative and the quality of the material used is top-class. Everything was delivered exactly on time. If you want a beautiful home without any stress, go for them!",
-  },
-  {
-    name: "Anil Kulkarni",
-    img: "https://images.unsplash.com/photo-1508341591423-4347099e1f19?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:2]{index=2}
-    review:
-      "The professional approach of the Homjee team is what I liked most. They transformed my empty flat into a luxury home with great interior work. They are very punctual and kept me updated throughout the project by sending regular WhatsApp updates with photos and videos. Highly recommended for quality interiors.",
-  },
-  {
-    name: "Sunita Bansal",
-    img: "https://images.pexels.com/photos/13408311/pexels-photo-13408311.jpeg", // :contentReference[oaicite:3]{index=3}
-    review:
-      "Homjee made our dream home a reality. Their interior work is very neat and modern. It was so convenient that they also took care of the final painting and cleaning themselves. It saved us so much effort. Great team and on-time delivery!",
-  },
-  {
-    name: "Karthik Iyer",
-    img: "https://images.unsplash.com/photo-1729157659231-a9090b02987a?q=80&w=465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // :contentReference[oaicite:4]{index=4}
-    review:
-      "Excellent interior service by Homjee. The finishing of the work is very premium and they stick to the timeline. They are very honest with their work and the final result looks even better than the 3D designs. Very happy with the timely handover.",
-  },
-];
-
+    {
+      name: "Aakash Verma",
+      img: "https://images.unsplash.com/photo-1694871420373-e9c1031b91ee?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "Exceptional interior design work by the Homjee team! They designed and installed our 2BHK modular kitchen and wardrobes. The factory finish on the laminates is flawless, and they handed over the site right on the promised date. Very professional team!",
+    },
+    {
+      name: "Manish Agarwal",
+      img: "https://images.pexels.com/photos/32198550/pexels-photo-32198550.jpeg",
+      review:
+        "I was worried about managing civil work and furniture installation together, but Homjee handled everything smoothly. Their project manager kept me updated daily with photos, and the site was cleaned up thoroughly before handover. Very reliable service!",
+    },
+    {
+      name: "Pooja Choudhury",
+      img: "https://images.unsplash.com/photo-1549045337-967927d923c0?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "The 3D design phase was super helpful! The designer understood exactly what my family needed for storage without cluttering the space. The final output looks exactly like the 3D renders. Highly recommend Homjee Interiors!",
+    },
+    {
+      name: "Karan Malhotra",
+      img: "https://images.pexels.com/photos/14180403/pexels-photo-14180403.jpeg",
+      review:
+        "Homjee's pricing structure is completely transparent. The initial quote was detailed, and there were zero unexpected expenses or hidden demands during the execution. Milestone-based payment made the process completely stress-free!",
+    },
+    {
+      name: "Sneha Kulkarni",
+      img: "https://plus.unsplash.com/premium_photo-1689977871600-e755257fb5f8?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "Got our 3BHK interiors done before moving in, and the transformation is stunning! The kitchen mechanisms and wardrobe sliding channels are super smooth. The quality of materials used is top-notch.",
+    },
+    {
+      name: "Gaurav Sen",
+      img: "https://images.unsplash.com/photo-1694871420373-e9c1031b91ee?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "Punctual, polite, and extremely skilled technicians. They completed the false ceiling and custom TV unit work without disturbing our daily schedule. They even cleaned up all wood dust and packaging material afterward. 5-star experience!",
+    },
+    {
+      name: "Ritu Banerjee",
+      img: "https://images.pexels.com/photos/32198550/pexels-photo-32198550.jpeg",
+      review:
+        "Selecting finishes and colors used to feel overwhelming, but Homjee's designer guided us brilliantly through laminate and handle choices. The finish is elegant and space-smart. Will definitely recommend them to friends and family!",
+    },
+    {
+      name: "Harish Rao",
+      img: "https://images.unsplash.com/photo-1549045337-967927d923c0?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      review:
+        "The team did a phenomenal job on our living room wall unit and foyer layout. They maximized every inch of space while keeping the look modern and minimalist. Completely hassle-free execution from start to finish!",
+    },
+  ];
 
   const faqData = [
-    "Are your painters trained and experienced professionals?",
-    "What if Paint/Primer/Tools are required in the middle of  the service?",
-    "Who will clean up the house after the service?",
-    "What if I have an issue or doubt which I need to resolve during painting?",
-    "Can I choose my preferred paint brand and colour for the project?",
-    "Will the painting process cause disruptions to my daily routine?",
+    {
+      q: "Are your interior designers and craftsmen qualified and experienced?",
+      a: "Yes, absolutely. All Homjee interior designers hold professional design credentials, and our installation teams are background-verified, skilled craftsmen with years of hands-on experience in modular fitting, civil work, and electrical execution.",
+    },
+    {
+      q: "What if additional materials or hardware are required mid-project?",
+      a: "You don't have to arrange a single thing. Our dedicated Project Manager tracks inventory continuously. If any additional hardware, fittings, or materials are required during execution, our team coordinates procurement directly without halting work.",
+    },
+    {
+      q: "Who handles site protection and post-installation cleanup?",
+      a: "We manage the entire process end-to-end. Before work begins, our team installs protective floor sheets and dust barriers. Once installation is complete, we perform a complete cleanup, remove all debris, and leave your home spotless and ready to move in.",
+    },
+    {
+      q: "Who do I contact if I have design changes or queries during the project?",
+      a: "Every Homjee interior project is assigned a dedicated Project Manager and Lead Designer. You can reach out directly to your manager at any point for progress updates, design adjustments, or quick resolutions to any doubts.",
+    },
+    {
+      q: "Are the materials used durable and safe for long-term home use?",
+      a: "Yes! We use boiling-water-proof (BWP) plywood, anti-termite laminates, and eco-friendly, low-VOC materials. All hardware fittings come from certified top-tier brands to ensure maximum durability, safety, and smooth long-term operation.",
+    },
+    {
+      q: "How does the warranty and after-sales service work?",
+      a: "We offer up to a 10-year warranty on modular woodwork and factory-supplied hardware. If you experience any functional issues or hardware adjustments after moving in, our customer support team dispatches a service technician for prompt resolution.",
+    },
   ];
   const getCurrentLocationDraft = () =>
     new Promise((resolve, reject) => {
@@ -469,7 +512,7 @@ const Homeinterior = () => {
   };
 
   const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
+    setPhoneNumber(e.target.value.replace(/\D/g, "").slice(0, 10));
   };
 
   const handleOtpChange = (e, index) => {
@@ -671,6 +714,7 @@ const Homeinterior = () => {
     }
   };
   const [openIndex, setOpenIndex] = useState(null);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -700,14 +744,14 @@ const Homeinterior = () => {
             position: "relative",
           }}
         >
-          <Carousel interval={3000} controls={true} indicators={false}>
+          <Carousel interval={3000} controls={true} indicators={false} className="hm-hero-carousel">
             <Carousel.Item>
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={serviceBg}
+                  src={bannerImg}
                   alt="Slide 1"
-                  style={{ height: "400px", objectFit: "cover" }}
+                  style={{ height: "320px", objectFit: "cover" }}
                 />
                 <div className="custom-bar-indicators">
                   <div className="bar active" />
@@ -720,9 +764,9 @@ const Homeinterior = () => {
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={serviceBg}
+                  src={bannerImg}
                   alt="Slide 2"
-                  style={{ height: "400px", objectFit: "cover" }}
+                  style={{ height: "320px", objectFit: "cover" }}
                 />
                 <div className="custom-bar-indicators">
                   <div className="bar" />
@@ -731,6 +775,11 @@ const Homeinterior = () => {
               </div>
             </Carousel.Item>
           </Carousel>
+          {/* clean banner image + HTML service name (no baked-in text) */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 3, borderRadius: "30px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.5))", pointerEvents: "none" }}>
+            <span style={{ color: "#fff", fontWeight: 800, fontSize: "46px", textAlign: "center", maxWidth: "88%", lineHeight: 1.2, textShadow: "0 2px 14px rgba(0,0,0,0.6)", fontFamily: "Poppins, sans-serif" }}><img src={bannerLogo} alt="Homjee" style={{ height: "1.55em", marginRight: "0.05em", verticalAlign: "-0.4em" }} />Interior Services</span>
+            <img src={vectoricon} alt="" style={{ width: "210px", height: "auto", marginTop: "10px" }} />
+          </div>
 
           <style>{`
         .carousel-wrapper {
@@ -758,6 +807,18 @@ const Homeinterior = () => {
           width: 40px;
           background-color: red;
         }
+        /* plain white chevron arrows above the overlay (like House Painting) */
+        .hm-hero-carousel .carousel-control-prev,
+        .hm-hero-carousel .carousel-control-next { z-index: 5; opacity: 1; }
+        .hm-hero-carousel .carousel-control-prev-icon {
+          -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.5 2L4.5 8l6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.5 2L4.5 8l6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+        }
+        .hm-hero-carousel .carousel-control-next-icon {
+          -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 2l6 6-6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 2l6 6-6 6' stroke='black' stroke-width='2' fill='none'/></svg>");
+        }
+
       `}</style>
 
           {/* Back Button */}
@@ -798,12 +859,12 @@ const Homeinterior = () => {
             position: "relative",
           }}
         >
-          <Carousel interval={3000} controls={true} indicators={false}>
+          <Carousel interval={3000} controls={true} indicators={false} className="hm-hero-carousel">
             <Carousel.Item>
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={paintingservice}
+                  src={bannerImg}
                   alt="Slide 1"
                   style={{ height: "", objectFit: "cover" }}
                 />
@@ -818,7 +879,7 @@ const Homeinterior = () => {
               <div className="carousel-wrapper">
                 <img
                   className="d-block w-100"
-                  src={paintingservice}
+                  src={bannerImg}
                   alt="Slide 2"
                   style={{ height: "", objectFit: "cover" }}
                 />
@@ -829,6 +890,11 @@ const Homeinterior = () => {
               </div>
             </Carousel.Item>
           </Carousel>
+          {/* clean banner image + HTML service name (no baked-in text) */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 3, borderRadius: "30px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.5))", pointerEvents: "none" }}>
+            <span style={{ color: "#fff", fontWeight: 800, fontSize: "26px", textAlign: "center", maxWidth: "88%", lineHeight: 1.2, textShadow: "0 2px 14px rgba(0,0,0,0.6)", fontFamily: "Poppins, sans-serif" }}><img src={bannerLogo} alt="Homjee" style={{ height: "1.55em", marginRight: "0.05em", verticalAlign: "-0.4em" }} />Interior Services</span>
+            <img src={vectoricon} alt="" style={{ width: "210px", height: "auto", marginTop: "10px" }} />
+          </div>
 
           <style>{`
         .carousel-wrapper {
@@ -907,7 +973,7 @@ const Homeinterior = () => {
               display: "inline-block",
             }}
           >
-            Book A Site Visit For At Home Consultation
+            Book Your Free Home Interior Consultation
             <img
               src={vectoricon}
               alt=""
@@ -927,9 +993,13 @@ const Homeinterior = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              flexWrap: "wrap",
-              gap: "20px",
+              flexWrap: "nowrap",
+              alignItems: "center",
+              gap: "16px",
               marginTop: "30px",
+              maxWidth: "1050px",
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
             <input
@@ -939,7 +1009,8 @@ const Homeinterior = () => {
                 padding: "12px 20px",
                 borderRadius: "12px",
                 border: "1px solid #ccc",
-                minWidth: "500px",
+                minWidth: 0,
+                flex: 1,
                 fontSize: "14px",
                 backgroundColor: "#fff5f1",
                 outline: "none",
@@ -959,30 +1030,30 @@ const Homeinterior = () => {
                 borderRadius: "12px",
                 backgroundColor: "#fff5f1",
                 border: "1px solid #ccc",
-                minWidth: "500px",
+                minWidth: 0,
+                flex: 1,
                 fontSize: "14px",
                 outline: "none",
                 color: "black",
               }}
             />
+            <button
+              onClick={responseLoader ? null : handleProceedClick}
+              style={{
+                padding: "12px 36px",
+                border: "1px solid #e60000",
+                color: "#e60000",
+                fontWeight: "700",
+                backgroundColor: "transparent",
+                borderRadius: "999px",
+                fontSize: "16px",
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+              }}
+            >
+              PROCEED
+            </button>
           </div>
-
-          <button
-            onClick={responseLoader ? null : handleProceedClick}
-            style={{
-              marginTop: "30px",
-              padding: "12px 40px",
-              border: "1px solid #e60000",
-              color: "#e60000",
-              fontWeight: "700",
-              backgroundColor: "transparent",
-              borderRadius: "999px",
-              fontSize: "16px",
-              cursor: "pointer",
-            }}
-          >
-            PROCEED
-          </button>
 
           {/* OTP Modal */}
           {showModal && (
@@ -1017,42 +1088,19 @@ const Homeinterior = () => {
                   border: "1px solid #e60000",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <h3
-                    style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}
-                  >
-                    OTP
+                <div style={{ position: "relative", marginBottom: "16px" }}>
+                  <h3 style={{ fontSize: "24px", fontWeight: "bold", margin: 0, textAlign: "center" }}>
+                    Verify OTP
                   </h3>
                   <button
                     onClick={handleCloseModal}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      fontSize: "24px",
-                      cursor: "pointer",
-                    }}
+                    style={{ position: "absolute", top: "-2px", right: "0", background: "none", border: "none", fontSize: "24px", cursor: "pointer", lineHeight: 1, color: "#333" }}
                   >
                     ×
                   </button>
                 </div>
-                <p style={{ fontSize: "16px", marginBottom: "20px" }}>
-                  Enter OTP sent to number {phoneNumber}
-                </p>
-                <p
-                  style={{
-                    fontSize: "12px",
-                    marginBottom: "20px",
-                    color: "red",
-                  }}
-                >
-                  development: {otpValue}
+                <p style={{ fontSize: "14px", color: "#666", margin: "0 0 22px", textAlign: "center" }}>
+                  Enter the 4-digit OTP sent to your WhatsApp
                 </p>
                 <div
                   style={{
@@ -1141,8 +1189,8 @@ const Homeinterior = () => {
               display: "inline-block",
             }}
           >
-            Book A Site Visit For At <br />
-            Home Consultation
+            Book Your Free Home <br />
+            Interior Consultation
             <img
               src={vectoricon}
               alt=""
@@ -1233,7 +1281,7 @@ const Homeinterior = () => {
             textAlign: "center",
           }}
         >
-          For All Your Home Painting Needs
+          For All Your Home Interior Needs
         </h2>
         <img
           src={vectoricon}
@@ -1266,7 +1314,7 @@ const Homeinterior = () => {
             textAlign: "center",
           }}
         >
-          For All Your Home Painting Needs
+          For All Your Home Interior Needs
         </h2>
         <img
           src={vectoricon}
@@ -1306,23 +1354,23 @@ const Homeinterior = () => {
           >
             {[
               {
-                title: "Interiors & Exteriors",
-                subtitle: "Color Your Home Inside Out",
+                title: "Full Home Interiors",
+                subtitle: "Transform Your Space From Concept To Creation",
                 img: exterior,
               },
               {
-                title: "Wood Polish",
-                subtitle: "Shine Your Home Like Never Before",
+                title: "Modular Kitchens & Wardrobes",
+                subtitle: "Custom Designs Built For Space, Style & Utility",
                 img: woodpolish,
               },
               {
-                title: "Texture",
-                subtitle: "Elevate Your Space With Wall Beautification",
+                title: "Living Room & TV Units",
+                subtitle: "Sleek Designs That Become Your Home's Focal Point",
                 img: texture,
               },
               {
-                title: "Waterproofing",
-                subtitle: "Seal, Shield, & Sustain Your Home",
+                title: "False Ceiling & Lighting",
+                subtitle: "Set The Perfect Mood With Architectural Lighting",
                 img: waterproofing,
               },
             ].map((service, index) => (
@@ -1385,19 +1433,19 @@ const Homeinterior = () => {
           >
             {[
               {
-                title: "Interiors & exteriors",
+                title: "Full Home Interiors",
                 img: exterior,
               },
               {
-                title: "Wood polish",
+                title: "Modular Kitchens & Wardrobes",
                 img: woodpolish,
               },
               {
-                title: "Texture",
+                title: "Living Room & TV Units",
                 img: texture,
               },
               {
-                title: "Waterproofing",
+                title: "False Ceiling & Lighting",
                 img: waterproofing,
               },
             ].map((service, index) => (
@@ -1488,7 +1536,7 @@ const Homeinterior = () => {
                   whiteSpace: "nowrap",
                 }}
               >
-                100 % Quality with Transparency
+                Precision Craftsmanship, Guaranteed !!
               </h2>
               <img
                 src={vectoricon}
@@ -1515,7 +1563,7 @@ const Homeinterior = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              A fresh coat for a fresh start
+              Designing Dream Spaces, One Home at a Time
             </p>
           </div>
         </div>
@@ -1568,7 +1616,7 @@ const Homeinterior = () => {
                   whiteSpace: "nowrap",
                 }}
               >
-                100% Quality with <br /> Transparency
+                Precision Craftsmanship, <br /> Guaranteed !!
               </h2>
               <img
                 src={vectoricon}
@@ -1595,7 +1643,7 @@ const Homeinterior = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              A fresh coat for a fresh start
+              Designing Dream Spaces, One Home at a Time
             </p>
           </div>
         </div>
@@ -1660,29 +1708,36 @@ const Homeinterior = () => {
             {[
               {
                 bg: "#e8d7ff",
-                icon: ontime,
-                title: "On-time Completion\nGuarantee",
+                Icon: CalendarCheck,
+                img: hpOntime,
+                noCircle: true,
+                title: "On-Time Delivery\nGuarantee",
               },
               {
                 bg: "#d9ecff",
-                icon: warrantyIcon,
-                title: "1-Year\nWarranty",
+                Icon: ShieldCheck,
+                img: icWarranty,
+                title: "10-Year Material\nWarranty",
               },
               {
                 bg: "#ccf0f7",
-                icon: postservice,
-                title: "Post Service\nCleaning",
+                Icon: PencilRuler,
+                img: icDesigner,
+                title: "Experienced Interior\nDesigners",
               },
               {
                 bg: "#e6dbff",
-                icon: quoteIcon,
-                title: "Accurate Quotations,\nNo Hidden Charges",
+                Icon: ReceiptText,
+                img: hpQuote,
+                noCircle: true,
+                title: "Transparent Pricing,\nZero Hidden Fees",
               },
               {
                 bg: "#ccf7ec",
-                icon: freeinsurance,
-                title: "Free Insurance",
-                subtitle: "for damages of up to ₹10,000",
+                Icon: LayoutDashboard,
+                img: icCustomPlan,
+                title: "100% Custom Space\nPlanning",
+                subtitle: "",
               },
             ].map((item, index) => (
               <div
@@ -1701,11 +1756,7 @@ const Homeinterior = () => {
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                 }}
               >
-                <img
-                  src={item.icon}
-                  alt=""
-                  style={{ width: "80px", marginBottom: "20px" }}
-                />
+                <div style={{ width: "68px", height: "68px", borderRadius: "50%", border: item.noCircle ? "none" : "1.5px solid " + ({ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"), display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>{item.img ? (<span style={{ width: item.noCircle ? "64px" : "48px", height: item.noCircle ? "64px" : "48px", display: "inline-block", backgroundColor: { "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1", WebkitMaskImage: `url(${item.img})`, maskImage: `url(${item.img})`, WebkitMaskSize: "contain", maskSize: "contain", WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskPosition: "center", maskPosition: "center" }} />) : (<item.Icon size={32} color={{ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"} strokeWidth={1.5} />)}</div>
                 <h3
                   style={{
                     fontSize: "14px",
@@ -1789,29 +1840,36 @@ const Homeinterior = () => {
             {[
               {
                 bg: "#e8d7ff",
-                icon: ontime,
-                title: "On-time Completion\nGuarantee",
+                Icon: CalendarCheck,
+                img: hpOntime,
+                noCircle: true,
+                title: "On-Time Delivery\nGuarantee",
               },
               {
                 bg: "#d9ecff",
-                icon: warrantyIcon,
-                title: "1-Year\nWarranty",
+                Icon: ShieldCheck,
+                img: icWarranty,
+                title: "10-Year Material\nWarranty",
               },
               {
                 bg: "#ccf0f7",
-                icon: postservice,
-                title: "Post Service\nCleaning",
+                Icon: PencilRuler,
+                img: icDesigner,
+                title: "Experienced Interior\nDesigners",
               },
               {
                 bg: "#e6dbff",
-                icon: quoteIcon,
-                title: "Accurate Quotations,\nNo Hidden Charges",
+                Icon: ReceiptText,
+                img: hpQuote,
+                noCircle: true,
+                title: "Transparent Pricing,\nZero Hidden Fees",
               },
               {
                 bg: "#ccf7ec",
-                icon: freeinsurance,
-                title: "Free Insurance",
-                subtitle: "for damages of up to ₹10,000",
+                Icon: LayoutDashboard,
+                img: icCustomPlan,
+                title: "100% Custom Space\nPlanning",
+                subtitle: "",
               },
             ].map((item, index) => (
               <div
@@ -1828,11 +1886,7 @@ const Homeinterior = () => {
                   gap: "20px",
                 }}
               >
-                <img
-                  src={item.icon}
-                  alt=""
-                  style={{ width: "60px", height: "60px", flexShrink: 0 }}
-                />
+                <div style={{ width: "56px", height: "56px", borderRadius: "50%", border: item.noCircle ? "none" : "1.5px solid " + ({ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{item.img ? (<span style={{ width: item.noCircle ? "56px" : "42px", height: item.noCircle ? "56px" : "42px", display: "inline-block", backgroundColor: { "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1", WebkitMaskImage: `url(${item.img})`, maskImage: `url(${item.img})`, WebkitMaskSize: "contain", maskSize: "contain", WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskPosition: "center", maskPosition: "center" }} />) : (<item.Icon size={28} color={{ "#e8d7ff": "#7c3aed", "#d9ecff": "#2563eb", "#ccf0f7": "#0e7aa3", "#e6dbff": "#7c3aed", "#ccf7ec": "#059669" }[item.bg] || "#6b46c1"} strokeWidth={1.5} />)}</div>
                 <div>
                   <h3
                     style={{
@@ -1898,7 +1952,7 @@ const Homeinterior = () => {
                 marginBottom: "16px",
               }}
             >
-              Newly Launched
+              Tailored Spaces
             </div>
             <br />
             {/* Heading with underline */}
@@ -1911,7 +1965,7 @@ const Homeinterior = () => {
               lineHeight: '1.2',
             }}
           >
-            Wallpaper And <br /> Wall Panels
+            End-To-End Interior <br /> Execution
           </h2> */}
               <h2
                 style={{
@@ -1924,7 +1978,7 @@ const Homeinterior = () => {
                 }}
               >
                 <span style={{ position: "relative", display: "inline-block" }}>
-                  Wallpaper
+                  End-To-End
                   <img
                     src={vectoricon}
                     alt="underline"
@@ -1939,9 +1993,9 @@ const Homeinterior = () => {
                     }}
                   />
                 </span>{" "}
-                And
+                Interior
                 <br />
-                <span style={{ marginTop: "1%" }}>Wall Panels</span>
+                <span style={{ marginTop: "1%" }}>Execution</span>
               </h2>
             </div>
 
@@ -1955,7 +2009,7 @@ const Homeinterior = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              Bringing Life To Your Surrounding
+              Turnkey Solutions From Design To Handover
             </p>
           </div>
         </div>
@@ -1993,7 +2047,7 @@ const Homeinterior = () => {
                 marginBottom: "16px",
               }}
             >
-              Newly Launched
+              Tailored Spaces
             </div>
             <br />
             {/* Heading with underline */}
@@ -2006,7 +2060,7 @@ const Homeinterior = () => {
               lineHeight: '1.2',
             }}
           >
-            Wallpaper And <br /> Wall Panels
+            End-To-End Interior <br /> Execution
           </h2> */}
               <h2
                 style={{
@@ -2019,7 +2073,7 @@ const Homeinterior = () => {
                 }}
               >
                 <span style={{ position: "relative", display: "inline-block" }}>
-                  Wallpaper
+                  End-To-End
                   <img
                     src={vectoricon}
                     alt="underline"
@@ -2034,9 +2088,9 @@ const Homeinterior = () => {
                     }}
                   />
                 </span>{" "}
-                And
+                Interior
                 <br />
-                <span style={{ marginTop: "1%" }}>Wall Panels</span>
+                <span style={{ marginTop: "1%" }}>Execution</span>
               </h2>
             </div>
 
@@ -2050,7 +2104,7 @@ const Homeinterior = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              Bringing Life To Your Surrounding
+              Turnkey Solutions From Design To Handover
             </p>
           </div>
         </div>
@@ -2317,7 +2371,7 @@ const Homeinterior = () => {
                 marginTop: "15%",
               }}
             >
-              Premium brands, <span style={{ color: "" }}>for you</span>
+              Premium Hardware & <span style={{ color: "" }}>material partners</span>
               <img
                 src={vectoricon}
                 alt=""
@@ -2344,7 +2398,7 @@ const Homeinterior = () => {
               padding: "20px 0",
             }}
           >
-            {[logoBerger, logoDulux, logoAsian, logoOpus].map((img, index) => (
+            {["Hettich", "Hafele", "CenturyPly", "Greenlam"].map((name, index) => (
               <div
                 key={index}
                 style={{
@@ -2359,15 +2413,7 @@ const Homeinterior = () => {
                   justifyContent: "center",
                 }}
               >
-                <img
-                  src={img}
-                  alt={`brand-${index}`}
-                  style={{
-                    width: "160px",
-                    height: "100px",
-                    objectFit: "contain",
-                  }}
-                />
+                <span style={{ fontWeight: 700, fontSize: "18px", color: "#111", textAlign: "center", lineHeight: 1.2 }}>{name}</span>
               </div>
             ))}
           </div>
@@ -2407,9 +2453,9 @@ const Homeinterior = () => {
                 lineHeight: 1.3,
               }}
             >
-              Premium Brands,
+              Premium Hardware &
               <br />
-              For You
+              Material Partners
             </h2>
             <img
               src={vectoricon}
@@ -2437,7 +2483,7 @@ const Homeinterior = () => {
               maxWidth: "360px",
             }}
           >
-            {[logoBerger, logoDulux, logoAsian, logoOpus].map((img, index) => (
+            {["Hettich", "Hafele", "CenturyPly", "Greenlam"].map((name, index) => (
               <div
                 key={index}
                 style={{
@@ -2451,15 +2497,7 @@ const Homeinterior = () => {
                   justifyContent: "center",
                 }}
               >
-                <img
-                  src={img}
-                  alt={`brand-${index}`}
-                  style={{
-                    maxWidth: "140px",
-                    maxHeight: "80px",
-                    objectFit: "contain",
-                  }}
-                />
+                <span style={{ fontWeight: 700, fontSize: "18px", color: "#111", textAlign: "center", lineHeight: 1.2 }}>{name}</span>
               </div>
             ))}
           </div>
@@ -2467,516 +2505,93 @@ const Homeinterior = () => {
       </div>
 
       {/* our process */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            background: "#fff",
-            padding: "60px 20px",
-            textAlign: "center",
-          }}
-        >
-          {/* Main Heading */}
-          <h2
-            style={{
-              fontSize: "40px",
-              fontWeight: "600",
-              fontFamily: "Poppins, sans-serif",
-              color: "#111",
-              marginBottom: "10px",
-              position: "relative",
-              display: "inline-block",
-            }}
-          >
-            Our Process
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "50px",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
-
-          <div
-            style={{
-              background: "#fff",
-              padding: "60px 20px",
-              textAlign: "center",
-            }}
-          >
-            {/* Carousel */}
-            <Carousel
-              indicators={true}
-              controls={true}
-              interval={4000}
-              className="how-carousel"
-              nextIcon={
-                <span className="carousel-control-next-icon custom-icon" />
-              }
-              prevIcon={
-                <span className="carousel-control-prev-icon custom-icon" />
-              }
-            >
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
+      {(() => {
+        const PROC_STEPS = [
+          "Site Visit & Design Consultation",
+          "Estimate & Transparent Costing",
+          "3D Design & Material Selection",
+          "Factory Manufacturing & Precision Cutting",
+          "On-Site Installation & Quality Checks",
+          "Final Walkthrough & Key Handover",
+        ];
+        const groups = [];
+        for (let i = 0; i < PROC_STEPS.length; i += 3) groups.push(PROC_STEPS.slice(i, i + 3));
+        const stepImg = (gi) => (gi % 3 === 0 ? step1 : gi % 3 === 1 ? step2 : step3);
+        return (
+          <>
+            <div className="d-none d-lg-block">
+              <div style={{ background: "#fff", padding: "60px 20px", textAlign: "center" }}>
+                <h2
+                  style={{
+                    fontSize: "40px", fontWeight: "600", fontFamily: "Poppins, sans-serif",
+                    color: "#111", marginBottom: "10px", position: "relative", display: "inline-block",
+                  }}
                 >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
+                  Our Process
                   <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
+                    src={vectoricon}
+                    alt=""
+                    style={{
+                      position: "absolute", bottom: "-14px", left: "50px", width: "130px",
+                      height: "auto", borderRadius: "10px", pointerEvents: "none",
+                    }}
                   />
+                </h2>
 
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
+                <div style={{ background: "#fff", padding: "60px 20px", textAlign: "center" }}>
+                  <Carousel
+                    indicators={true}
+                    controls={true}
+                    interval={4000}
+                    className="how-carousel"
+                    nextIcon={<span className="carousel-control-next-icon custom-icon" />}
+                    prevIcon={<span className="carousel-control-prev-icon custom-icon" />}
                   >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
+                    {groups.map((group, ci) => (
+                      <Carousel.Item key={ci}>
+                        <div className="d-flex justify-content-between align-items-center flex-wrap" style={{ padding: "0 5%" }}>
+                          {group.map((step, i) => {
+                            const gi = ci * 3 + i;
+                            return (
+                              <React.Fragment key={i}>
+                                <div
+                                  style={{
+                                    width: "25%",
+                                    backgroundColor: i % 2 === 0 ? "red" : "#000",
+                                    borderRadius: "25px",
+                                    padding: "20px",
+                                    color: "#fff",
+                                    transform: i === 0 ? "rotate(-2deg)" : i === 2 ? "rotate(2deg)" : "none",
+                                  }}
+                                >
+                                  <img src={stepImg(gi)} alt={`Step ${gi + 1}`} style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }} />
+                                  <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
+                                    0{gi + 1} <br />
+                                    <strong>{step}</strong>
+                                  </h5>
+                                </div>
+                                {i < group.length - 1 && (
+                                  <img src={arrowicon} alt="arrow" style={{ width: "70px", margin: "0 15px" }} />
+                                )}
+                              </React.Fragment>
+                            );
+                          })}
+                        </div>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
 
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-            </Carousel>
-
-            {/* Custom styles for arrows and line indicators */}
-            <style>{`
+                  <style>{`
     .how-carousel .carousel-control-prev,
     .how-carousel .carousel-control-next {
-      width: 40px;
-      height: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #fff;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      opacity: 1;
+      width: 40px; height: 40px; top: 50%; transform: translateY(-50%);
+      background-color: #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); opacity: 1;
     }
-    .how-carousel .carousel-control-prev {
-      left: -10px;
-    }
-    .how-carousel .carousel-control-next {
-      right: -10px;
-    }
+    .how-carousel .carousel-control-prev { left: -10px; }
+    .how-carousel .carousel-control-next { right: -10px; }
   .custom-icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  background-color: #e60000; /* red color arrow */
+  display: inline-block; width: 20px; height: 20px;
+  mask-size: contain; mask-repeat: no-repeat; mask-position: center; background-color: #e60000;
 }
 .carousel-control-prev-icon.custom-icon {
   mask-image: url("data:image/svg+xml;utf8,<svg fill='red' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16'><path d='M11 1L3 8l8 7' stroke='red' stroke-width='2' fill='none'/></svg>");
@@ -2984,122 +2599,45 @@ const Homeinterior = () => {
 .carousel-control-next-icon.custom-icon {
   mask-image: url("data:image/svg+xml;utf8,<svg fill='red' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16'><path d='M5 1l8 7-8 7' stroke='red' stroke-width='2' fill='none'/></svg>");
 }
-
-
-    .carousel-indicators {
-      bottom: -63px;
+    .how-carousel .carousel-indicators { bottom: -63px; }
+    .how-carousel .carousel-indicators [data-bs-target] {
+      width: 30px; height: 4px; border-radius: 5px; background-color: #ccc; margin: 0 5px;
     }
-    .carousel-indicators [data-bs-target] {
-      width: 30px;
-      height: 4px;
-      border-radius: 5px;
-      background-color: #ccc;
-      margin: 0 5px;
-    }
-    .carousel-indicators .active {
-      background-color: red;
-      width: 40px;
-    }
+    .how-carousel .carousel-indicators .active { background-color: red; width: 40px; }
   `}</style>
-          </div>
-        </div>
-      </div>
-      <div
-        className="d-block d-lg-none"
-        style={{
-          background: "#fff",
-          padding: "30px 15px",
-          textAlign: "center",
-        }}
-      >
-        {/* Section Title */}
-        <h3
-          style={{
-            fontWeight: 700,
-            fontSize: "20px",
-            marginBottom: "20px",
-          }}
-        >
-          Our Process
-        </h3>
-
-        <div
-          style={{
-            overflowX: "auto",
-            display: "flex",
-            gap: "16px",
-            paddingLeft: "15px",
-            scrollSnapType: "x mandatory",
-          }}
-        >
-          {[
-            { img: step1, bg: "red", label: "01", title: "At Home Consult" },
-            {
-              img: step2,
-              bg: "#000",
-              label: "02",
-              title: "Measurements & Quotes",
-            },
-            {
-              img: step3,
-              bg: "red",
-              label: "03",
-              title: "Booking Confirmation",
-            },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              style={{
-                minWidth: "85%",
-                flexShrink: 0,
-                scrollSnapAlign: "start",
-                backgroundColor: item.bg,
-                borderRadius: "25px",
-                padding: "20px",
-                color: "#fff",
-              }}
-            >
-              <img
-                src={item.img}
-                alt={`Step ${item.label}`}
-                style={{ width: "100%", borderRadius: "15px" }}
-              />
-              <h5 style={{ marginTop: "20px", fontSize: "16px" }}>
-                {item.label} <br />
-                <strong>{item.title}</strong>
-              </h5>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
 
-        {/* Indicators (optional, static) */}
-        <div className="d-flex gap-2 mt-3" style={{ justifyContent: "center" }}>
-          <div
-            style={{
-              width: "30px",
-              height: "4px",
-              backgroundColor: "red",
-              borderRadius: "4px",
-            }}
-          ></div>
-          <div
-            style={{
-              width: "20px",
-              height: "4px",
-              backgroundColor: "#ccc",
-              borderRadius: "4px",
-            }}
-          ></div>
-          <div
-            style={{
-              width: "20px",
-              height: "4px",
-              backgroundColor: "#ccc",
-              borderRadius: "4px",
-            }}
-          ></div>
-        </div>
-      </div>
+            <div className="d-block d-lg-none" style={{ background: "#fff", padding: "30px 15px", textAlign: "center" }}>
+              <h3 style={{ fontWeight: 700, fontSize: "20px", marginBottom: "20px" }}>Our Process</h3>
+              <div style={{ overflowX: "auto", display: "flex", gap: "16px", paddingLeft: "15px", scrollSnapType: "x mandatory" }}>
+                {PROC_STEPS.map((step, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      minWidth: "85%", flexShrink: 0, scrollSnapAlign: "start",
+                      backgroundColor: idx % 2 === 0 ? "red" : "#000",
+                      borderRadius: "25px", padding: "20px", color: "#fff",
+                    }}
+                  >
+                    <img src={stepImg(idx)} alt={`Step ${idx + 1}`} style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }} />
+                    <h5 style={{ marginTop: "18px", fontSize: "16px", minHeight: "4.4em" }}>
+                      0{idx + 1} <br />
+                      <strong>{step}</strong>
+                    </h5>
+                  </div>
+                ))}
+              </div>
+              <div className="d-flex gap-2 mt-3" style={{ justifyContent: "center" }}>
+                <div style={{ width: "30px", height: "4px", backgroundColor: "red", borderRadius: "4px" }} />
+                <div style={{ width: "20px", height: "4px", backgroundColor: "#ccc", borderRadius: "4px" }} />
+                <div style={{ width: "20px", height: "4px", backgroundColor: "#ccc", borderRadius: "4px" }} />
+              </div>
+            </div>
+          </>
+        );
+      })()}
 
       {/* trained profestional */}
       <div className="d-none d-lg-block">
@@ -3139,7 +2677,7 @@ const Homeinterior = () => {
                 fontWeight: "bold",
               }}
             >
-              We only choose the finest painters
+              We only choose the finest interior designers & craftsmen
             </p>
             <p
               style={{
@@ -3219,7 +2757,7 @@ const Homeinterior = () => {
                 fontWeight: "bold",
               }}
             >
-              We only choose the finest painters
+              We only choose the finest interior designers & craftsmen
             </p>
             <p
               style={{
@@ -3553,7 +3091,7 @@ const Homeinterior = () => {
                 padding: "8px 24px",
                 fontSize: "14px",
               }}
-            >
+             href="/projects">
               EXPLORE ALL
             </Button>
           </div>
@@ -3923,7 +3461,7 @@ const Homeinterior = () => {
               padding: "6px 16px",
               fontSize: "12px",
             }}
-          >
+           href="/projects">
             EXPLORE ALL
           </Button>
         </div>
@@ -3968,7 +3506,7 @@ const Homeinterior = () => {
 
           {/* FAQ Items */}
           <div style={{ marginTop: "40px" }}>
-            {faqData.map((question, index) => (
+            {faqData.map((item, index) => (
               <div
                 key={index}
                 onClick={() => toggle(index)}
@@ -3990,17 +3528,16 @@ const Homeinterior = () => {
                   }}
                 >
                   <span style={{ fontWeight: 500, fontSize: "16px" }}>
-                    {question}
+                    {item.q}
                   </span>
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                     {openIndex === index ? "−" : "+"}
                   </span>
                 </div>
                 {openIndex === index && (
-                  <p style={{ marginTop: "12px", color: "#555" }}>
+                  <p style={{ marginTop: "12px", color: "#555", textAlign: "left" }}>
                     {/* You can customize this text per FAQ */}
-                    Yes, all our painters are trained through a certified
-                    onboarding and background verification process.
+                    {item.a}
                   </p>
                 )}
               </div>
@@ -4051,7 +3588,7 @@ const Homeinterior = () => {
 
           {/* FAQ List */}
           <div style={{ marginTop: "40px" }}>
-            {faqData.map((question, index) => (
+            {faqData.map((item, index) => (
               <div
                 key={index}
                 onClick={() => toggle(index)}
@@ -4079,7 +3616,7 @@ const Homeinterior = () => {
                       textAlign: "left",
                     }}
                   >
-                    {question}
+                    {item.q}
                   </span>
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                     {openIndex === index ? "−" : "+"}
@@ -4095,8 +3632,7 @@ const Homeinterior = () => {
                     }}
                   >
                     {/* You can replace this with real answers per question if needed */}
-                    Yes, all our painters are trained through a certified
-                    onboarding and background verification process.
+                    {item.a}
                   </p>
                 )}
               </div>
@@ -4161,7 +3697,7 @@ const Homeinterior = () => {
           >
             <div style={{ flex: "1 1 260px", padding: "10px" }}>
               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-                4.94{" "}
+                4.95{" "}
                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
                   /5
                 </span>
@@ -4265,7 +3801,7 @@ const Homeinterior = () => {
             All Reviews
           </h3>
 
-          {reviewers.map((person, index) => (
+          {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
             <div
               key={index}
               style={{
@@ -4292,9 +3828,7 @@ const Homeinterior = () => {
                 <h4 style={{ margin: "0 0 4px", fontSize: "16px" }}>
                   {person.name}
                 </h4>
-                <span style={{ fontSize: "13px", color: "#777" }}>
-                  PageMaker
-                </span>
+                
                 <p style={{ marginTop: "10px", fontSize: "14px" }}>
                   {person.review}
                 </p>
@@ -4314,10 +3848,7 @@ const Homeinterior = () => {
                 borderRadius: "999px",
                 fontWeight: "600",
                 cursor: "pointer",
-              }}
-            >
-              LOAD MORE
-            </button>
+              }} onClick={() => setShowAllReviews((v) => !v)}>{showAllReviews ? "SHOW LESS" : "LOAD MORE"}</button>
           </div>
         </div>
       </div>
@@ -4378,7 +3909,7 @@ const Homeinterior = () => {
             {/* Rating Box */}
             <div style={{ flex: "1 1 260px", padding: "10px" }}>
               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-                4.94{" "}
+                4.95{" "}
                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
                   /5
                 </span>
@@ -4479,7 +4010,7 @@ const Homeinterior = () => {
             All Reviews
           </h3>
 
-          {reviewers.map((person, index) => (
+          {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
             <div
               key={index}
               style={{
@@ -4526,15 +4057,7 @@ const Homeinterior = () => {
                     >
                       {person.name}
                     </h4>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        color: "#777",
-                        textAlign: "left",
-                      }}
-                    >
-                      PageMaker
-                    </span>
+                    
                   </div>
                   <div
                     style={{
@@ -4575,10 +4098,7 @@ const Homeinterior = () => {
                 borderRadius: "999px",
                 fontWeight: "600",
                 cursor: "pointer",
-              }}
-            >
-              LOAD MORE
-            </button>
+              }} onClick={() => setShowAllReviews((v) => !v)}>{showAllReviews ? "SHOW LESS" : "LOAD MORE"}</button>
           </div>
         </div>
       </div>

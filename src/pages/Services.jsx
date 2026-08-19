@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Carousel, Form, Modal } from "react-bootstrap";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import serviceBg from "../assets/service-bg.svg";
+import bannerImg from "../assets/banner-neutral.png";
 import exterior from "../assets/exterior.png";
 import map from "../assets/map.png";
 import searchLocation from "../assets/search-location.png";
@@ -20,6 +21,7 @@ import wallpaperBanner from "../assets/wallpaper-banner.png";
 import checkIcon from "../assets/check-green.png";
 import crossIcon from "../assets/cross-red.png";
 import homjeeLogo from "../assets/logohomjee.png";
+import bannerLogo from "../assets/homjee-logo.png";
 import bgBrands from "../assets/brands-bg.png";
 import logoBerger from "../assets/brand-berger.png";
 import logoDulux from "../assets/brand-dulux.png";
@@ -41,6 +43,8 @@ import wallpaperBannerimage from "../assets/wallpaperBannerimage.png";
 import bgBrandsimage from "../assets/bgBrandsimage.png";
 import bgProfessionalimage from "../assets/bgProfessionalimage.png";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper/modules";
+import "swiper/css/navigation";
 import "swiper/css";
 import "swiper/css/pagination";
 import { getRequest, postRequest, putRequest } from "../ApiService/apiHelper";
@@ -76,7 +80,7 @@ const setStoredUser = (user) => {
 const Services = () => {
   const navigate = useNavigate();
   // const activeIndex = 0;
-  const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
   const [activeIndex, setActiveIndex] = useState(0);
   const [responseLoader, setResponseLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -105,7 +109,7 @@ const Services = () => {
   const [showSlotModal, setShowSlotModal] = useState(false);
   const { setSelectedSlot } = useSelectedSlotContext();
 
-  const GOOGLE_MAPS_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
   // const [latitude, setLatitude] = useState(null);
   // const [longitude, setLongitude] = useState(null);
@@ -478,7 +482,7 @@ useEffect(() => {
   }, []);
 
   const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
+    setPhoneNumber(e.target.value.replace(/\D/g, "").slice(0, 10));
   };
 
   const handleOtpChange = (e, index) => {
@@ -564,18 +568,55 @@ useEffect(() => {
       review:
         "Top-class painting service in the city. The staff is professional and they use genuine branded paints. They did a final inspection after finishing to make sure I was satisfied. Will definitely use them again.",
     },
+    {
+      name: "Ketan S",
+      img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=387&auto=format&fit=crop",
+      review:
+        "We got our 3BHK painted through Homjee, and the entire team was exceptionally professional. They used dust-free sanding machines, protected all our furniture with plastic sheets, and finished the project right on time. The wall finish is flawless!",
+    },
+    {
+      name: "Rajesh M",
+      img: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?q=80&w=387&auto=format&fit=crop",
+      review:
+        "The painters arrived on time every day, kept the workspace clean, and explained every step of the process. No hidden charges or extra material demands. Truly a 5-star service!",
+    },
+    {
+      name: "Meera D",
+      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=387&auto=format&fit=crop",
+      review:
+        "Choosing colours felt overwhelming, but the Homjee team guided us brilliantly. The execution was quick, clean, and delivered zero splatters on our flooring. Will definitely book again!",
+    },
   ];
 
   const faqData = [
-    "Are your painters trained and experienced professionals?",
-    "What if Paint/Primer/Tools are required in the middle of  the service?",
-    "Who will clean up the house after the service?",
-    "What if I have an issue or doubt which I need to resolve during painting?",
-    "Can I choose my preferred paint brand and colour for the project?",
-    "Will the painting process cause disruptions to my daily routine?",
+    {
+      q: "Are your painters trained and experienced professionals?",
+      a: "Yes, absolutely. All Homjee painters undergo strict background verification, skill assessments, and continuous training in modern techniques, including dust-free machine sanding, surface preparation, and precision finishing.",
+    },
+    {
+      q: "What if Paint/Primer/Tools are required in the middle of the service?",
+      a: "You don't have to worry about running mid-project errands. Our site supervisor manages material inventory continuously. If any additional paint, primer, or specialized tools are needed during the project, our team coordinates the procurement directly without halting your service.",
+    },
+    {
+      q: "Who will clean up the house after the service?",
+      a: "We handle complete post-painting cleanup. Once the painting is finished, our team removes all masking tape, floor coverings, and plastic sheets, cleans up dust or paint splatters, and repositions your furniture so your space is ready for immediate use.",
+    },
+    {
+      q: "What if I have an issue or doubt which I need to resolve during painting?",
+      a: "Every Homjee project is assigned a dedicated Project Manager/Supervisor. You can reach out directly to your assigned manager at any point during the project for updates, changes, or quick resolutions to any doubts.",
+    },
+    {
+      q: "Can I choose my preferred paint brand and colour for the project?",
+      a: "Yes! You have full flexibility. We offer shade cards and shade matching from all top paint brands (Asian Paints, Berger, Nerolac, Dulux, etc.). During your initial consultation, our expert will help you pick colors, sheens, and products that best suit your walls and budget.",
+    },
+    {
+      q: "Will the painting process cause disruptions to my daily routine?",
+      a: "We design our workflow to minimize disruption to your home life. We cover and isolate working areas, use dust-free sanding machines to keep the air clean, and stick strictly to agreed working hours so you can comfortably live in your home while the work gets done.",
+    },
   ];
 
   const [openIndex, setOpenIndex] = useState(null);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -789,2300 +830,699 @@ useEffect(() => {
     <>
       {responseLoader && <GlobalLoader />}
       {/* Hero Section */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            width: "1200px",
-            // height: '622px',
-            margin: "0 auto",
-            borderRadius: "30px",
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          <Carousel interval={3000} controls={true} indicators={false}>
-            <Carousel.Item>
-              <div className="carousel-wrapper">
-                <img
-                  className="d-block w-100"
-                  src={serviceBg}
-                  alt="Slide 1"
-                  style={{ height: "400px", objectFit: "cover" }}
-                />
-                <div className="custom-bar-indicators">
-                  <div className="bar active" />
-                  <div className="bar" />
-                </div>
+      {/* ═══ Hero — one responsive block ═══ */}
+      <div className="hm-svc-hero">
+        <Carousel interval={3000} controls={true} indicators={false}>
+          <Carousel.Item>
+            <div className="carousel-wrapper">
+              <img className="d-block w-100 hm-lg-only" src={bannerImg} alt="Slide 1" style={{ height: "320px", objectFit: "cover" }} />
+              <img className="d-block w-100 hm-sm-only" src={bannerImg} alt="Slide 1" style={{ objectFit: "cover" }} />
+              <div className="custom-bar-indicators">
+                <div className="bar active" />
+                <div className="bar" />
               </div>
-            </Carousel.Item>
-
-            <Carousel.Item>
-              <div className="carousel-wrapper">
-                <img
-                  className="d-block w-100"
-                  src={serviceBg}
-                  alt="Slide 2"
-                  style={{ height: "400px", objectFit: "cover" }}
-                />
-                <div className="custom-bar-indicators">
-                  <div className="bar" />
-                  <div className="bar active" />
-                </div>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="carousel-wrapper">
+              <img className="d-block w-100 hm-lg-only" src={bannerImg} alt="Slide 2" style={{ height: "320px", objectFit: "cover" }} />
+              <img className="d-block w-100 hm-sm-only" src={bannerImg} alt="Slide 2" style={{ objectFit: "cover" }} />
+              <div className="custom-bar-indicators">
+                <div className="bar" />
+                <div className="bar active" />
               </div>
-            </Carousel.Item>
-          </Carousel>
+            </div>
+          </Carousel.Item>
+        </Carousel>
 
-          <style>{`
-        .carousel-wrapper {
-          position: relative;
-        }
-
-        .custom-bar-indicators {
-          position: absolute;
-          bottom: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          gap: 8px;
-        }
-
-        .bar {
-          width: 30px;
-          height: 6px;
-          border-radius: 4px;
-          background-color: black;
-          transition: all 0.3s;
-        }
-
-        .bar.active {
-          width: 40px;
-          background-color: red;
-        }
-      `}</style>
-
-          {/* Back Button */}
-          <button
-            onClick={() => navigate(-1)}
-            style={{
-              position: "absolute",
-              top: "20px",
-              left: "20px",
-              backgroundColor: "#fff",
-              color: "#e60000",
-              fontWeight: "bold",
-              border: "none",
-              padding: "10px 18px",
-              borderRadius: "999px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              fontSize: "16px",
-              boxShadow: "0 1px 6px rgba(0,0,0,0.15)",
-              zIndex: 2,
-            }}
-          >
-            <span style={{ marginRight: "8px", fontSize: "20px" }}>{"<"}</span>
-            <span style={{ color: "#000" }}>Back</span>
-          </button>
+        {/* Homjee logo + service name overlay */}
+        <div className="hm-svc-banner-overlay">
+          <span className="hm-svc-banner-title">
+            <img src={bannerLogo} alt="Homjee" />
+            Painting Services
+          </span>
+          <img src={vectoricon} alt="" className="hm-svc-banner-curve" />
         </div>
-      </div>
 
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            width: "353px",
-            // height: '622px',
-            margin: "0 auto",
-            borderRadius: "30px",
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          <Carousel interval={3000} controls={true} indicators={false}>
-            <Carousel.Item>
-              <div className="carousel-wrapper">
-                <img
-                  className="d-block w-100"
-                  src={paintingservice}
-                  alt="Slide 1"
-                  style={{ height: "", objectFit: "cover" }}
-                />
-                <div className="custom-bar-indicators">
-                  <div className="bar active" />
-                  <div className="bar" />
-                </div>
-              </div>
-            </Carousel.Item>
+        {/* Back Button */}
+        <button onClick={() => navigate(-1)} className="hm-svc-back">
+          <span className="hm-svc-back-arrow">{"<"}</span>
+          <span className="hm-svc-back-label">Back</span>
+        </button>
 
-            <Carousel.Item>
-              <div className="carousel-wrapper">
-                <img
-                  className="d-block w-100"
-                  src={paintingservice}
-                  alt="Slide 2"
-                  style={{ height: "", objectFit: "cover" }}
-                />
-                <div className="custom-bar-indicators">
-                  <div className="bar" />
-                  <div className="bar active" />
-                </div>
-              </div>
-            </Carousel.Item>
-          </Carousel>
+        <style>{`
+          @media (max-width: 991.98px) { .hm-lg-only { display: none !important; } }
+          @media (min-width: 992px) { .hm-sm-only { display: none !important; } }
 
-          <style>{`
-        .carousel-wrapper {
-          position: relative;
-        }
+          .carousel-wrapper { position: relative; }
+          .custom-bar-indicators {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 8px;
+          }
+          .bar { width: 30px; height: 6px; border-radius: 4px; background-color: black; transition: all 0.3s; }
+          .bar.active { width: 40px; background-color: red; }
 
-        .custom-bar-indicators {
-          position: absolute;
-          bottom: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          gap: 8px;
-        }
+          /* — mobile (base) — */
+          .hm-svc-hero {
+            width: 100%; max-width: 353px; margin: 0 auto;
+            border-radius: 30px; overflow: hidden; position: relative;
+          }
+          .hm-svc-banner-overlay {
+            position: absolute; inset: 0; z-index: 3; border-radius: 30px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.5)); pointer-events: none;
+          }
+          .hm-svc-banner-title {
+            color: #fff; font-weight: 800; font-size: 26px; text-align: center; max-width: 88%;
+            line-height: 1.2; text-shadow: 0 2px 14px rgba(0,0,0,0.6); font-family: 'Poppins', sans-serif;
+          }
+          .hm-svc-banner-title img {
+            height: 1.55em; margin-right: 0.05em; vertical-align: -0.4em;
+          }
+          .hm-svc-banner-curve { width: 150px; height: auto; margin-top: 10px; }
+          .hm-svc-back {
+            position: absolute; top: 12px; left: 20px; background: #fff; color: #e60000;
+            font-weight: bold; border: none; padding: 10px 18px; border-radius: 999px;
+            cursor: pointer; display: flex; align-items: center; font-size: 16px;
+            box-shadow: 0 1px 6px rgba(0,0,0,.15); z-index: 2;
+          }
+          .hm-svc-back-arrow { margin-right: 8px; font-size: 16px; }
+          .hm-svc-back-label { color: #000; display: none; }
 
-        .bar {
-          width: 30px;
-          height: 6px;
-          border-radius: 4px;
-          background-color: black;
-          transition: all 0.3s;
-        }
-
-        .bar.active {
-          width: 40px;
-          background-color: red;
-        }
-      `}</style>
-
-          {/* Back Button */}
-          <button
-            onClick={() => navigate(-1)}
-            style={{
-              position: "absolute",
-              top: "12px",
-              left: "20px",
-              backgroundColor: "#fff",
-              color: "#e60000",
-              fontWeight: "bold",
-              border: "none",
-              padding: "10px 18px",
-              borderRadius: "999px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              fontSize: "16px",
-              boxShadow: "0 1px 6px rgba(0,0,0,0.15)",
-              zIndex: 2,
-            }}
-          >
-            <span style={{ marginRight: "8px", fontSize: "16px" }}>{"<"}</span>
-            {/* <span style={{ color: '#000' }}></span> */}
-          </button>
-        </div>
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-hero { max-width: 1200px; }
+            .hm-svc-back { top: 20px; }
+            .hm-svc-back-arrow { font-size: 20px; }
+            .hm-svc-back-label { display: inline; margin-right: 0; }
+            .hm-svc-banner-title { font-size: 46px; }
+            .hm-svc-banner-curve { width: 210px; }
+          }
+        `}</style>
       </div>
 
       {/* Booking Section */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            backgroundColor: "#fff5f1",
-            borderRadius: "30px",
-            padding: "40px 20px",
-            width: "1200px",
-            margin: "40px auto",
-            textAlign: "center",
-            position: "relative",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "35px",
-              fontWeight: "600",
-              marginBottom: "20px",
-              position: "relative",
-              display: "inline-block",
-            }}
-          >
-            Book A Site Visit For At Home Consultation
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "320px",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
+      {/* ═══ Booking Section — one responsive block ═══ */}
+      <div className="hm-svc-book">
+        <h2 className="hm-svc-book-title">
+          Book A Site Visit For At <br className="hm-sm-only-br" />
+          Home Consultation
+          <img src={vectoricon} alt="" className="hm-svc-book-underline" />
+        </h2>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              gap: "20px",
-              marginTop: "30px",
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Enter Name"
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "1px solid #ccc",
-                minWidth: "500px",
-                fontSize: "14px",
-                backgroundColor: "#fff5f1",
-                outline: "none",
-                color: "#000",
-              }}
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Enter WhatsApp Phone Number"
-              value={phoneNumber}
-              maxLength={10}
-              onChange={handlePhoneNumberChange}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                backgroundColor: "#fff5f1",
-                border: "1px solid #ccc",
-                minWidth: "500px",
-                fontSize: "14px",
-                outline: "none",
-                color: "#000",
-              }}
-            />
-          </div>
-
+        <div className="hm-svc-book-fields">
+          <input
+            type="text"
+            placeholder="Enter Name"
+            className="hm-svc-book-input"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Enter WhatsApp Phone Number"
+            className="hm-svc-book-input"
+            value={phoneNumber}
+            maxLength={10}
+            onChange={handlePhoneNumberChange}
+          />
           <button
             onClick={responseLoader ? null : handleProceedClick}
-            style={{
-              marginTop: "30px",
-              padding: "12px 40px",
-              border: "1px solid #e60000",
-              color: "#e60000",
-              fontWeight: "700",
-              backgroundColor: "transparent",
-              borderRadius: "999px",
-              fontSize: "16px",
-              cursor: "pointer",
-            }}
+            className="hm-svc-book-proceed"
           >
             PROCEED
           </button>
+        </div>
 
-          {/* OTP Modal */}
-          {showModal && (
-            <>
-              {/* Backdrop */}
-              <div
-                style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "rgba(0, 0, 0, 0.5)",
-                  zIndex: 1000,
-                }}
-                onClick={handleCloseModal}
-              />
-              {/* Modal Content */}
-              <div
-                style={{
-                  position: "fixed",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  backgroundColor: "#fff",
-                  borderRadius: "10px",
-                  padding: "20px",
-                  width: "400px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                  zIndex: 1001,
-                  textAlign: "center",
-                  border: "1px solid #e60000",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <h3
-                    style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}
-                  >
-                    OTP
+        {/* OTP Modal */}
+        {showModal && (
+          <>
+            <div
+              style={{
+                position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000,
+              }}
+              onClick={handleCloseModal}
+            />
+            <div
+              style={{
+                position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+                backgroundColor: "#fff", borderRadius: "10px", padding: "20px",
+                width: "400px", maxWidth: "90vw", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                zIndex: 1001, textAlign: "center", border: "1px solid #e60000",
+              }}
+            >
+              <div style={{ position: "relative", marginBottom: "16px" }}>
+                  <h3 style={{ fontSize: "24px", fontWeight: "bold", margin: 0, textAlign: "center" }}>
+                    Verify OTP
                   </h3>
                   <button
                     onClick={handleCloseModal}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      fontSize: "24px",
-                      cursor: "pointer",
-                    }}
+                    style={{ position: "absolute", top: "-2px", right: "0", background: "none", border: "none", fontSize: "24px", cursor: "pointer", lineHeight: 1, color: "#333" }}
                   >
                     ×
                   </button>
                 </div>
-                <p style={{ fontSize: "16px", marginBottom: "20px" }}>
-                  Enter OTP sent to number {phoneNumber}
+                <p style={{ fontSize: "14px", color: "#666", margin: "0 0 22px", textAlign: "center" }}>
+                  Enter the 4-digit OTP sent to your WhatsApp
                 </p>
-                <p
-                  style={{
-                    fontSize: "12px",
-                    marginBottom: "20px",
-                    color: "red",
-                  }}
-                >
-                  development: {otpValue}
-                </p>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "10px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  {otp.map((digit, index) => (
-                   <input
-  key={index}
-  type="tel"
-  inputMode="numeric"
-  autoComplete={index === 0 ? "one-time-code" : "off"}
-  maxLength={1}
-  value={digit}
-  onChange={(e) => handleOtpChange(e, index)}
-  onKeyDown={(e) => handleKeyDown(e, index)}
-  ref={(el) => (inputRefs.current[index] = el)}
-  autoFocus={index === 0}
-  style={{
-    width: "40px",
-    height: "40px",
-    textAlign: "center",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    color: "black",
-    fontSize: "18px",
-    outline: "none",
-    backgroundColor: "#fff",
-    caretColor: "#000",
-  }}
-/>
-                  ))}
-                </div>
-                <p style={{ marginBottom: "20px" }}>
-                  <a
-                    href="#"
+              <div style={{ display: "flex", justifyContent: "center", gap: "10px", marginBottom: "20px" }}>
+                {otp.map((digit, index) => (
+                  <input
+                    key={index}
+                    type="tel"
+                    inputMode="numeric"
+                    autoComplete={index === 0 ? "one-time-code" : "off"}
+                    maxLength={1}
+                    value={digit}
+                    onChange={(e) => handleOtpChange(e, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    autoFocus={index === 0}
                     style={{
-                      color: "#e60000",
-                      textDecoration: "none",
-                      fontSize: "14px",
+                      width: "40px", height: "40px", textAlign: "center",
+                      border: "1px solid #ccc", borderRadius: "5px", color: "black",
+                      fontSize: "18px", outline: "none", backgroundColor: "#fff", caretColor: "#000",
                     }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      ResendOTP();
-                    }}
-                  >
-                    Resend OTP
-                  </a>
-                </p>
-                <button
-                  onClick={verifyOTP}
-                  style={{
-                    width: "100%",
-                    padding: "10px",
-                    backgroundColor: "#e60000",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                  }}
-                >
-                  Submit
-                </button>
+                  />
+                ))}
               </div>
-            </>
-          )}
-        </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            backgroundColor: "#fff5f1",
-            borderRadius: "30px",
-            padding: "40px 20px",
-            width: "90%",
-            maxWidth: "1450px",
-            margin: "40px auto",
-            textAlign: "center",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "26px",
-              fontWeight: "600",
-              marginBottom: "20px",
-              position: "relative",
-              display: "inline-block",
-            }}
-          >
-            Book A Site Visit For At <br />
-            Home Consultation
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "28px",
-                left: "85px",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
+              <p style={{ marginBottom: "20px" }}>
+                <a
+                  href="#"
+                  style={{ color: "#e60000", textDecoration: "none", fontSize: "14px" }}
+                  onClick={(e) => { e.preventDefault(); ResendOTP(); }}
+                >
+                  Resend OTP
+                </a>
+              </p>
+              <button
+                onClick={verifyOTP}
+                style={{
+                  width: "100%", padding: "10px", backgroundColor: "#e60000", color: "#fff",
+                  border: "none", borderRadius: "5px", fontSize: "16px", fontWeight: "bold", cursor: "pointer",
+                }}
+              >
+                Submit
+              </button>
+            </div>
+          </>
+        )}
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              gap: "20px",
-              marginTop: "30px",
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Enter Name"
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "1px solid #ccc",
-                minWidth: "300px",
-                fontSize: "14px",
-                backgroundColor: "#fff5f1",
-                outline: "none",
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Enter WhatsApp Phone Number"
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                backgroundColor: "#fff5f1",
-                border: "1px solid #ccc",
-                minWidth: "300px",
-                fontSize: "14px",
-                outline: "none",
-              }}
-            />
-          </div>
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-book {
+            background-color: #fff5f1; border-radius: 30px; padding: 40px 20px;
+            width: 90%; max-width: 1450px; margin: 40px auto; text-align: center; position: relative;
+          }
+          .hm-svc-book-title {
+            font-size: 26px; font-weight: 600; margin-bottom: 20px;
+            position: relative; display: inline-block;
+          }
+          .hm-svc-book-underline {
+            position: absolute; bottom: 28px; left: 85px; width: 130px; height: auto;
+            border-radius: 10px; pointer-events: none;
+          }
+          .hm-svc-book-fields {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 30px;
+          }
+          .hm-svc-book-input {
+            padding: 12px 20px; border-radius: 12px; border: 1px solid #ccc;
+            min-width: 300px; max-width: 100%; font-size: 14px;
+            background-color: #fff5f1; outline: none; color: #000;
+          }
+          .hm-svc-book-proceed {
+            margin-top: 30px; padding: 12px 40px; border: 1px solid #e60000; color: #e60000;
+            font-weight: 700; background-color: transparent; border-radius: 999px;
+            font-size: 16px; width: 100%; cursor: pointer;
+          }
 
-          <button
-            style={{
-              marginTop: "30px",
-              padding: "12px 40px",
-              border: "1px solid #e60000",
-              color: "#e60000",
-              fontWeight: "700",
-              backgroundColor: "transparent",
-              borderRadius: "999px",
-              fontSize: "16px",
-              width: "100%",
-              cursor: "pointer",
-            }}
-          >
-            PROCEED
-          </button>
-        </div>
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-book { width: 1200px; max-width: 1200px; padding: 32px 20px; }
+            .hm-svc-book-title { font-size: 32px; margin-bottom: 12px; }
+            .hm-sm-only-br { display: none; }
+            .hm-svc-book-underline { bottom: -14px; left: 320px; }
+            /* Name + Phone + Proceed on one line */
+            .hm-svc-book-fields {
+              flex-wrap: nowrap; align-items: stretch; margin-top: 20px;
+              max-width: 1050px; margin-left: auto; margin-right: auto;
+            }
+            .hm-svc-book-input { min-width: 0; flex: 1; }
+            .hm-svc-book-proceed { width: auto; margin-top: 0; white-space: nowrap; padding: 12px 36px; }
+          }
+        `}</style>
       </div>
 
       {/* Heading */}
-      <div
-        style={{
-          position: "relative",
-          display: "inline-block",
-          marginBottom: "40px",
-          textAlign: "center",
-          marginLeft: "",
-        }}
-        className="d-none d-lg-block"
-      >
-        <h2
-          style={{
-            fontSize: "32px",
-            fontWeight: "600",
-            margin: 0,
-            textAlign: "center",
-          }}
-        >
-          For All Your Home Painting Needs
-        </h2>
-        <img
-          src={vectoricon}
-          alt=""
-          style={{
-            position: "absolute",
-            bottom: "-14px",
-            left: "46%",
-            width: "130px",
-            height: "auto",
-            borderRadius: "10px",
-            pointerEvents: "none",
-          }}
-        />
-      </div>
-      <div
-        style={{
-          position: "relative",
-          display: "inline-block",
-          marginBottom: "40px",
-          textAlign: "center",
-        }}
-        className="d-block d-lg-none"
-      >
-        <h2
-          style={{
-            fontSize: "32px",
-            fontWeight: "600",
-            margin: 0,
-            textAlign: "center",
-          }}
-        >
-          For All Your Home Painting Needs
-        </h2>
-        <img
-          src={vectoricon}
-          alt=""
-          style={{
-            position: "absolute",
-            bottom: "30px",
-            left: "90px",
-            width: "130px",
-            height: "auto",
-            borderRadius: "10px",
-            pointerEvents: "none",
-          }}
-        />
+      {/* ═══ Sub-heading — one responsive block ═══ */}
+      <div className="hm-svc-h2center">
+        <div className="hm-svc-h2wrap">
+          <h2 style={{ fontSize: "32px", fontWeight: 600, margin: 0, textAlign: "center" }}>
+            For All Your Home Painting Needs
+          </h2>
+          <img src={vectoricon} alt="" className="hm-svc-h2underline" />
+        </div>
+        <style>{`
+          .hm-svc-h2center { text-align: center; }
+          .hm-svc-h2wrap {
+            position: relative; display: inline-block; margin-bottom: 40px; text-align: center;
+          }
+          .hm-svc-h2underline {
+            position: absolute; bottom: 30px; left: 90px; width: 130px; height: auto;
+            border-radius: 10px; pointer-events: none;
+          }
+          @media (min-width: 992px) {
+            .hm-svc-h2underline { bottom: -14px; left: 46%; }
+          }
+        `}</style>
       </div>
       {/* painting needs */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            backgroundColor: "#f4e6ff",
-            borderRadius: "30px",
-            padding: "50px 30px",
-            width: "1200px",
-            // maxWidth: '1450px',
-            margin: " auto",
+      {/* ═══ Painting Needs — one responsive block ═══ */}
+      <div className="hm-svc-needs">
+        <div className="hm-svc-needs-grid">
+          {[
+            { title: "Interiors & Exteriors", subtitle: "Color Your Home Inside Out", img: exterior },
+            { title: "Wood Polish", subtitle: "Shine Your Home Like Never Before", img: woodpolish },
+            { title: "Texture", subtitle: "Elevate Your Space With Wall Beautification", img: texture },
+            { title: "Waterproofing", subtitle: "Seal, Shield, & Sustain Your Home", img: waterproofing },
+          ].map((service, index) => (
+            <div key={index} className="hm-svc-needs-card">
+              <img src={service.img} alt={service.title} />
+              <div className="hm-svc-needs-body">
+                <h3>{service.title}</h3>
+                <p>{service.subtitle}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-needs {
+            background-color: #f4e6ff; border-radius: 30px; padding: 40px 20px;
+            width: 90%; max-width: 1450px; margin: auto; text-align: center;
+          }
+          .hm-svc-needs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+          .hm-svc-needs-card { border-radius: 10px; overflow: hidden; text-align: left; }
+          .hm-svc-needs-card img { width: 100%; height: 118px; object-fit: cover; border-radius: 10px; }
+          .hm-svc-needs-body { padding: 8px 2px 0; }
+          .hm-svc-needs-body h3 {
+            margin: 0; font-size: 14px; font-weight: 600; text-align: center;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+          }
+          .hm-svc-needs-body p { display: none; }
 
-            textAlign: "center",
-          }}
-        >
-          {/* Grid of 2x2 cards */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "24px",
-            }}
-          >
-            {[
-              {
-                title: "Interiors & Exteriors",
-                subtitle: "Color Your Home Inside Out",
-                img: exterior,
-              },
-              {
-                title: "Wood Polish",
-                subtitle: "Shine Your Home Like Never Before",
-                img: woodpolish,
-              },
-              {
-                title: "Texture",
-                subtitle: "Elevate Your Space With Wall Beautification",
-                img: texture,
-              },
-              {
-                title: "Waterproofing",
-                subtitle: "Seal, Shield, & Sustain Your Home",
-                img: waterproofing,
-              },
-            ].map((service, index) => (
-              <div
-                key={index}
-                style={{
-                  //   backgroundColor: '#fff',
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  textAlign: "left",
-                  //   boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05)',
-                }}
-              >
-                <img
-                  src={service.img}
-                  alt={service.title}
-                  style={{
-                    width: "100%",
-                    height: "250px",
-                    objectFit: "cover",
-                  }}
-                />
-                <div style={{ padding: "16px" }}>
-                  <h3
-                    style={{
-                      margin: "0 0 6px",
-                      fontSize: "18px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {service.title}
-                  </h3>
-                  <p style={{ margin: 0, fontSize: "14px", color: "#666" }}>
-                    {service.subtitle}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            backgroundColor: "#f4e6ff",
-            borderRadius: "30px",
-            padding: "40px 20px",
-            width: "90%",
-            maxWidth: "1450px",
-            margin: "auto",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "24px",
-            }}
-          >
-            {[
-              {
-                title: "Interiors & exteriors",
-                img: exterior,
-              },
-              {
-                title: "Wood polish",
-                img: woodpolish,
-              },
-              {
-                title: "Texture",
-                img: texture,
-              },
-              {
-                title: "Waterproofing",
-                img: waterproofing,
-              },
-            ].map((service, index) => (
-              <div
-                key={index}
-                style={{
-                  borderRadius: "10px",
-                  overflow: "hidden",
-                  textAlign: "left",
-                }}
-              >
-                <img
-                  src={service.img}
-                  alt={service.title}
-                  style={{
-                    width: "100%",
-                    height: "118px",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                  }}
-                />
-                <div style={{ padding: "8px 2px 0 2px" }}>
-                  <h3
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      textAlign: "center",
-                    }}
-                  >
-                    {service.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-needs { width: 1200px; max-width: 1200px; padding: 50px 30px; }
+            .hm-svc-needs-card { border-radius: 20px; }
+            .hm-svc-needs-card img { height: 250px; border-radius: 0; }
+            .hm-svc-needs-body { padding: 16px; }
+            .hm-svc-needs-body h3 {
+              margin: 0 0 6px; font-size: 18px; text-align: left;
+              white-space: normal; overflow: visible;
+            }
+            .hm-svc-needs-body p { display: block; margin: 0; font-size: 14px; color: #666; }
+          }
+        `}</style>
       </div>
 
       {/* transperancy */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            position: "relative",
-            height: "400px",
-            width: "1200px",
-            // maxWidth: '1450px',
-            margin: "40px auto",
-            borderRadius: "30px",
-            overflow: "hidden",
-            backgroundImage: `url(${bgImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {/* Overlay content */}
-          <div
-            style={{
-              textAlign: "left",
-              color: "#fff",
-              padding: "30px",
-              //   backgroundColor: 'rgba(0, 0, 0, 0.4)',
-              borderRadius: "20px",
-              maxWidth: "500px",
-              marginLeft: "-57%",
-            }}
-          >
-            {/* Paint Icon */}
-            <img
-              src={paintIcon}
-              alt="Paint Icon"
-              style={{ width: "108px", marginBottom: "20px" }}
-            />
-            <br />
-            {/* Heading */}
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <h2
-                style={{
-                  fontSize: "44px",
-                  fontWeight: "bold",
-                  margin: 0,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                100 % Quality with Transparency
-              </h2>
-              <img
-                src={vectoricon}
-                alt=""
-                style={{
-                  position: "absolute",
-                  bottom: "-14px",
-                  left: "135px",
-                  width: "130px",
-                  height: "auto",
-                  borderRadius: "10px",
-                  pointerEvents: "none",
-                }}
-              />
-            </div>
-
-            {/* Subtext */}
-            <p
-              style={{
-                marginTop: "20px",
-                fontSize: "28px",
-                color: "#fff",
-                fontWeight: "600",
-                whiteSpace: "nowrap",
-              }}
-            >
-              A fresh coat for a fresh start
-            </p>
+      {/* ═══ Transparency banner — one responsive block ═══ */}
+      <div className="hm-svc-tr">
+        <div className="hm-svc-tr-content">
+          <img src={paintIcon} alt="Paint Icon" style={{ width: "108px", marginBottom: "20px" }} />
+          <br />
+          <div style={{ position: "relative", display: "inline-block" }}>
+            <h2 className="hm-svc-tr-h2">
+              100% Quality with <br className="hm-sm-only-br" /> Transparency
+            </h2>
+            <img src={vectoricon} alt="" className="hm-svc-tr-underline" />
           </div>
+          <p className="hm-svc-tr-sub">A fresh coat for a fresh start</p>
         </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            position: "relative",
-            height: "400px",
-            width: "90%",
-            maxWidth: "1450px",
-            margin: "40px auto",
-            borderRadius: "30px",
-            overflow: "hidden",
-            backgroundImage: `url(${transperancy})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          {/* Overlay content centered absolutely */}
-          <div
-            style={{
-              position: "absolute",
-              top: "43%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              textAlign: "left",
-              color: "#fff",
-              padding: "30px",
-              borderRadius: "20px",
-              maxWidth: "90%",
-              width: "500px",
-            }}
-          >
-            {/* Paint Icon */}
-            <img
-              src={paintIcon}
-              alt="Paint Icon"
-              style={{ width: "108px", marginBottom: "20px" }}
-            />
-            <br />
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-tr {
+            position: relative; height: 400px; width: 90%; max-width: 1450px;
+            margin: 40px auto; border-radius: 30px; overflow: hidden;
+            background-image: url(${transperancy}); background-size: cover; background-position: center;
+          }
+          .hm-svc-tr-content {
+            position: absolute; top: 43%; left: 50%; transform: translate(-50%, -50%);
+            text-align: left; color: #fff; padding: 30px; border-radius: 20px;
+            max-width: 90%; width: 500px;
+          }
+          .hm-svc-tr-h2 { font-size: 30px; font-weight: bold; margin: 0; white-space: nowrap; }
+          .hm-svc-tr-underline {
+            position: absolute; bottom: -14px; left: 130px; width: 120px; height: auto;
+            border-radius: 10px; pointer-events: none;
+          }
+          .hm-svc-tr-sub {
+            margin-top: 20px; font-size: 20px; color: #fff; font-weight: 600; white-space: nowrap;
+          }
 
-            {/* Heading with underline icon */}
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <h2
-                style={{
-                  fontSize: "30px",
-                  fontWeight: "bold",
-                  margin: 0,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                100% Quality with <br /> Transparency
-              </h2>
-              <img
-                src={vectoricon}
-                alt=""
-                style={{
-                  position: "absolute",
-                  bottom: "-14px",
-                  left: "130px",
-                  width: "120px",
-                  height: "auto",
-                  borderRadius: "10px",
-                  pointerEvents: "none",
-                }}
-              />
-            </div>
-
-            {/* Subtext */}
-            <p
-              style={{
-                marginTop: "20px",
-                fontSize: "20px",
-                color: "#fff",
-                fontWeight: "600",
-                whiteSpace: "nowrap",
-              }}
-            >
-              A fresh coat for a fresh start
-            </p>
-          </div>
-        </div>
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-tr {
+              width: 1200px; max-width: 1200px; background-image: url(${bgImage});
+              display: flex; align-items: center; justify-content: center;
+            }
+            .hm-svc-tr-content {
+              position: static; transform: none; top: auto; left: auto;
+              margin-left: -57%; max-width: 500px; width: auto;
+            }
+            .hm-svc-tr-h2 { font-size: 44px; }
+            .hm-svc-tr-h2 .hm-sm-only-br { display: none; }
+            .hm-svc-tr-underline { left: 135px; width: 130px; }
+            .hm-svc-tr-sub { font-size: 28px; }
+          }
+        `}</style>
       </div>
 
       {/* our promises */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            backgroundColor: "#f9f9f9",
-            borderRadius: "30px",
-            padding: "60px 30px",
-            width: "1200px",
-            // maxWidth: '1300px',
-            margin: "40px auto",
-            textAlign: "center",
-          }}
-        >
-          {/* Heading */}
-          <div
-            style={{
-              position: "relative",
-              display: "inline-block",
-              marginBottom: "40px",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "32px",
-                fontWeight: "bold",
-                margin: 0,
-              }}
-            >
-              Our Promises
-            </h2>
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "50px",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </div>
-
-          {/* Cards Grid */}
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "nowrap",
-
-              justifyContent: "center",
-              gap: "20px",
-              marginTop: "20px",
-            }}
-          >
-            {[
-              {
-                bg: "#e8d7ff",
-                icon: ontime,
-                title: "On-time Completion\nGuarantee",
-              },
-              {
-                bg: "#d9ecff",
-                icon: warrantyIcon,
-                title: "1-Year\nWarranty",
-              },
-              {
-                bg: "#ccf0f7",
-                icon: postservice,
-                title: "Post Service\nCleaning",
-              },
-              {
-                bg: "#e6dbff",
-                icon: quoteIcon,
-                title: "Accurate Quotations,\nNo Hidden Charges",
-              },
-              {
-                bg: "#ccf7ec",
-                icon: freeinsurance,
-                title: "Free Insurance",
-                subtitle: "for damages of up to ₹10,000",
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: item.bg,
-                  borderRadius: "20px",
-                  padding: "30px 20px",
-                  width: "210px",
-                  height: "200px",
-                  flexShrink: 0, // prevents shrinking on small screens
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  textAlign: "center",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
-                }}
-              >
-                <img
-                  src={item.icon}
-                  alt=""
-                  style={{ width: "80px", marginBottom: "20px" }}
-                />
-                <h3
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    whiteSpace: "pre-line",
-                  }}
-                >
-                  {item.title}
-                </h3>
-                {item.subtitle && (
-                  <p
-                    style={{
-                      fontSize: "13px",
-                      marginTop: "1px",
-                      color: "#333",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {item.subtitle}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
+      {/* ═══ Our Promises — one responsive block ═══ */}
+      <div className="hm-svc-prom">
+        <div className="hm-svc-prom-headwrap">
+          <h2 style={{ fontSize: "32px", fontWeight: "bold", margin: 0 }}>Our Promises</h2>
+          <img src={vectoricon} alt="" className="hm-svc-prom-underline" />
         </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            backgroundColor: "#f9f9f9",
-            borderRadius: "30px",
-            padding: "60px 30px",
-            width: "90%",
-            maxWidth: "1300px",
-            margin: "40px auto",
-            textAlign: "center",
-          }}
-        >
-          {/* Heading */}
-          <div
-            style={{
-              position: "relative",
-              display: "inline-block",
-              marginBottom: "40px",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "32px",
-                fontWeight: "bold",
-                margin: 0,
-              }}
-            >
-              Our Promises
-            </h2>
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </div>
 
-          {/* Cards Vertical Stack */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-              alignItems: "center",
-            }}
-          >
-            {[
-              {
-                bg: "#e8d7ff",
-                icon: ontime,
-                title: "On-time Completion\nGuarantee",
-              },
-              {
-                bg: "#d9ecff",
-                icon: warrantyIcon,
-                title: "1-Year\nWarranty",
-              },
-              {
-                bg: "#ccf0f7",
-                icon: postservice,
-                title: "Post Service\nCleaning",
-              },
-              {
-                bg: "#e6dbff",
-                icon: quoteIcon,
-                title: "Accurate Quotations,\nNo Hidden Charges",
-              },
-              {
-                bg: "#ccf7ec",
-                icon: freeinsurance,
-                title: "Free Insurance",
-                subtitle: "for damages of up to ₹10,000",
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: item.bg,
-                  borderRadius: "20px",
-                  padding: "24px 20px",
-                  width: "100%",
-                  maxWidth: "400px",
-                  display: "flex",
-                  alignItems: "center",
-                  textAlign: "left",
-                  gap: "20px",
-                }}
-              >
-                <img
-                  src={item.icon}
-                  alt=""
-                  style={{ width: "60px", height: "60px", flexShrink: 0 }}
-                />
-                <div>
-                  <h3
-                    style={{
-                      fontSize: "15px",
-                      fontWeight: 600,
-                      whiteSpace: "pre-line",
-                      margin: 0,
-                      lineHeight: "1.3",
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-                  {item.subtitle && (
-                    <p
-                      style={{
-                        fontSize: "13px",
-                        marginTop: "4px",
-                        color: "#333",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {item.subtitle}
-                    </p>
-                  )}
-                </div>
+        <div className="hm-svc-prom-grid">
+          {[
+            { bg: "#e8d7ff", icon: ontime, title: "On-time Completion\nGuarantee" },
+            { bg: "#d9ecff", icon: warrantyIcon, title: "1-Year\nWarranty" },
+            { bg: "#ccf0f7", icon: postservice, title: "Post Service\nCleaning" },
+            { bg: "#e6dbff", icon: quoteIcon, title: "Accurate Quotations,\nNo Hidden Charges" },
+            { bg: "#ccf7ec", icon: freeinsurance, title: "Free Insurance", subtitle: "for damages of up to ₹10,000" },
+          ].map((item, index) => (
+            <div key={index} className="hm-svc-prom-card" style={{ backgroundColor: item.bg }}>
+              <img src={item.icon} alt="" className="hm-svc-prom-icon" />
+              <div className="hm-svc-prom-text">
+                <h3>{item.title}</h3>
+                {item.subtitle && <p>{item.subtitle}</p>}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-prom {
+            background-color: #f9f9f9; border-radius: 30px; padding: 60px 30px 40px;
+            width: 90%; max-width: 1300px; margin: 40px auto; text-align: center;
+          }
+          .hm-svc-prom-headwrap { position: relative; display: inline-block; margin-bottom: 40px; }
+          .hm-svc-prom-underline {
+            position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
+            width: 130px; height: auto; border-radius: 10px; pointer-events: none;
+          }
+          .hm-svc-prom-grid { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+          .hm-svc-prom-card {
+            border-radius: 20px; padding: 24px 20px; width: 100%; max-width: 400px;
+            display: flex; align-items: center; text-align: left; gap: 20px;
+          }
+          .hm-svc-prom-icon { width: 60px; height: 60px; flex-shrink: 0; margin-bottom: 0; }
+          .hm-svc-prom-text h3 { font-size: 15px; font-weight: 600; white-space: pre-line; margin: 0; line-height: 1.3; }
+          .hm-svc-prom-text p { font-size: 15px; margin-top: 4px; color: inherit; font-weight: 600; line-height: 1.3; }
+
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-prom { width: 1200px; max-width: 1200px; }
+            .hm-svc-prom-underline { left: 50px; transform: none; }
+            .hm-svc-prom-grid { flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 20px; margin-top: 20px; }
+            .hm-svc-prom-card {
+              width: 210px; min-height: 210px; padding: 28px 18px; max-width: none;
+              flex-direction: column; align-items: center; justify-content: flex-start;
+              text-align: center; gap: 0;
+              flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,.05);
+            }
+            .hm-svc-prom-icon { width: 72px; height: auto; margin-bottom: 16px; }
+            .hm-svc-prom-text h3 { font-size: 14px; line-height: 1.3; }
+            .hm-svc-prom-text p { font-size: 14px; margin-top: 4px; font-weight: 600; line-height: 1.3; }
+          }
+        `}</style>
       </div>
 
       {/* newly launched */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            position: "relative",
-            height: "400px",
-            width: "1200px",
-            // maxWidth: '1300px',
-            margin: "40px auto",
-            borderRadius: "30px",
-            overflow: "hidden",
-            backgroundImage: `url(${wallpaperBanner})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            display: "flex",
-            alignItems: "center",
-            padding: "0 50px",
-          }}
-        >
-          {/* Text Overlay */}
-          <div style={{ color: "#fff", maxWidth: "500px" }}>
-            {/* Badge */}
-            <div
-              style={{
-                backgroundColor: "#fff",
-                color: "#e60000",
-                fontWeight: "bold",
-                fontSize: "14px",
-                padding: "6px 16px",
-                borderRadius: "999px",
-                display: "inline-block",
-                marginBottom: "16px",
-              }}
-            >
-              Newly Launched
-            </div>
-            <br />
-            {/* Heading with underline */}
-            <div style={{ position: "relative", display: "inline-block" }}>
-              {/* <h2
-            style={{
-              fontSize: '50px',
-              fontWeight: 'bold',
-              margin: 0,
-              lineHeight: '1.2',
-            }}
-          >
-            Wallpaper And <br /> Wall Panels
-          </h2> */}
-              <h2
-                style={{
-                  fontSize: "50px",
-                  fontWeight: "500",
-                  margin: 0,
-                  lineHeight: "1.2",
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#fff",
-                }}
-              >
-                <span style={{ position: "relative", display: "inline-block" }}>
-                  Wallpaper
-                  <img
-                    src={vectoricon}
-                    alt="underline"
-                    style={{
-                      position: "absolute",
-                      bottom: "-10px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      width: "130px",
-                      height: "auto",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </span>{" "}
-                And
-                <br />
-                <span style={{ marginTop: "1%" }}>Wall Panels</span>
-              </h2>
-            </div>
-
-            {/* Subtitle */}
-            <p
-              style={{
-                marginTop: "24px",
-                fontSize: "35px",
-                fontFamily: "Fasthand",
-                fontWeight: 400,
-                whiteSpace: "nowrap",
-              }}
-            >
-              Bringing Life To Your Surrounding
-            </p>
+      {/* ═══ Newly Launched — one responsive block ═══ */}
+      <div className="hm-svc-nl">
+        <div className="hm-svc-nl-text">
+          <div className="hm-svc-nl-badge">Newly Launched</div>
+          <br />
+          <div style={{ position: "relative", display: "inline-block" }}>
+            <h2 className="hm-svc-nl-h2">
+              <span style={{ position: "relative", display: "inline-block" }}>
+                Wallpaper
+                <img
+                  src={vectoricon}
+                  alt="underline"
+                  style={{
+                    position: "absolute", bottom: "-10px", left: "50%",
+                    transform: "translateX(-50%)", width: "130px", height: "auto", pointerEvents: "none",
+                  }}
+                />
+              </span>{" "}
+              And
+              <br />
+              <span style={{ marginTop: "1%" }}>Wall Panels</span>
+            </h2>
           </div>
+          <p className="hm-svc-nl-sub">Bringing Life To Your Surrounding</p>
         </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            position: "relative",
-            height: "400px",
-            width: "90%",
-            maxWidth: "1300px",
-            margin: "40px auto",
-            borderRadius: "30px",
-            overflow: "hidden",
-            backgroundImage: `url(${wallpaperBannerimage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            display: "flex",
-            alignItems: "center",
-            padding: "0 50px",
-          }}
-        >
-          {/* Text Overlay */}
-          <div style={{ color: "#fff", maxWidth: "500px", marginLeft: "-12%" }}>
-            {/* Badge */}
-            <div
-              style={{
-                backgroundColor: "#fff",
-                color: "#e60000",
-                fontWeight: "600",
-                fontSize: "14px",
-                padding: "6px 16px",
-                borderRadius: "999px",
-                display: "inline-block",
-                marginBottom: "16px",
-              }}
-            >
-              Newly Launched
-            </div>
-            <br />
-            {/* Heading with underline */}
-            <div style={{ position: "relative", display: "inline-block" }}>
-              {/* <h2
-            style={{
-              fontSize: '50px',
-              fontWeight: 'bold',
-              margin: 0,
-              lineHeight: '1.2',
-            }}
-          >
-            Wallpaper And <br /> Wall Panels
-          </h2> */}
-              <h2
-                style={{
-                  fontSize: "30px",
-                  fontWeight: "500",
-                  margin: 0,
-                  lineHeight: "1.4",
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#fff",
-                }}
-              >
-                <span style={{ position: "relative", display: "inline-block" }}>
-                  Wallpaper
-                  <img
-                    src={vectoricon}
-                    alt="underline"
-                    style={{
-                      position: "absolute",
-                      bottom: "-10px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      width: "130px",
-                      height: "auto",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </span>{" "}
-                And
-                <br />
-                <span style={{ marginTop: "1%" }}>Wall Panels</span>
-              </h2>
-            </div>
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-nl {
+            position: relative; height: 400px; width: 90%; max-width: 1300px; margin: 40px auto;
+            border-radius: 30px; overflow: hidden; background-image: url(${wallpaperBannerimage});
+            background-size: cover; background-position: center; display: flex; align-items: center; padding: 0 50px;
+          }
+          .hm-svc-nl-text { color: #fff; max-width: 500px; margin-left: -12%; }
+          .hm-svc-nl-badge {
+            background-color: #fff; color: #e60000; font-weight: 600; font-size: 14px;
+            padding: 6px 16px; border-radius: 999px; display: inline-block; margin-bottom: 16px;
+          }
+          .hm-svc-nl-h2 { font-size: 30px; font-weight: 500; margin: 0; line-height: 1.4; font-family: 'Poppins', sans-serif; color: #fff; }
+          .hm-svc-nl-sub { margin-top: 24px; font-size: 20px; font-family: Fasthand; font-weight: 400; white-space: nowrap; }
 
-            {/* Subtitle */}
-            <p
-              style={{
-                marginTop: "24px",
-                fontSize: "20px",
-                fontFamily: "Fasthand",
-                fontWeight: 400,
-                whiteSpace: "nowrap",
-              }}
-            >
-              Bringing Life To Your Surrounding
-            </p>
-          </div>
-        </div>
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-nl { width: 1200px; max-width: 1200px; background-image: url(${wallpaperBanner}); }
+            .hm-svc-nl-text { margin-left: 0; }
+            .hm-svc-nl-badge { font-weight: bold; }
+            .hm-svc-nl-h2 { font-size: 50px; line-height: 1.2; }
+            .hm-svc-nl-sub { font-size: 35px; }
+          }
+        `}</style>
       </div>
 
       {/* why choose homjee */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            borderRadius: "30px",
-            padding: "60px 20px",
-            width: "1200px",
-            // maxWidth: '1200px',
-            margin: "40px auto",
-          }}
-        >
-          {/* Heading */}
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
-            <h2
-              style={{
-                fontSize: "32px",
-                fontWeight: "600",
-                marginBottom: "10px",
-                position: "relative",
-              }}
-            >
-              Why Choose Homjee?
-              <img
-                src={vectoricon}
-                alt=""
-                style={{
-                  position: "absolute",
-                  bottom: "-14px",
-                  left: "480px",
-                  width: "130px",
-                  height: "auto",
-                  borderRadius: "10px",
-                  pointerEvents: "none",
-                }}
-              />
-            </h2>
-          </div>
-
-          {/* Table Grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.8fr 1fr 1fr",
-              gap: "0px",
-              alignItems: "center",
-            }}
-          >
-            {/* Column Headers */}
-            <div></div>
-            <div
-              style={{
-                textAlign: "center",
-                padding: "8px 0",
-                fontWeight: "bold",
-                fontSize: "16px",
-              }}
-            >
-              <img
-                src={homjeeLogo}
-                alt="Homjee"
-                style={{ height: "32px", marginLeft: "-34%" }}
-              />
-            </div>
-            <div
-              style={{
-                textAlign: "center",
-                padding: "8px 0",
-                fontWeight: "bold",
-                fontSize: "16px",
-                marginLeft: "-30%",
-              }}
-            >
-              Local Market
-            </div>
-
-            {/* Rows */}
-            {features.map((text, index) => (
-              <React.Fragment key={index}>
-                <div
-                  key={`feature-${index}`}
-                  style={{
-                    fontSize: "16px",
-                    padding: "14px 0",
-                    fontWeight: "500",
-                  }}
-                >
-                  {text}
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "14px 0",
-                    width: "70%",
-                    backgroundColor: "#e8f5e9",
-                  }}
-                >
-                  <img src={checkIcon} alt="yes" style={{ width: "30px" }} />
-                </div>
-
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "14px 0",
-                    backgroundColor: "#ffebee",
-                    width: "70%",
-                  }}
-                >
-                  <img src={crossIcon} alt="no" style={{ width: "30px" }} />
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
+      {/* ═══ Why Choose Homjee — one responsive block ═══ */}
+      <div className="hm-svc-wc">
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <h2 className="hm-svc-wc-title">
+            Why Choose Homjee?
+            <img src={vectoricon} alt="" className="hm-svc-wc-underline" />
+          </h2>
         </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            borderRadius: "30px",
-            padding: "60px 20px",
-            width: "90%",
-            maxWidth: "1200px",
-            margin: "40px auto",
-          }}
-        >
-          {/* Heading */}
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
-            <h2
-              style={{
-                fontSize: "32px",
-                fontWeight: "600",
-                marginBottom: "10px",
-                position: "relative",
-              }}
-            >
-              Why Choose Homjee?
-              <img
-                src={vectoricon}
-                alt=""
-                style={{
-                  position: "absolute",
-                  bottom: "-14px",
-                  left: "24%",
-                  width: "130px",
-                  height: "auto",
-                  borderRadius: "10px",
-                  pointerEvents: "none",
-                }}
-              />
-            </h2>
+
+        <div className="hm-svc-wc-grid">
+          <div></div>
+          <div className="hm-svc-wc-col hm-svc-wc-logo">
+            <img src={homjeeLogo} alt="Homjee" style={{ height: "32px", marginLeft: "-34%" }} />
           </div>
+          <div className="hm-svc-wc-col hm-svc-wc-local">Local Market</div>
 
-          {/* Table Grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.8fr 1fr 1fr",
-              gap: "0px",
-              alignItems: "center",
-            }}
-          >
-            {/* Column Headers */}
-            <div></div>
-            <div
-              style={{
-                textAlign: "center",
-                padding: "8px 0",
-                fontWeight: "bold",
-                fontSize: "16px",
-              }}
-            >
-              <img
-                src={homjeeLogo}
-                alt="Homjee"
-                style={{ height: "32px", marginLeft: "-34%" }}
-              />
-            </div>
-            <div
-              style={{
-                textAlign: "center",
-                padding: "8px 0",
-                fontWeight: "bold",
-                fontSize: "16px",
-                marginLeft: "-30%",
-              }}
-            >
-              Local Market
-            </div>
-
-            {/* Rows */}
-            {features.map((text, index) => (
-              <React.Fragment key={index}>
-                <div
-                  key={`feature-${index}`}
-                  style={{
-                    fontSize: "14px",
-                    padding: "14px 0",
-                    fontWeight: "500",
-                  }}
-                >
-                  {text}
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "14px 0",
-                    width: "70%",
-                    // backgroundColor: '#e8f5e9',
-                  }}
-                >
-                  <img src={checkIcon} alt="yes" style={{ width: "30px" }} />
-                </div>
-
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "14px 0",
-                    // backgroundColor: '#ffebee',
-                    width: "70%",
-                  }}
-                >
-                  <img src={crossIcon} alt="no" style={{ width: "30px" }} />
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
+          {features.map((text, index) => (
+            <React.Fragment key={index}>
+              <div key={`feature-${index}`} className="hm-svc-wc-feature">{text}</div>
+              <div className="hm-svc-wc-cell hm-svc-wc-yes">
+                <img src={checkIcon} alt="yes" style={{ width: "30px" }} />
+              </div>
+              <div className="hm-svc-wc-cell hm-svc-wc-no">
+                <img src={crossIcon} alt="no" style={{ width: "30px" }} />
+              </div>
+            </React.Fragment>
+          ))}
         </div>
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-wc {
+            background-color: #fff; border-radius: 30px; padding: 60px 20px;
+            width: 90%; max-width: 1200px; margin: 40px auto;
+          }
+          .hm-svc-wc-title { font-size: 32px; font-weight: 600; margin-bottom: 10px; position: relative; }
+          .hm-svc-wc-underline {
+            position: absolute; bottom: -14px; left: 24%; width: 130px; height: auto;
+            border-radius: 10px; pointer-events: none;
+          }
+          .hm-svc-wc-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 0; align-items: center; }
+          .hm-svc-wc-col { text-align: center; padding: 8px 0; font-weight: bold; font-size: 16px; }
+          .hm-svc-wc-local { margin-left: -30%; }
+          .hm-svc-wc-feature { font-size: 14px; padding: 14px 0; font-weight: 500; }
+          .hm-svc-wc-cell { text-align: center; padding: 14px 0; width: 70%; }
+
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-wc { width: 1200px; max-width: 1200px; }
+            .hm-svc-wc-underline { left: 480px; }
+            .hm-svc-wc-feature { font-size: 16px; }
+            .hm-svc-wc-yes { background-color: #e8f5e9; }
+            .hm-svc-wc-no { background-color: #ffebee; }
+          }
+        `}</style>
       </div>
 
       {/* premium brands */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            backgroundImage: `url(${bgBrands})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            borderRadius: "30px",
-            padding: "60px 30px",
-            width: "1200px",
-            height: "400px",
-            margin: "40px auto",
-            textAlign: "center",
-            color: "#fff",
-          }}
-        >
-          {/* Heading */}
-          <div
-            style={{
-              position: "relative",
-              display: "inline-block",
-              marginBottom: "40px",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "32px",
-                fontWeight: "bold",
-                marginTop: "15%",
-              }}
-            >
-              Premium brands, <span style={{ color: "" }}>for you</span>
-              <img
-                src={vectoricon}
-                alt=""
-                style={{
-                  position: "absolute",
-                  bottom: "-10px",
-                  left: "150px",
-                  width: "130px",
-                  height: "auto",
-                  borderRadius: "10px",
-                  pointerEvents: "none",
-                }}
-              />
-            </h2>
-          </div>
-
-          {/* Logos */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "20px",
-              flexWrap: "wrap",
-              padding: "20px 0",
-            }}
-          >
-            {[logoBerger, logoDulux, logoAsian, logoOpus].map((img, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "16px",
-                  padding: "12px 20px",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                  width: "160px",
-                  height: "100px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img
-                  src={img}
-                  alt={`brand-${index}`}
-                  style={{
-                    width: "160px",
-                    height: "100px",
-                    objectFit: "contain",
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+      {/* ═══ Premium Brands — one responsive block ═══ */}
+      <div className="hm-svc-pb">
+        <div className="hm-svc-pb-headwrap">
+          <h2 className="hm-svc-pb-h2">
+            Premium Brands,
+            <br className="hm-sm-only-br" /> For You
+            <img src={vectoricon} alt="" className="hm-svc-pb-underline" />
+          </h2>
         </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            backgroundImage: `url(${bgBrandsimage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            borderRadius: "30px",
-            padding: "60px 30px",
-            height: "400px",
-            margin: "40px auto",
-            width: "361px",
-            textAlign: "center",
-            color: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {/* Heading */}
-          <div
-            style={{
-              position: "relative",
-              marginBottom: "30px",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "28px",
-                fontWeight: "bold",
-                margin: 0,
-                lineHeight: 1.3,
-              }}
-            >
-              Premium Brands,
-              <br />
-              For You
-            </h2>
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-12px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "120px",
-                height: "auto",
-                pointerEvents: "none",
-              }}
-            />
-          </div>
 
-          {/* Logos */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "20px",
-              flexWrap: "wrap",
-              padding: "10px 0",
-              maxWidth: "360px",
-            }}
-          >
-            {[logoBerger, logoDulux, logoAsian, logoOpus].map((img, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "16px",
-                  padding: "12px 20px",
-                  width: "140px",
-                  height: "80px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img
-                  src={img}
-                  alt={`brand-${index}`}
-                  style={{
-                    maxWidth: "140px",
-                    maxHeight: "80px",
-                    objectFit: "contain",
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="hm-svc-pb-logos">
+          {[logoBerger, logoDulux, logoAsian, logoOpus].map((img, index) => (
+            <div key={index} className="hm-svc-pb-logo">
+              <img src={img} alt={`brand-${index}`} />
+            </div>
+          ))}
         </div>
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-pb {
+            background-image: url(${bgBrandsimage}); background-size: cover; background-position: center;
+            border-radius: 30px; padding: 40px 24px; min-height: 400px; margin: 40px auto; width: 361px;
+            max-width: 92%; text-align: center; color: #fff;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+          }
+          .hm-svc-pb-headwrap { position: relative; margin-bottom: 30px; }
+          .hm-svc-pb-h2 { font-size: 28px; font-weight: bold; margin: 0; line-height: 1.3; position: relative; display: inline-block; }
+          .hm-svc-pb-underline {
+            position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+            width: 120px; height: auto; border-radius: 10px; pointer-events: none;
+          }
+          .hm-svc-pb-logos {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+            padding: 10px 0; max-width: 300px; width: 100%;
+          }
+          .hm-svc-pb-logo {
+            background-color: #fff; border-radius: 16px; padding: 10px 14px; width: 100%; height: 72px;
+            display: flex; align-items: center; justify-content: center;
+          }
+          .hm-svc-pb-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-pb {
+              background-image: url(${bgBrands}); width: 1200px; max-width: 1200px;
+              display: block; text-align: center;
+            }
+            .hm-svc-pb-headwrap { display: inline-block; margin-bottom: 40px; }
+            .hm-svc-pb-h2 { font-size: 32px; line-height: normal; margin-top: 15%; }
+            .hm-svc-pb-h2 .hm-sm-only-br { display: none; }
+            .hm-svc-pb-underline { bottom: -10px; left: 150px; transform: none; width: 130px; }
+            .hm-svc-pb-logos {
+              display: flex; flex-wrap: nowrap; justify-content: center;
+              gap: 20px; max-width: none; width: auto; padding: 20px 0;
+            }
+            .hm-svc-pb-logo { width: 160px; height: 100px; box-shadow: 0 4px 10px rgba(0,0,0,.1); }
+            .hm-svc-pb-logo img { width: 160px; height: 100px; max-width: none; max-height: none; }
+          }
+        `}</style>
       </div>
 
       {/* our process */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            background: "#fff",
-            padding: "60px 20px",
-            textAlign: "center",
-          }}
-        >
-          {/* Main Heading */}
-          <h2
-            style={{
-              fontSize: "40px",
-              fontWeight: "600",
-              fontFamily: "Poppins, sans-serif",
-              color: "#111",
-              marginBottom: "10px",
-              position: "relative",
-              display: "inline-block",
-            }}
-          >
-            Our Process
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "50px",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
-
-          <div
-            style={{
-              background: "#fff",
-              padding: "60px 20px",
-              textAlign: "center",
-            }}
-          >
-            {/* Carousel */}
-            <Carousel
-              indicators={true}
-              controls={true}
-              interval={4000}
-              className="how-carousel"
-              nextIcon={
-                <span className="carousel-control-next-icon custom-icon" />
-              }
-              prevIcon={
-                <span className="carousel-control-prev-icon custom-icon" />
-              }
-            >
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
+      {(() => {
+        const PROC_STEPS = [
+          "At Home Consultation",
+          "Measurements & Quotations",
+          "Confirm With Booking Amount",
+          "Paint Begins With Packing & Masking",
+          "Quality Work With Genuine Products",
+          "Final Inspection & Handoff",
+        ];
+        const groups = [];
+        for (let i = 0; i < PROC_STEPS.length; i += 3) groups.push(PROC_STEPS.slice(i, i + 3));
+        const stepImg = (gi) => (gi % 3 === 0 ? step1 : gi % 3 === 1 ? step2 : step3);
+        return (
+          <>
+            <div className="d-none d-lg-block">
+              <div style={{ background: "#fff", padding: "60px 20px", textAlign: "center" }}>
+                <h2
+                  style={{
+                    fontSize: "40px", fontWeight: "600", fontFamily: "Poppins, sans-serif",
+                    color: "#111", marginBottom: "10px", position: "relative", display: "inline-block",
+                  }}
                 >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
+                  Our Process
                   <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
+                    src={vectoricon}
+                    alt=""
+                    style={{
+                      position: "absolute", bottom: "-14px", left: "50px", width: "130px",
+                      height: "auto", borderRadius: "10px", pointerEvents: "none",
+                    }}
                   />
+                </h2>
 
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
+                <div style={{ background: "#fff", padding: "60px 20px", textAlign: "center" }}>
+                  <Carousel
+                    indicators={true}
+                    controls={true}
+                    interval={4000}
+                    className="how-carousel"
+                    nextIcon={<span className="carousel-control-next-icon custom-icon" />}
+                    prevIcon={<span className="carousel-control-prev-icon custom-icon" />}
                   >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
+                    {groups.map((group, ci) => (
+                      <Carousel.Item key={ci}>
+                        <div className="d-flex justify-content-between align-items-center flex-wrap" style={{ padding: "0 5%" }}>
+                          {group.map((step, i) => {
+                            const gi = ci * 3 + i;
+                            return (
+                              <React.Fragment key={i}>
+                                <div
+                                  style={{
+                                    width: "25%",
+                                    backgroundColor: i % 2 === 0 ? "red" : "#000",
+                                    borderRadius: "25px",
+                                    padding: "20px",
+                                    color: "#fff",
+                                    transform: i === 0 ? "rotate(-2deg)" : i === 2 ? "rotate(2deg)" : "none",
+                                  }}
+                                >
+                                  <img src={stepImg(gi)} alt={`Step ${gi + 1}`} style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }} />
+                                  <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
+                                    0{gi + 1} <br />
+                                    <strong>{step}</strong>
+                                  </h5>
+                                </div>
+                                {i < group.length - 1 && (
+                                  <img src={arrowicon} alt="arrow" style={{ width: "70px", margin: "0 15px" }} />
+                                )}
+                              </React.Fragment>
+                            );
+                          })}
+                        </div>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
 
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-between align-items-center flex-wrap"
-                  style={{ padding: "0 5%" }}
-                >
-                  {/* Step 1 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(-2deg)",
-                    }}
-                  >
-                    <img
-                      src={step1}
-                      alt="Step 1"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      01 <br />
-                      <strong>At Home Consult</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 1 and 2 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 2 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "#000",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <img
-                      src={step2}
-                      alt="Step 2"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      02 <br />
-                      <strong>Measurements & Quotes</strong>
-                    </h5>
-                  </div>
-
-                  {/* Arrow Between 2 and 3 */}
-                  <img
-                    src={arrowicon} // replace with your arrow icon path
-                    alt="arrow"
-                    style={{ width: "70px", margin: "0 15px" }}
-                  />
-
-                  {/* Step 3 */}
-                  <div
-                    style={{
-                      width: "25%",
-                      backgroundColor: "red",
-                      borderRadius: "25px",
-                      padding: "20px",
-                      color: "#fff",
-                      transform: "rotate(2deg)",
-                    }}
-                  >
-                    <img
-                      src={step3}
-                      alt="Step 3"
-                      style={{ width: "100%", borderRadius: "15px" }}
-                    />
-                    <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
-                      03 <br />
-                      <strong>Booking Confirmation</strong>
-                    </h5>
-                  </div>
-                </div>
-              </Carousel.Item>
-            </Carousel>
-
-            {/* Custom styles for arrows and line indicators */}
-            <style>{`
+                  <style>{`
     .how-carousel .carousel-control-prev,
     .how-carousel .carousel-control-next {
-      width: 40px;
-      height: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #fff;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      opacity: 1;
+      width: 40px; height: 40px; top: 50%; transform: translateY(-50%);
+      background-color: #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); opacity: 1;
     }
-    .how-carousel .carousel-control-prev {
-      left: -10px;
-    }
-    .how-carousel .carousel-control-next {
-      right: -10px;
-    }
+    .how-carousel .carousel-control-prev { left: -10px; }
+    .how-carousel .carousel-control-next { right: -10px; }
   .custom-icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  background-color: #e60000; /* red color arrow */
+  display: inline-block; width: 20px; height: 20px;
+  mask-size: contain; mask-repeat: no-repeat; mask-position: center; background-color: #e60000;
 }
 .carousel-control-prev-icon.custom-icon {
   mask-image: url("data:image/svg+xml;utf8,<svg fill='red' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16'><path d='M11 1L3 8l8 7' stroke='red' stroke-width='2' fill='none'/></svg>");
@@ -3090,1137 +1530,369 @@ useEffect(() => {
 .carousel-control-next-icon.custom-icon {
   mask-image: url("data:image/svg+xml;utf8,<svg fill='red' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16'><path d='M5 1l8 7-8 7' stroke='red' stroke-width='2' fill='none'/></svg>");
 }
-
-
-    .carousel-indicators {
-      bottom: -63px;
+    .how-carousel .carousel-indicators { bottom: -63px; }
+    .how-carousel .carousel-indicators [data-bs-target] {
+      width: 30px; height: 4px; border-radius: 5px; background-color: #ccc; margin: 0 5px;
     }
-    .carousel-indicators [data-bs-target] {
-      width: 30px;
-      height: 4px;
-      border-radius: 5px;
-      background-color: #ccc;
-      margin: 0 5px;
-    }
-    .carousel-indicators .active {
-      background-color: red;
-      width: 40px;
-    }
+    .how-carousel .carousel-indicators .active { background-color: red; width: 40px; }
   `}</style>
-          </div>
-        </div>
-      </div>
-      <div
-        className="d-block d-lg-none"
-        style={{
-          background: "#fff",
-          padding: "30px 15px",
-          textAlign: "center",
-        }}
-      >
-        {/* Section Title */}
-        <h3
-          style={{
-            fontWeight: 700,
-            fontSize: "20px",
-            marginBottom: "20px",
-          }}
-        >
-          Our Process
-        </h3>
-
-        <div
-          style={{
-            overflowX: "auto",
-            display: "flex",
-            gap: "16px",
-            paddingLeft: "15px",
-            scrollSnapType: "x mandatory",
-          }}
-        >
-          {[
-            { img: step1, bg: "red", label: "01", title: "At Home Consult" },
-            {
-              img: step2,
-              bg: "#000",
-              label: "02",
-              title: "Measurements & Quotes",
-            },
-            {
-              img: step3,
-              bg: "red",
-              label: "03",
-              title: "Booking Confirmation",
-            },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              style={{
-                minWidth: "85%",
-                flexShrink: 0,
-                scrollSnapAlign: "start",
-                backgroundColor: item.bg,
-                borderRadius: "25px",
-                padding: "20px",
-                color: "#fff",
-              }}
-            >
-              <img
-                src={item.img}
-                alt={`Step ${item.label}`}
-                style={{ width: "100%", borderRadius: "15px" }}
-              />
-              <h5 style={{ marginTop: "20px", fontSize: "16px" }}>
-                {item.label} <br />
-                <strong>{item.title}</strong>
-              </h5>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
 
-        {/* Indicators (optional, static) */}
-        <div className="d-flex gap-2 mt-3" style={{ justifyContent: "center" }}>
-          <div
-            style={{
-              width: "30px",
-              height: "4px",
-              backgroundColor: "red",
-              borderRadius: "4px",
-            }}
-          ></div>
-          <div
-            style={{
-              width: "20px",
-              height: "4px",
-              backgroundColor: "#ccc",
-              borderRadius: "4px",
-            }}
-          ></div>
-          <div
-            style={{
-              width: "20px",
-              height: "4px",
-              backgroundColor: "#ccc",
-              borderRadius: "4px",
-            }}
-          ></div>
-        </div>
-      </div>
+            <div className="d-block d-lg-none" style={{ background: "#fff", padding: "30px 15px", textAlign: "center" }}>
+              <h3 style={{ fontWeight: 700, fontSize: "20px", marginBottom: "20px" }}>Our Process</h3>
+              <div style={{ overflowX: "auto", display: "flex", gap: "16px", paddingLeft: "15px", scrollSnapType: "x mandatory" }}>
+                {PROC_STEPS.map((step, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      minWidth: "85%", flexShrink: 0, scrollSnapAlign: "start",
+                      backgroundColor: idx % 2 === 0 ? "red" : "#000",
+                      borderRadius: "25px", padding: "20px", color: "#fff",
+                    }}
+                  >
+                    <img src={stepImg(idx)} alt={`Step ${idx + 1}`} style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }} />
+                    <h5 style={{ marginTop: "18px", fontSize: "16px", minHeight: "4.4em" }}>
+                      0{idx + 1} <br />
+                      <strong>{step}</strong>
+                    </h5>
+                  </div>
+                ))}
+              </div>
+              <div className="d-flex gap-2 mt-3" style={{ justifyContent: "center" }}>
+                <div style={{ width: "30px", height: "4px", backgroundColor: "red", borderRadius: "4px" }} />
+                <div style={{ width: "20px", height: "4px", backgroundColor: "#ccc", borderRadius: "4px" }} />
+                <div style={{ width: "20px", height: "4px", backgroundColor: "#ccc", borderRadius: "4px" }} />
+              </div>
+            </div>
+          </>
+        );
+      })()}
 
       {/* trained profestional */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            backgroundImage: `url(${bgProfessional})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            borderRadius: "30px",
-            padding: "60px",
-            width: "1200px",
-            // maxWidth: '1200px',
-            margin: "40px auto",
-            marginTop: "-1%",
-            color: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <div style={{ maxWidth: "500px" }}>
-            <h2
-              style={{
-                fontSize: "40px",
-                fontWeight: "bold",
-                marginBottom: "10px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Top trained professionals, <br />
-              top quality work
-            </h2>
-            <p
-              style={{
-                fontSize: "18px",
-                margin: "10px 0 0",
-                fontWeight: "bold",
-              }}
-            >
-              We only choose the finest painters
-            </p>
-            <p
-              style={{
-                color: "#ff4d4f",
-                fontSize: "14px",
-                fontWeight: "bold",
-                marginTop: "6px",
-              }}
-            >
-              0.1% selection rate
-            </p>
-
-            <ul style={{ marginTop: "24px", listStyle: "none", padding: 0 }}>
-              <li
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
+      {/* ═══ Trained Professionals — one responsive block ═══ */}
+      <div className="hm-svc-tp">
+        <div className="hm-svc-tp-inner">
+          <h2 className="hm-svc-tp-h2">
+            Top Trained <br className="hm-sm-only-br" /> Professionals, <br /> Top Quality Work
+          </h2>
+          <p className="hm-svc-tp-lead">We only choose the finest painters</p>
+          <p className="hm-svc-tp-rate">0.1% selection rate</p>
+          <ul style={{ marginTop: "24px", listStyle: "none", padding: 0 }}>
+            {[
+              "300+ hrs. Intensive training",
+              "5-step background check",
+              "On time completion",
+            ].map((text, index) => (
+              <li key={index} className="hm-svc-tp-li" style={{ marginBottom: index !== 2 ? "10px" : "0" }}>
                 <span style={dotStyle}></span>
-                300+ hrs. Intensive training
+                {text}
               </li>
-              <li
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
-                <span style={dotStyle}></span>
-                5-step background check
-              </li>
-              <li style={{ display: "flex", alignItems: "center" }}>
-                <span style={dotStyle}></span>
-                On time completion
-              </li>
-            </ul>
-          </div>
+            ))}
+          </ul>
         </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            backgroundImage: `url(${bgProfessionalimage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            borderRadius: "30px",
-            padding: "60px 20px",
-            margin: "40px auto",
-            marginTop: "-1%",
-            color: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            width: "353px",
-            height: "636px",
-          }}
-        >
-          <div style={{ maxWidth: "100%", marginTop: "-87%" }}>
-            <h2
-              style={{
-                fontSize: "26px",
-                fontWeight: "bold",
-                marginBottom: "10px",
-                lineHeight: "1.3",
-                whiteSpace: "normal",
-              }}
-            >
-              Top Trained <br /> Professionals, <br /> Top Quality Work
-            </h2>
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-tp {
+            background-image: url(${bgProfessionalimage}); background-size: cover; background-position: center;
+            border-radius: 30px; padding: 60px 20px; margin: -1% auto 40px; color: #fff;
+            display: flex; flex-direction: column; justify-content: center;
+            width: 353px; max-width: 92%; height: 636px;
+          }
+          .hm-svc-tp-inner { max-width: 100%; margin-top: -87%; }
+          .hm-svc-tp-h2 { font-size: 26px; font-weight: bold; margin-bottom: 10px; line-height: 1.3; white-space: normal; }
+          .hm-svc-tp-lead { font-size: 16px; margin: 10px 0 0; font-weight: bold; }
+          .hm-svc-tp-rate { color: #ff4d4f; font-size: 14px; font-weight: bold; margin-top: 6px; }
+          .hm-svc-tp-li { display: flex; align-items: center; font-size: 14px; }
 
-            <p
-              style={{
-                fontSize: "16px",
-                margin: "10px 0 0",
-                fontWeight: "bold",
-              }}
-            >
-              We only choose the finest painters
-            </p>
-            <p
-              style={{
-                color: "#ff4d4f",
-                fontSize: "14px",
-                fontWeight: "bold",
-                marginTop: "6px",
-              }}
-            >
-              0.1% selection rate
-            </p>
-
-            <ul style={{ marginTop: "24px", listStyle: "none", padding: 0 }}>
-              {[
-                "300+ hrs. Intensive training",
-                "5-step background check",
-                "On time completion",
-              ].map((text, index) => (
-                <li
-                  key={index}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: index !== 2 ? "10px" : "0",
-                    fontSize: "14px",
-                  }}
-                >
-                  <span style={dotStyle}></span>
-                  {text}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-tp {
+              background-image: url(${bgProfessional}); width: 1200px; max-width: 1200px;
+              height: auto; padding: 60px;
+            }
+            .hm-svc-tp-inner { max-width: 500px; margin-top: 0; }
+            .hm-svc-tp-h2 { font-size: 40px; white-space: nowrap; }
+            .hm-svc-tp-h2 .hm-sm-only-br { display: none; }
+            .hm-svc-tp-lead { font-size: 18px; }
+            .hm-svc-tp-li { font-size: inherit; }
+          }
+        `}</style>
       </div>
 
       {/* testimonals */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            background: "#fff",
-            padding: "60px 20px",
-            textAlign: "center",
-          }}
-        >
-          {/* Title Section */}
-          <h2
-            style={{
-              fontSize: "40px",
-              fontWeight: "bold",
-              fontFamily: "Poppins, sans-serif",
-              marginBottom: "10px",
-              position: "relative",
-              display: "inline-block",
-            }}
-          >
-            Testimonials
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "35px",
-                width: "180px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
-
-          <p
-            style={{
-              fontWeight: 600,
-              fontSize: "20px",
-              marginTop: "20px",
-              marginBottom: "40px",
-            }}
-          >
-            What People Say About Us
-          </p>
-          <div style={{ margin: "0 20px" }}>
-            {/* Carousel */}
-            <Carousel
-              indicators={true}
-              controls={false}
-              interval={6000}
-              className="testimonial-carousel"
-            >
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    padding: "0 5%",
-                    gap: "30px",
-                    flexWrap: "nowrap", // prevents wrapping
-                    overflowX: "hidden", // allows horizontal scroll on smaller screens
-                  }}
-                >
-                  {[...Array(3)].map((_, idx) => (
-                    <div key={idx}>
-                      <video
-                        src={testimonialVideo}
-                        width="644"
-                        height="412"
-                        controls
-                        muted
-                        preload="auto"
-                        style={{
-                          objectFit: "cover",
-                          borderRadius: "20px",
-                          display: "block",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    padding: "0 5%",
-                    gap: "30px",
-                    flexWrap: "nowrap",
-                    overflowX: "hidden",
-                  }}
-                >
-                  {[...Array(3)].map((_, idx) => (
-                    <div key={idx}>
-                      <video
-                        src={testimonialVideo}
-                        width="644"
-                        height="412"
-                        controls
-                        muted
-                        preload="auto"
-                        style={{
-                          objectFit: "cover",
-                          borderRadius: "20px",
-                          display: "block",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-            </Carousel>
-          </div>
-
-          {/* Custom Styling */}
-          <style>{`
-       .testimonial-carousel .carousel-indicators {
-         bottom: -60px;
-       }
-       .testimonial-carousel .carousel-indicators [data-bs-target] {
-         width: 30px;
-         height: 4px;
-         border-radius: 5px;
-         background-color: #ccc;
-         margin: 0 5px;
-       }
-       .testimonial-carousel .carousel-indicators .active {
-         background-color: red;
-         width: 40px;
-       }
-     `}</style>
-        </div>
-      </div>
-      <div
-        className="d-block d-lg-none"
-        style={{
-          background: "#fff",
-          padding: "40px 20px",
-          textAlign: "center",
-        }}
-      >
-        {/* Title Section */}
-        <h2
-          style={{
-            fontSize: "30px",
-            fontWeight: "bold",
-            fontFamily: "Poppins, sans-serif",
-            marginBottom: "10px",
-            position: "relative",
-            display: "inline-block",
-          }}
-        >
+      {/* ═══ Testimonials — one responsive block ═══ */}
+      <div className="hm-svc-tm">
+        <h2 className="hm-svc-tm-title">
           Testimonials
-          <img
-            src={vectoricon}
-            alt=""
-            style={{
-              position: "absolute",
-              bottom: "-12px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "130px",
-              height: "auto",
-              pointerEvents: "none",
-            }}
-          />
+          <img src={vectoricon} alt="" className="hm-svc-tm-underline" />
         </h2>
+        <p className="hm-svc-tm-sub">What People Say About Us</p>
 
-        <p
-          style={{
-            fontWeight: 600,
-            fontSize: "16px",
-            marginTop: "2px",
-            // marginBottom: '30px'
-          }}
-        >
-          What People Say About Us
-        </p>
-        <Swiper
-          slidesPerView={1.2}
-          spaceBetween={10}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-          style={{ paddingLeft: "20px", marginBottom: "20px" }}
-        >
-          {videos.map((vid, index) => (
-            <SwiperSlide key={index}>
-              <video
-                src={vid}
-                height="220"
-                controls
-                muted
+        {/* Desktop: 3-up video carousel */}
+        <div className="hm-lg-only" style={{ margin: "0 20px" }}>
+          <Carousel indicators={true} controls={false} interval={6000} className="testimonial-carousel">
+            {[0, 1].map((slide) => (
+              <Carousel.Item key={slide}>
+                <div
+                  className="d-flex justify-content-center align-items-center"
+                  style={{ padding: "0 5%", gap: "30px", flexWrap: "nowrap", overflowX: "hidden" }}
+                >
+                  {[...Array(3)].map((_, idx) => (
+                    <div key={idx}>
+                      <video
+                        src={testimonialVideo}
+                        width="644"
+                        height="412"
+                        controls
+                        muted
+                        preload="auto"
+                        style={{ objectFit: "cover", borderRadius: "20px", display: "block" }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
+
+        {/* Mobile: swiper */}
+        <div className="hm-sm-only">
+          <Swiper
+            slidesPerView={1.2}
+            spaceBetween={10}
+            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+            style={{ paddingLeft: "20px", marginBottom: "20px" }}
+          >
+            {videos.map((vid, index) => (
+              <SwiperSlide key={index}>
+                <video src={vid} height="220" controls muted style={{ borderRadius: "15px", objectFit: "cover", width: "100%" }} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+            {videos.map((_, index) => (
+              <div
+                key={index}
                 style={{
-                  borderRadius: "15px",
-                  objectFit: "cover",
-                  width: "100%",
+                  width: activeIndex === index ? "30px" : "20px", height: "4px",
+                  backgroundColor: activeIndex === index ? "red" : "#ccc",
+                  borderRadius: "5px", transition: "width 0.3s",
                 }}
               />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        {/* Custom Indicator Bar */}
-        <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-          {videos.map((_, index) => (
-            <div
-              key={index}
-              style={{
-                width: activeIndex === index ? "30px" : "20px",
-                height: "4px",
-                backgroundColor: activeIndex === index ? "red" : "#ccc",
-                borderRadius: "5px",
-                transition: "width 0.3s",
-              }}
-            />
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Indicator Styling */}
         <style>{`
-    .testimonial-carousel-mobile .carousel-inner {
-      overflow: visible;
-    }
-    .testimonial-carousel-mobile .carousel-item {
-      transition: transform 0.5s ease-in-out;
-    }
-    .testimonial-carousel-mobile .carousel-indicators {
-      bottom: -35px;
-    }
-    .testimonial-carousel-mobile .carousel-indicators [data-bs-target] {
-      width: 20px;
-      height: 4px;
-      border-radius: 5px;
-      background-color: #ccc;
-      margin: 0 5px;
-    }
-    .testimonial-carousel-mobile .carousel-indicators .active {
-      background-color: red;
-      width: 30px;
-    }
-  `}</style>
+          /* — mobile (base) — */
+          .hm-svc-tm { background: #fff; padding: 40px 20px; text-align: center; }
+          .hm-svc-tm-title {
+            font-size: 30px; font-weight: bold; font-family: 'Poppins', sans-serif;
+            margin-bottom: 10px; position: relative; display: inline-block;
+          }
+          .hm-svc-tm-underline {
+            position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+            width: 130px; height: auto; border-radius: 10px; pointer-events: none;
+          }
+          .hm-svc-tm-sub { font-weight: 600; font-size: 16px; margin-top: 2px; }
+
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-tm { padding: 60px 20px; }
+            .hm-svc-tm-title { font-size: 40px; }
+            .hm-svc-tm-underline { bottom: -14px; left: 35px; transform: none; width: 180px; }
+            .hm-svc-tm-sub { font-size: 20px; margin-top: 20px; margin-bottom: 40px; }
+          }
+
+          /* — carousel chrome — */
+          .testimonial-carousel .carousel-indicators { bottom: -60px; }
+          .testimonial-carousel .carousel-indicators [data-bs-target] {
+            width: 30px; height: 4px; border-radius: 5px; background-color: #ccc; margin: 0 5px;
+          }
+          .testimonial-carousel .carousel-indicators .active { background-color: red; width: 40px; }
+        `}</style>
       </div>
 
       {/* ourrecent projects */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            background: "#fff",
-            padding: "60px 40px",
-            textAlign: "center",
-          }}
-        >
-          {/* Heading */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "30px",
-              flexWrap: "wrap",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "36px",
-                fontWeight: "bold",
-                color: "#111",
-                position: "relative",
-                fontFamily: "Poppins, sans-serif",
-                display: "inline-block",
-              }}
-            >
-              Our Recent Projects
-              <img
-                src={vectoricon}
-                alt=""
-                style={{
-                  position: "absolute",
-                  bottom: "-14px",
-                  left: "80px",
-                  width: "130px",
-                  height: "auto",
-                  borderRadius: "10px",
-                  pointerEvents: "none",
-                }}
-              />
-            </h2>
-
-            <Button
-              variant="outline-danger"
-              style={{
-                fontWeight: 600,
-                borderRadius: "30px",
-                padding: "8px 24px",
-                fontSize: "14px",
-              }}
-            >
-              EXPLORE ALL
-            </Button>
-          </div>
-          <div style={{ margin: "0 10px" }}>
-            {/* Carousel */}
-            <Carousel
-              indicators={true}
-              controls={true}
-              interval={3000}
-              className="recent-carousel"
-              nextIcon={
-                <span className="carousel-control-next-icon custom-icon" />
-              }
-              prevIcon={
-                <span className="carousel-control-prev-icon custom-icon" />
-              }
-            >
-              <Carousel.Item>
-                <div className="d-flex justify-content-center gap-4 flex-wrap">
-                  <img
-                    src={img1}
-                    alt="Project 1"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img2}
-                    alt="Project 2"
-                    className="rounded"
-                    style={{
-                      width: "350px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img3}
-                    alt="Project 3"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div className="d-flex justify-content-center gap-4 flex-wrap">
-                  <img
-                    src={img2}
-                    alt="Project 2"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img3}
-                    alt="Project 3"
-                    className="rounded"
-                    style={{
-                      width: "350px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img1}
-                    alt="Project 1"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div className="d-flex justify-content-center gap-4 flex-wrap">
-                  <img
-                    src={img2}
-                    alt="Project 2"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img3}
-                    alt="Project 3"
-                    className="rounded"
-                    style={{
-                      width: "350px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img1}
-                    alt="Project 1"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div className="d-flex justify-content-center gap-4 flex-wrap">
-                  <img
-                    src={img1}
-                    alt="Project 1"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img2}
-                    alt="Project 2"
-                    className="rounded"
-                    style={{
-                      width: "350px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img3}
-                    alt="Project 3"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-              </Carousel.Item>
-              <Carousel.Item>
-                <div className="d-flex justify-content-center gap-4 flex-wrap">
-                  <img
-                    src={img1}
-                    alt="Project 1"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img2}
-                    alt="Project 2"
-                    className="rounded"
-                    style={{
-                      width: "350px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={img3}
-                    alt="Project 3"
-                    className="rounded"
-                    style={{
-                      width: "380px",
-                      height: "504px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-              </Carousel.Item>
-            </Carousel>
-          </div>
-          <style>{`
-    .carousel-indicators {
-      bottom: -40px;
-    }
-  
-    .carousel-indicators [data-bs-target] {
-      width: 24px;
-      height: 4px;
-      border-radius: 5px;
-      margin: 0 5px;
-      background-color: #ccc;
-      transition: all 0.3s ease;
-      opacity: 1;
-    }
-  
-    .carousel-indicators .active {
-      background-color: red;
-      width: 30px;
-    }
-  
-    .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    background-image: none !important;
-  }
-  
-    /* Updated Control Styles */
-    .recent-carousel .carousel-control-prev,
-    .recent-carousel .carousel-control-next {
-      width: 40px;
-      height: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #fff;
-      border-radius: 50%;
-      opacity: 1;
-      z-index: 5;
-      box-shadow: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  
-    /* Center Prev to 1st Image Left */
-    .recent-carousel .carousel-control-prev {
-      left: calc(50% - 600px); /* Assuming each image is 350px + 2 * 20px gap */
-    }
-  
-    /* Center Next to 3rd Image Right */
-    .recent-carousel .carousel-control-next {
-      right: calc(50% - 600px);
-    }
-  
-  .custom-icon {
-    background-color: #ff4d4d; /* <-- Light red */
-    width: 20px;
-    height: 20px;
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-  }
-  
-  
-    .carousel-control-prev-icon.custom-icon {
-      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.5 2L4.5 8L10.5 14' stroke='%23e60000' stroke-width='2' fill='none'/></svg>");
-      -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M10.5 2L4.5 8L10.5 14' stroke='%23e60000' stroke-width='2' fill='none'/></svg>");
-    }
-  
-    .carousel-control-next-icon.custom-icon {
-      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 2L11.5 8L5.5 14' stroke='%23e60000' stroke-width='2' fill='none'/></svg>");
-      -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 2L11.5 8L5.5 14' stroke='%23e60000' stroke-width='2' fill='none'/></svg>");
-    }
-  `}</style>
-        </div>
-      </div>
-      <div
-        className="d-block d-lg-none"
-        style={{ background: "#fff", padding: "30px 15px" }}
-      >
-        {/* Heading */}
-        <div style={{ marginBottom: "30px", position: "relative" }}>
-          <h2
-            style={{
-              fontSize: "24px",
-              fontWeight: "bold",
-              color: "#111",
-              fontFamily: "Poppins, sans-serif",
-              marginBottom: "25px",
-              textAlign: "left",
-            }}
-          >
+      {/* ═══ Our Recent Projects — one responsive block ═══ */}
+      <div className="hm-svc-recent">
+        <div className="hm-svc-recent-head">
+          <h2 className="hm-svc-recent-title">
             Our Recent Projects
+            <img src={vectoricon} alt="" className="hm-svc-recent-underline" />
           </h2>
-          <img
-            src={vectoricon}
-            alt="underline"
-            style={{
-              position: "absolute",
-              bottom: "-11px",
-              left: "140px",
-              width: "100px",
-              height: "auto",
-              pointerEvents: "none",
-            }}
-          />
-        </div>
-
-        {/* Custom Scrollable Carousel */}
-        <div
-          className="custom-scroll-carousel"
-          style={{
-            overflowX: "auto",
-            display: "flex",
-            gap: "16px",
-            paddingBottom: "8px",
-            scrollSnapType: "x mandatory",
-            paddingLeft: "15px",
-          }}
-        >
-          {[img2, img2, img3].map((img, index) => (
-            <div
-              key={index}
-              style={{
-                minWidth: "80%",
-                flexShrink: 0,
-                scrollSnapAlign: "start",
-              }}
-            >
-              <img
-                src={img}
-                alt={`Project ${index + 1}`}
-                style={{
-                  width: "100%",
-                  height: "300px", // Reduced height
-                  borderRadius: "20px",
-                  objectFit: "cover",
-                }}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Indicators + Button Row */}
-        <div className="d-flex justify-content-between align-items-center mt-3">
-          <div className="d-flex gap-2" style={{ marginLeft: "8%" }}>
-            <div
-              style={{
-                width: "14px",
-                height: "4px",
-                backgroundColor: "#ff0000",
-                borderRadius: "4px",
-              }}
-            ></div>
-            <div
-              style={{
-                width: "14px",
-                height: "4px",
-                backgroundColor: "#ccc",
-                borderRadius: "4px",
-              }}
-            ></div>
-            <div
-              style={{
-                width: "14px",
-                height: "4px",
-                backgroundColor: "#ccc",
-                borderRadius: "4px",
-              }}
-            ></div>
-          </div>
-          <Button
-            variant="outline-danger"
-            style={{
-              fontWeight: 600,
-              borderRadius: "30px",
-              padding: "6px 16px",
-              fontSize: "12px",
-            }}
-          >
+          <Button variant="outline-danger" className="hm-svc-recent-explore hm-lg-only" href="/projects">
             EXPLORE ALL
           </Button>
         </div>
+
+        {/* Desktop: 3-up carousel */}
+        <div className="hm-lg-only" style={{ margin: "0 10px" }}>
+          <Carousel
+            indicators={true}
+            controls={true}
+            interval={3000}
+            className="recent-carousel"
+            nextIcon={<span className="carousel-control-next-icon custom-icon" />}
+            prevIcon={<span className="carousel-control-prev-icon custom-icon" />}
+          >
+            {[
+              [img1, img2, img3],
+              [img2, img3, img1],
+              [img2, img3, img1],
+              [img1, img2, img3],
+              [img1, img2, img3],
+            ].map((group, gi) => (
+              <Carousel.Item key={gi}>
+                <div className="d-flex justify-content-center gap-4 flex-wrap">
+                  {group.map((img, i) => (
+                    <img
+                      key={i}
+                      src={img}
+                      alt={`Project ${i + 1}`}
+                      className="rounded"
+                      style={{ width: i === 1 ? "350px" : "380px", height: "504px", objectFit: "cover" }}
+                    />
+                  ))}
+                </div>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
+
+        {/* Mobile: swipe strip + static indicators + EXPLORE ALL */}
+        <div className="hm-sm-only">
+          <div className="custom-scroll-carousel hm-svc-recent-strip">
+            {[img1, img2, img3].map((img, index) => (
+              <div key={index} className="hm-svc-recent-card">
+                <img src={img} alt={`Project ${index + 1}`} />
+              </div>
+            ))}
+          </div>
+          <div className="d-flex justify-content-between align-items-center mt-3">
+            <div className="d-flex gap-2" style={{ marginLeft: "8%" }}>
+              <span className="hm-svc-recent-dash active" />
+              <span className="hm-svc-recent-dash" />
+              <span className="hm-svc-recent-dash" />
+            </div>
+            <Button variant="outline-danger" className="hm-svc-recent-explore-sm" href="/projects">EXPLORE ALL</Button>
+          </div>
+        </div>
+
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-recent { background: #fff; padding: 30px 15px; }
+          .hm-svc-recent-head { margin-bottom: 30px; position: relative; }
+          .hm-svc-recent-title {
+            font-size: 24px; font-weight: bold; color: #111; font-family: 'Poppins', sans-serif;
+            margin-bottom: 25px; text-align: left; position: relative; display: inline-block;
+          }
+          .hm-svc-recent-underline {
+            position: absolute; bottom: -11px; left: 140px; width: 100px; height: auto;
+            border-radius: 10px; pointer-events: none;
+          }
+          .hm-svc-recent-strip {
+            overflow-x: auto; display: flex; gap: 16px; padding-bottom: 8px;
+            scroll-snap-type: x mandatory; padding-left: 15px;
+          }
+          .hm-svc-recent-card { min-width: 80%; flex-shrink: 0; scroll-snap-align: start; }
+          .hm-svc-recent-card img { width: 100%; height: 300px; border-radius: 20px; object-fit: cover; }
+          .hm-svc-recent-dash { width: 14px; height: 4px; background: #ccc; border-radius: 4px; display: inline-block; }
+          .hm-svc-recent-dash.active { background: #ff0000; }
+          .hm-svc-recent-explore-sm {
+            font-weight: 600 !important; border-radius: 30px !important; padding: 6px 16px !important; font-size: 12px !important;
+          }
+
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-recent { padding: 60px 40px; text-align: center; }
+            .hm-svc-recent-head {
+              display: flex; justify-content: space-between; align-items: center;
+              margin-bottom: 30px; flex-wrap: wrap;
+            }
+            .hm-svc-recent-title { font-size: 36px; margin-bottom: 0; }
+            .hm-svc-recent-underline { bottom: -14px; left: 80px; width: 130px; }
+            .hm-svc-recent-explore {
+              font-weight: 600 !important; border-radius: 30px !important; padding: 8px 24px !important; font-size: 14px !important;
+            }
+          }
+
+          /* — carousel chrome — */
+          .recent-carousel .carousel-indicators { bottom: -40px; }
+          .recent-carousel .carousel-indicators [data-bs-target] {
+            width: 24px; height: 4px; border-radius: 5px; margin: 0 5px; background-color: #ccc; opacity: 1;
+          }
+          .recent-carousel .carousel-indicators .active { background-color: red; width: 30px; }
+          .recent-carousel .carousel-control-prev,
+          .recent-carousel .carousel-control-next {
+            width: 40px; height: 40px; top: 50%; transform: translateY(-50%);
+            background-color: #fff; border-radius: 50%; opacity: 1; z-index: 5;
+            display: flex; justify-content: center; align-items: center;
+          }
+          .recent-carousel .carousel-control-prev { left: calc(50% - 600px); }
+          .recent-carousel .carousel-control-next { right: calc(50% - 600px); }
+        `}</style>
       </div>
 
       {/* faq */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            padding: "60px 20px",
-            width: "900px",
-            margin: "0 auto",
-            textAlign: "center",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "32px",
-              fontWeight: "600",
-              textAlign: "center",
-              marginBottom: "40px",
-              position: "relative",
-
-              display: "inline-block",
-            }}
-          >
-            Frequently Asked Questions
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "300px",
-                width: "130px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
-
-          {/* FAQ Items */}
-          <div style={{ marginTop: "40px" }}>
-            {faqData.map((question, index) => (
-              <div
-                key={index}
-                onClick={() => toggle(index)}
-                style={{
-                  background: "#fff",
-                  borderRadius: "12px",
-                  marginBottom: "16px",
-                  padding: "16px 24px",
-                  boxShadow: "0 1px 10px rgba(0,0,0,0.05)",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span style={{ fontWeight: 500, fontSize: "16px" }}>
-                    {question}
-                  </span>
-                  <span style={{ fontSize: "16px", fontWeight: "bold" }}>
-                    {openIndex === index ? "−" : "+"}
-                  </span>
-                </div>
-                {openIndex === index && (
-                  <p style={{ marginTop: "12px", color: "#555" }}>
-                    {/* You can customize this text per FAQ */}
-                    Yes, all our painters are trained through a certified
-                    onboarding and background verification process.
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
+      {/* ═══ FAQ — one responsive block ═══ */}
+      <div className="hm-svc-faq">
+        <div className="hm-svc-faq-headwrap">
+          <h2 className="hm-svc-faq-h2">Frequently Asked Questions</h2>
+          <img src={vectoricon} alt="" className="hm-svc-faq-underline" />
         </div>
-      </div>
-      <div className="d-block d-lg-none">
-        <div
-          style={{
-            padding: "60px 20px",
-            maxWidth: "900px",
-            margin: "0 auto",
-            textAlign: "center",
-          }}
-        >
-          {/* Heading */}
-          <div
-            style={{
-              position: "relative",
-              display: "inline-block",
-              marginBottom: "40px",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "32px",
-                fontWeight: "600",
-                margin: 0,
-              }}
-            >
-              Frequently Asked Questions
-            </h2>
-            <img
-              src={vectoricon}
-              alt="underline"
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "130px",
-                height: "auto",
-                pointerEvents: "none",
-              }}
-            />
-          </div>
 
-          {/* FAQ List */}
-          <div style={{ marginTop: "40px" }}>
-            {faqData.map((question, index) => (
-              <div
-                key={index}
-                onClick={() => toggle(index)}
-                style={{
-                  background: "#fff",
-                  borderRadius: "12px",
-                  marginBottom: "16px",
-                  padding: "16px 24px",
-                  boxShadow: "0 1px 10px rgba(0,0,0,0.05)",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontWeight: 500,
-                      fontSize: "16px",
-                      textAlign: "left",
-                    }}
-                  >
-                    {question}
-                  </span>
-                  <span style={{ fontSize: "16px", fontWeight: "bold" }}>
-                    {openIndex === index ? "−" : "+"}
-                  </span>
-                </div>
-                {openIndex === index && (
-                  <p
-                    style={{
-                      marginTop: "12px",
-                      color: "#555",
-                      fontSize: "14px",
-                      textAlign: "left",
-                    }}
-                  >
-                    {/* You can replace this with real answers per question if needed */}
-                    Yes, all our painters are trained through a certified
-                    onboarding and background verification process.
-                  </p>
-                )}
+        <div style={{ marginTop: "40px" }}>
+          {faqData.map((item, index) => (
+            <div key={index} onClick={() => toggle(index)} className="hm-svc-faq-item">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span className="hm-svc-faq-q">{item.q}</span>
+                <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                  {openIndex === index ? "−" : "+"}
+                </span>
               </div>
-            ))}
-          </div>
+              {openIndex === index && <p className="hm-svc-faq-a">{item.a}</p>}
+            </div>
+          ))}
         </div>
+        <style>{`
+          /* — mobile (base) — */
+          .hm-svc-faq { padding: 60px 20px; max-width: 900px; margin: 0 auto; text-align: center; }
+          .hm-svc-faq-headwrap { position: relative; display: inline-block; margin-bottom: 40px; }
+          .hm-svc-faq-h2 { font-size: 32px; font-weight: 600; margin: 0; display: inline-block; }
+          .hm-svc-faq-underline {
+            position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
+            width: 130px; height: auto; border-radius: 10px; pointer-events: none;
+          }
+          .hm-svc-faq-item {
+            background: #fff; border-radius: 12px; margin-bottom: 16px; padding: 16px 24px;
+            box-shadow: 0 1px 10px rgba(0,0,0,.05); cursor: pointer; transition: all .3s ease;
+          }
+          .hm-svc-faq-q { font-weight: 500; font-size: 16px; text-align: left; }
+          .hm-svc-faq-a { margin-top: 12px; color: #555; font-size: 14px; text-align: left; }
+
+          /* — desktop — */
+          @media (min-width: 992px) {
+            .hm-svc-faq { width: 900px; max-width: 900px; }
+            .hm-svc-faq-underline { left: 300px; transform: none; }
+            .hm-svc-faq-a { font-size: inherit; }
+          }
+        `}</style>
       </div>
 
-      {/* reviewa */}
-      <div className="d-none d-lg-block">
+      {/* ═══ Customer Reviews — one responsive block ═══ */}
+      <div className="hm-svc-reviews">
         <div
           style={{
             background: "#f4e6ff",
             padding: "60px 20px",
             borderRadius: "30px",
-            width: "1200px",
+            width: "90%",
+            maxWidth: "1200px",
             textAlign: "center",
-            // maxWidth: '1200px',
             margin: "40px auto",
           }}
         >
@@ -4267,7 +1939,7 @@ useEffect(() => {
           >
             <div style={{ flex: "1 1 260px", padding: "10px" }}>
               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-                4.94{" "}
+                4.95{" "}
                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
                   /5
                 </span>
@@ -4337,13 +2009,7 @@ useEffect(() => {
                   flexWrap: "wrap",
                 }}
               >
-                {[
-                  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=160&h=120&q=80",
-                  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=160&h=120&q=80",
-                  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=160&h=120&q=80",
-                  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=160&h=120&q=80",
-                  // 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=160&h=120&q=80'
-                ].map((img, index) => (
+                {[img1, img2, img3, exterior].map((img, index) => (
                   <img
                     key={index}
                     src={img}
@@ -4371,58 +2037,54 @@ useEffect(() => {
             All Reviews
           </h3>
 
-          {reviewers.map((person, index) => (
-            <div
-              key={index}
-              style={{
-                backgroundColor: "#fff",
-                padding: "20px",
-                borderRadius: "15px",
-                marginBottom: "16px",
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "16px",
-              }}
-            >
-              <img
-                src={person.img}
-                alt={person.name}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
-              <div style={{ flex: 1, textAlign: "left" }}>
-                <h4 style={{ margin: "0 0 4px", fontSize: "16px" }}>
-                  {person.name}
-                </h4>
-
-                <p style={{ marginTop: "10px", fontSize: "14px" }}>
-                  {person.review}
-                </p>
+          {(showAllReviews ? reviewers : reviewers.slice(0, 3)).map((person, index) => (
+            <div key={index} className="hm-svc-review">
+              <img src={person.img} alt={person.name} className="hm-svc-review-dp" />
+              <div className="hm-svc-review-body">
+                <div className="hm-svc-review-head">
+                  <h4>{person.name}</h4>
+                  <div className="hm-svc-review-stars">⭐️⭐️⭐️⭐️⭐️</div>
+                </div>
+                <p>{person.review}</p>
               </div>
-              <div style={{ borderColor: "#fff" }}>⭐️⭐️⭐️⭐️⭐️</div>
             </div>
           ))}
+          <style>{`
+            .hm-svc-review {
+              background: #fff; padding: 20px; border-radius: 15px; margin-bottom: 16px;
+              display: flex; align-items: flex-start; gap: 16px;
+            }
+            .hm-svc-review-dp {
+              width: 50px; height: 50px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+            }
+            .hm-svc-review-body { flex: 1; min-width: 0; text-align: left; }
+            .hm-svc-review-head {
+              display: flex; justify-content: space-between; align-items: center; gap: 8px;
+            }
+            .hm-svc-review-head h4 { margin: 0; font-size: 16px; }
+            .hm-svc-review-stars { white-space: nowrap; flex-shrink: 0; font-size: 14px; }
+            .hm-svc-review-body p { margin: 10px 0 0; font-size: 14px; }
+          `}</style>
 
-          {/* Load More Button */}
-          <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <button
-              style={{
-                backgroundColor: "#fff",
-                color: "#e60000",
-                border: "1px solid #e60000",
-                padding: "10px 24px",
-                borderRadius: "999px",
-                fontWeight: "600",
-                cursor: "pointer",
-              }}
-            >
-              LOAD MORE
-            </button>
-          </div>
+          {/* Load More Button — first 3 reviews, then the rest on click */}
+          {reviewers.length > 3 && (
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+              <button
+                onClick={() => setShowAllReviews((v) => !v)}
+                style={{
+                  backgroundColor: "#fff",
+                  color: "#e60000",
+                  border: "1px solid #e60000",
+                  padding: "10px 24px",
+                  borderRadius: "999px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                }}
+              >
+                {showAllReviews ? "SHOW LESS" : "LOAD MORE"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -4541,7 +2203,7 @@ export default Services;
 // const Services = () => {
 //   const navigate = useNavigate();
 //   // const activeIndex = 0;
-//   const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+//   const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 //   const [activeIndex, setActiveIndex] = useState(0);
 //   const [responseLoader, setResponseLoader] = useState(false);
 //   const [showModal, setShowModal] = useState(false);
@@ -4570,7 +2232,7 @@ export default Services;
 //   const [showSlotModal, setShowSlotModal] = useState(false);
 //   const { setSelectedSlot } = useSelectedSlotContext();
 
-//   const GOOGLE_MAPS_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+//   const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
 //   const [latitude, setLatitude] = useState(null);
 //   const [longitude, setLongitude] = useState(null);
@@ -5358,7 +3020,7 @@ export default Services;
 //               <div className="carousel-wrapper">
 //                 <img
 //                   className="d-block w-100"
-//                   src={serviceBg}
+//                   src={bannerImg}
 //                   alt="Slide 1"
 //                   style={{ height: "400px", objectFit: "cover" }}
 //                 />
@@ -5373,7 +3035,7 @@ export default Services;
 //               <div className="carousel-wrapper">
 //                 <img
 //                   className="d-block w-100"
-//                   src={serviceBg}
+//                   src={bannerImg}
 //                   alt="Slide 2"
 //                   style={{ height: "400px", objectFit: "cover" }}
 //                 />
@@ -5456,7 +3118,7 @@ export default Services;
 //               <div className="carousel-wrapper">
 //                 <img
 //                   className="d-block w-100"
-//                   src={paintingservice}
+//                   src={bannerImg}
 //                   alt="Slide 1"
 //                   style={{ height: "", objectFit: "cover" }}
 //                 />
@@ -5471,7 +3133,7 @@ export default Services;
 //               <div className="carousel-wrapper">
 //                 <img
 //                   className="d-block w-100"
-//                   src={paintingservice}
+//                   src={bannerImg}
 //                   alt="Slide 2"
 //                   style={{ height: "", objectFit: "cover" }}
 //                 />
@@ -7197,9 +4859,9 @@ export default Services;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7225,9 +4887,9 @@ export default Services;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7254,9 +4916,9 @@ export default Services;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7282,9 +4944,9 @@ export default Services;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7310,9 +4972,9 @@ export default Services;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7339,9 +5001,9 @@ export default Services;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7367,9 +5029,9 @@ export default Services;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7395,9 +5057,9 @@ export default Services;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7424,9 +5086,9 @@ export default Services;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7452,9 +5114,9 @@ export default Services;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7480,9 +5142,9 @@ export default Services;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7509,9 +5171,9 @@ export default Services;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7537,9 +5199,9 @@ export default Services;
 //                     <img
 //                       src={step1}
 //                       alt="Step 1"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       01 <br />
 //                       <strong>At Home Consult</strong>
 //                     </h5>
@@ -7565,9 +5227,9 @@ export default Services;
 //                     <img
 //                       src={step2}
 //                       alt="Step 2"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       02 <br />
 //                       <strong>Measurements & Quotes</strong>
 //                     </h5>
@@ -7594,9 +5256,9 @@ export default Services;
 //                     <img
 //                       src={step3}
 //                       alt="Step 3"
-//                       style={{ width: "100%", borderRadius: "15px" }}
+//                       style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //                     />
-//                     <h5 style={{ marginTop: "20px", fontSize: "18px" }}>
+//                     <h5 style={{ marginTop: "18px", fontSize: "18px", minHeight: "4.4em" }}>
 //                       03 <br />
 //                       <strong>Booking Confirmation</strong>
 //                     </h5>
@@ -7687,18 +5349,18 @@ export default Services;
 //           }}
 //         >
 //           {[
-//             { img: step1, bg: "red", label: "01", title: "At Home Consult" },
+//             { img: step1, bg: "red", label: "01", title: "At Home Consultation" },
 //             {
 //               img: step2,
 //               bg: "#000",
 //               label: "02",
-//               title: "Measurements & Quotes",
+//               title: "Measurements & Quotations",
 //             },
 //             {
 //               img: step3,
 //               bg: "red",
 //               label: "03",
-//               title: "Booking Confirmation",
+//               title: "Confirm With Booking Amount",
 //             },
 //           ].map((item, idx) => (
 //             <div
@@ -7716,9 +5378,9 @@ export default Services;
 //               <img
 //                 src={item.img}
 //                 alt={`Step ${item.label}`}
-//                 style={{ width: "100%", borderRadius: "15px" }}
+//                 style={{ width: "100%", height: "230px", objectFit: "cover", borderRadius: "15px" }}
 //               />
-//               <h5 style={{ marginTop: "20px", fontSize: "16px" }}>
+//               <h5 style={{ marginTop: "18px", fontSize: "16px", minHeight: "4.4em" }}>
 //                 {item.label} <br />
 //                 <strong>{item.title}</strong>
 //               </h5>
@@ -8814,7 +6476,7 @@ export default Services;
 //           >
 //             <div style={{ flex: "1 1 260px", padding: "10px" }}>
 //               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-//                 4.94{" "}
+//                 4.95{" "}
 //                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
 //                   /5
 //                 </span>
@@ -9031,7 +6693,7 @@ export default Services;
 //             {/* Rating Box */}
 //             <div style={{ flex: "1 1 260px", padding: "10px" }}>
 //               <h1 style={{ fontSize: "40px", margin: "0", fontWeight: "bold" }}>
-//                 4.94{" "}
+//                 4.95{" "}
 //                 <span style={{ fontSize: "16px", fontWeight: "normal" }}>
 //                   /5
 //                 </span>

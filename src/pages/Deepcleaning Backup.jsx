@@ -93,7 +93,7 @@ const Deepcleaning = () => {
   // const isNewUser = sessionStorage.getItem("isNewUser") === "true";
   const [showSlotModal, setShowSlotModal] = useState(false);
   const { setSelectedSlot } = useSelectedSlotContext();
-  const GOOGLE_MAPS_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
   // const handleProceedClick = async () => {
   //   try {
@@ -319,7 +319,7 @@ const Deepcleaning = () => {
     }
   };
 
-  const GOOGLE_API_KEY = "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
 
   // useEffect(() => {
   //   if (locationRequested) {
