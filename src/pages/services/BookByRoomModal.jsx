@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { CartContext } from "../CartContext";
-import WhatWeCleanImages from "./WhatWeCleanImages";
 
 const BookByRoomModal = ({ pkgGroup, closeModal }) => {
   const { updateCartItem, getQuantity } = useContext(CartContext);
@@ -146,7 +145,7 @@ const BookByRoomModal = ({ pkgGroup, closeModal }) => {
                         marginBottom: "5px",
                       }}
                     >
-                      {pkg.name?.split(" - ")[1] || "Unknown Package"}
+                      {pkg.name?.split(" - ")[1] || ""}
                     </h4>
                     <p
                       style={{
@@ -270,7 +269,6 @@ const BookByRoomModal = ({ pkgGroup, closeModal }) => {
               ))}
             </div>
           ))}
-          <WhatWeCleanImages room={pkgGroup?.[0]?.name?.split(" - ")[0]} />
         </div>
         {totalQuantity > 0 && (
           <div
