@@ -270,7 +270,7 @@ const FurnishedBungalowModal = ({ pkgGroup, closeModal }) => {
             </div>
           ))}
           <CleaningComparisonTable variant="furnished" />
-          <WhatWeCleanImages />
+          <WhatWeCleanImages variant="furnished" />
         </div>
         {totalQuantity > 0 && (
           <div
