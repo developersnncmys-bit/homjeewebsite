@@ -16,8 +16,9 @@ import imgExcludesUnf from "/media/unfurnishedexclude.webp";
 import imgExcludesBook from "/media/bookbyexcluded.webp";
 import imgWhatWeNeed from "/media/whatwedo.jpeg";
 
+// NOTE: the "whatweclean" image carries an "Inclusions for Classic…"
+// sub-heading the client PDF says to drop, so it is intentionally excluded.
 const ALL_ROOMS = [
-  { src: imgWhatWeClean, alt: "Living & Bedroom" },
   { src: imgFloor, alt: "Floor" },
   { src: imgKitchen, alt: "Kitchen" },
   { src: imgBathroom, alt: "Bathroom" },
