@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "../CartContext";
-import CleaningComparisonTable from "./CleaningComparisonTable";
+import { getTierIncludes } from "./tierIncludes";
 import WhatWeCleanImages from "./WhatWeCleanImages";
 
 const UnfurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
@@ -137,8 +137,9 @@ const UnfurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
                     color: "#333",
                   }}
                 >
-                  {pkg.details && <li>{pkg.details}</li>}
-                  {pkg.extras && <li>{pkg.extras}</li>}
+                  {getTierIncludes("unfurnished", pkg.name?.split(" - ")[1]).map((line, i) => (
+                    <li key={i}>{line}</li>
+                  ))}
                 </ul>
               </div>
               <div style={{ marginLeft: "15px", marginTop: "8px" }}>
@@ -237,7 +238,6 @@ const UnfurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
               </div>
             </div>
           ))}
-          <CleaningComparisonTable variant="unfurnished" />
           <WhatWeCleanImages variant="unfurnished" />
         </div>
         {totalQuantity > 0 && (
