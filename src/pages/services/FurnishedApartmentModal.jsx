@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../CartContext";
 import { getTierIncludes } from "./tierIncludes";
+import CleaningComparisonTable from "./CleaningComparisonTable";
 import WhatWeCleanImages from "./WhatWeCleanImages";
 
 const FurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
@@ -244,6 +245,7 @@ const FurnishedApartmentModal = ({ pkgGroup, closeModal }) => {
               </div>
             </div>
           ))}
+          <CleaningComparisonTable variant="furnished" />
           <WhatWeCleanImages variant="furnished" />
         </div>
         {totalQuantity > 0 && (
