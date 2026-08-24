@@ -653,6 +653,17 @@ const DeepCleaningPackages = () => {
                 (pkgGroup, index) => {
                   try {
                     const currentPkg = pkgGroup[0];
+                    // Card first line: a generic per-room line (the pop-up
+                    // keeps the specific Unfurnished/Furnished/Empty/Occupied
+                    // wording per option).
+                    const CARD_FIRST_LINE = {
+                      "Bedroom Cleaning": "Cleaning of one bedroom",
+                      "Living Room Cleaning": "Cleaning of one living room",
+                      "Kitchen Cleaning": "Cleaning of one kitchen",
+                    };
+                    const cardDetails =
+                      CARD_FIRST_LINE[currentPkg?.name?.split(" - ")[0]] ||
+                      currentPkg.details;
                     const currentCityConfig = getCityConfigForPackage(
                       currentPkg,
                       selectedCity,
@@ -695,7 +706,7 @@ const DeepCleaningPackages = () => {
                               margin: "10px 0",
                             }}
                           >
-                            {currentPkg.details && <li>{currentPkg.details}</li>}
+                            {cardDetails && <li>{cardDetails}</li>}
                             {currentPkg.extras && <li>{currentPkg.extras}</li>}
                           </ul>
 
