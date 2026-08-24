@@ -1031,17 +1031,18 @@ const DeepCleaningPackages = () => {
           Cart
         </h2>
         {cartItems.length > 0 ? (
-          <div
-            style={{
-              overflowY: "auto",
-              overflowX: "hidden",
-              flex: 1,
-              marginBottom: "10px",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-            className="hide-scroll"
-          >
+          <>
+            <div
+              style={{
+                overflowY: "auto",
+                overflowX: "hidden",
+                flex: 1,
+                marginBottom: "10px",
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+              className="hide-scroll"
+            >
             {cartItems.map((item, index) => (
               <div
                 className="row"
@@ -1057,16 +1058,6 @@ const DeepCleaningPackages = () => {
                   }}
                 >
                   {item.service} - {item.name}
-                </p>
-                <p
-                  className="col-md-5"
-                  style={{
-                    fontSize: "14px",
-                    color: "#333",
-                    marginBottom: "5px",
-                  }}
-                >
-                  TEAM MEMEBRS {item.teamMembers}
                 </p>
                 <div
                   className="col-md-4"
@@ -1135,7 +1126,10 @@ const DeepCleaningPackages = () => {
                 </p>
               </div>
             ))}
+            </div>
 
+            {/* Static footer: total price + proceed button stay visible while
+                only the items list above scrolls. */}
             {minimumAmount > TotalPrice ? (
               <div
                 className="row"
@@ -1154,20 +1148,19 @@ const DeepCleaningPackages = () => {
               ""
             )}
 
-            <div className="d-flex" style={{ justifyContent: "space-between" }}>
-              <div className="" style={{ fontSize: "13px" }}>
+            <div
+              className="d-flex"
+              style={{ justifyContent: "space-between", marginBottom: "8px" }}
+            >
+              <div style={{ fontSize: "16px", fontWeight: "700" }}>
                 ₹{TotalPrice}
               </div>
-              <div className="" style={{ fontSize: "13px" }}>
+              <div style={{ fontSize: "16px", fontWeight: "700" }}>
                 Total Price
               </div>
             </div>
 
             <button
-              // onClick={() => {
-              //   minimumAmount > TotalPrice ? null : setShowSlotModal(true);
-              // }}
-
               onClick={handleProceedToSlotSelection}
               style={{
                 width: "100%",
@@ -1180,16 +1173,14 @@ const DeepCleaningPackages = () => {
                 borderRadius: "20px",
                 fontSize: "14px",
                 fontWeight: "600",
-                // cursor: "pointer",
                 marginBottom: "10px",
                 cursor: minimumAmount > TotalPrice ? "not-allowed" : "pointer",
                 marginTop: "10px",
               }}
             >
-              {/* ₹{totalPrice}  */}
               Proceed for Slot Selection
             </button>
-          </div>
+          </>
         ) : (
           <>
             <div style={{ textAlign: "center", marginBottom: "20px" }}>
