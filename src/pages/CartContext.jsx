@@ -2,6 +2,13 @@ import React, { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
+// Compare service names case-insensitively so the card (which uses the
+// category key, e.g. "Book by room" / "Mini services") and the pop-up modal
+// (which uses "Book By Room" / "Mini Services") are treated as the SAME
+// service. Without this, a single-option service added from the card and
+// from the pop-up became two separate cart items.
+const svcEq = (a, b) => String(a).toLowerCase() === String(b).toLowerCase();
+
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
     const storedCart = sessionStorage.getItem("cartItems");
@@ -50,13 +57,13 @@ export const CartProvider = ({ children }) => {
     setCartItems((prevCart) => {
       // Find existing item with the exact same name AND service
       const exactMatch = prevCart.find(
-        (item) => item.name === name && item.service === service
+        (item) => item.name === name && svcEq(item.service, service)
       );
 
       // Find any item with the same prefix AND service
       const prefixMatch = prevCart.find(
         (item) =>
-          item.name.split(" - ")[0] === prefix && item.service === service
+          item.name.split(" - ")[0] === prefix && svcEq(item.service, service)
       );
 
       if (exactMatch) {
@@ -65,14 +72,14 @@ export const CartProvider = ({ children }) => {
         if (updatedQuantity === 0) {
           console.log(`Removing item: ${name} for service: ${service}`);
           return prevCart.filter(
-            (item) => !(item.name === name && item.service === service)
+            (item) => !(item.name === name && svcEq(item.service, service))
           );
         }
         console.log(
           `Updating quantity for ${name} (${service}) to ${updatedQuantity}`
         );
         return prevCart.map((item) =>
-          item.name === name && item.service === service
+          item.name === name && svcEq(item.service, service)
             ? { ...item, quantity: updatedQuantity }
             : item
         );
@@ -86,7 +93,7 @@ export const CartProvider = ({ children }) => {
           ...prevCart.filter(
             (item) =>
               !(
-                item.name.split(" - ")[0] === prefix && item.service === service
+                item.name.split(" - ")[0] === prefix && svcEq(item.service, service)
               )
           ),
           {
@@ -127,14 +134,14 @@ export const CartProvider = ({ children }) => {
       return 0;
     }
     const quantity =
-      cartItems.find((item) => item.name === name && item.service === service)
+      cartItems.find((item) => item.name === name && svcEq(item.service, service))
         ?.quantity || 0;
     return quantity;
   };
 
   // const getQuantity = (name, service) => {
   //   const item = cartItems.find(
-  //     (item) => item.name === name && item.service === service
+  //     (item) => item.name === name && svcEq(item.service, service)
   //   );
   //   return item ? item.quantity : 0;
   // };
@@ -143,7 +150,7 @@ export const CartProvider = ({ children }) => {
     return (
       cartItems.find(
         (item) =>
-          item.name.split(" - ")[0] === prefix && item.service === service
+          item.name.split(" - ")[0] === prefix && svcEq(item.service, service)
       )?.quantity || 0
     );
   };
