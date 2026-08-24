@@ -660,6 +660,8 @@ const DeepCleaningPackages = () => {
                       "Bedroom Cleaning": "Cleaning of one bedroom",
                       "Living Room Cleaning": "Cleaning of one living room",
                       "Kitchen Cleaning": "Cleaning of one kitchen",
+                      "Kitchen Appliances Cleaning":
+                        "Cleaning of kitchen appliances",
                     };
                     const cardDetails =
                       CARD_FIRST_LINE[currentPkg?.name?.split(" - ")[0]] ||
