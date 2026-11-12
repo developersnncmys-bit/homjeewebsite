@@ -82,14 +82,20 @@ const Interiorcheckout = () => {
   ];
 
   return (
-    <div className='d-none d-lg-block'>
+    <div>
+      {/* Was desktop-only (d-none d-lg-block) with a hard 1200px width, so
+          Home Interior checkout rendered completely blank on phones. It now
+          shows at every width with a fluid container. */}
       <div
         style={{
-          width: '1200px',
+          width: '100%',
+          maxWidth: '1200px',
           margin: '40px auto',
+          padding: '0 12px',
           display: 'flex',
           gap: '20px',
           fontFamily: "'Roboto', sans-serif",
+          boxSizing: 'border-box',
         }}
       >
         {/* Left Section */}

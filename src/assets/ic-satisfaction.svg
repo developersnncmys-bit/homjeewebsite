@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#000">
+  <defs><path id="t1top" d="M 20.09 36.05 A 33 33 0 0 1 79.91 36.05"/></defs>
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#000" stroke-width="3"/>
+  <text font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" letter-spacing="0.4" fill="#000"><textPath href="#t1top" startOffset="50%" text-anchor="middle">SATISFACTION</textPath></text>
+  <circle cx="50" cy="42" r="17" fill="none" stroke="#000" stroke-width="2.4"/>
+  <g transform="translate(37.5,30) scale(1.06)">
+    <rect x="2" y="9" width="4.2" height="12" rx="1"/>
+    <path d="M22 10c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L13.17 1 6.59 7.59C6.22 7.95 6 8.45 6 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+  </g>
+  <rect x="13" y="62" width="74" height="16" rx="3" fill="none" stroke="#000" stroke-width="3"/>
+  <text x="50" y="74.2" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="800" letter-spacing="0.4" text-anchor="middle" fill="#000">GUARANTEE</text>
+  <path d="M41 83.6 L42.12 86.46 L45.18 86.64 L42.81 88.59 L43.59 91.56 L41 89.9 L38.41 91.56 L39.19 88.59 L36.82 86.64 L39.88 86.46 Z"/>
+  <path d="M50 83.6 L51.12 86.46 L54.18 86.64 L51.81 88.59 L52.59 91.56 L50 89.9 L47.41 91.56 L48.19 88.59 L45.82 86.64 L48.88 86.46 Z"/>
+  <path d="M59 83.6 L60.12 86.46 L63.18 86.64 L60.81 88.59 L61.59 91.56 L59 89.9 L56.41 91.56 L57.19 88.59 L54.82 86.64 L57.88 86.46 Z"/>
+</svg>

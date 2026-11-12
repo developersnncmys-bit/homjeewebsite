@@ -4,7 +4,7 @@ import { pickServiceCityFromComponents } from "../utils/serviceCity";
 
 const GOOGLE_MAPS_API_KEY =
   import.meta?.env?.VITE_GOOGLE_MAPS_KEY ||
-  "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+  "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
 
 /* -------------------- Google Maps Loader (Maps + Places) -------------------- */
 let __gmapsPromise = null;
@@ -550,16 +550,24 @@ export default function AddressPickerModal({
       enforceFocus={false}
       restoreFocus={false}
     >
-      <style>{`.pac-container{ z-index: 999999 !important; }`}</style>
+      <style>{`
+        .pac-container{ z-index: 999999 !important; }
+        /* Map + address form side-by-side on desktop, stacked on mobile. */
+        .addr-pick-grid { display: flex; gap: 16px; }
+        .addr-pick-col { flex: 1; min-width: 0; }
+        @media (max-width: 768px) {
+          .addr-pick-grid { flex-direction: column; gap: 14px; }
+        }
+      `}</style>
 
       <Modal.Header closeButton>
         <Modal.Title>Select Address</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <div style={{ display: "flex", gap: 16 }}>
+        <div className="addr-pick-grid">
           {/* LEFT */}
-          <div style={{ flex: 1, minWidth: 360 }}>
+          <div className="addr-pick-col">
             {/* ✅ Search ALWAYS visible */}
             <Form.Control
               ref={searchInputRef}
@@ -612,7 +620,7 @@ export default function AddressPickerModal({
           </div>
 
           {/* RIGHT */}
-          <div style={{ flex: 1, minWidth: 360 }}>
+          <div className="addr-pick-col">
             <div style={{ fontWeight: 600, marginBottom: 8 }}>
               Selected Address
             </div>
@@ -695,7 +703,7 @@ export default function AddressPickerModal({
 
 // const GOOGLE_MAPS_API_KEY =
 //   import.meta?.env?.VITE_GOOGLE_MAPS_KEY ||
-//   "AIzaSyDLyeYKWC3vssuRVGXktAT_cY-8-qHEA_g";
+//   "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
 
 // /* -------------------- Google Maps Loader (Maps + Places) -------------------- */
 // let __gmapsPromise = null;

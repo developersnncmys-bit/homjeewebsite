@@ -951,11 +951,22 @@ const Checkout = () => {
   const isHousePainting = serviceType === "house_painting";
 
   return (
-    <div className="d-none d-lg-block">
+    <div className="co-checkout-wrap">
+      {/* Checkout used to be desktop-only (d-none d-lg-block), which left the
+          page completely blank on phones/tablets — only the header showed.
+          It now renders at every width; the col-md-* grid stacks below 768px.
+          Extra bottom padding on small screens keeps the last content clear
+          of the fixed pay bar. */}
+      <style>{`
+        @media (max-width: 991px) {
+          .co-checkout-wrap .co-checkout-row { padding-bottom: 150px; }
+        }
+      `}</style>
       <div
-        className="row"
+        className="row container mx-auto co-checkout-row"
         style={{
-          margin: "30px auto",
+          marginTop: "16px",
+          marginBottom: "30px",
           fontFamily: "'Roboto', sans-serif",
         }}
       >
@@ -1573,19 +1584,25 @@ const Checkout = () => {
 
           {(serviceType === "deep_cleaning" && cartItems.length > 0) ||
           serviceType === "house_painting" ? (
-            <div
-              style={{
-                backgroundColor: "#fff",
-                boxShadow: "0 -2px 6px rgba(0,0,0,0.1)",
-                padding: "1rem",
-                position: "fixed",
-                bottom: 0,
-                zIndex: 10,
-                width: "43%",
-                borderTopLeftRadius: "10px",
-                borderTopRightRadius: "10px",
-              }}
-            >
+            <div className="co-paybar">
+              <style>{`
+                .co-paybar {
+                  background-color: #fff;
+                  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+                  padding: 1rem;
+                  position: fixed;
+                  bottom: 0;
+                  z-index: 10;
+                  width: 43%;
+                  border-top-left-radius: 10px;
+                  border-top-right-radius: 10px;
+                  box-sizing: border-box;
+                }
+                /* Full-width sticky bar on tablet/phone; desktop keeps 43%. */
+                @media (max-width: 991px) {
+                  .co-paybar { width: 100%; left: 0; right: 0; }
+                }
+              `}</style>
               {!(isHousePainting && Number(siteVisitCharge || 0) === 0) && (
                 <div
                   style={{

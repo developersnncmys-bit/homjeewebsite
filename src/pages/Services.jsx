@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import TestiVideoSlider from "../components/TestiVideoSlider";
 import { useNavigate } from "react-router-dom";
 import { Button, Carousel, Form, Modal } from "react-bootstrap";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -31,7 +32,11 @@ import step1 from "../assets/step1.png";
 import step2 from "../assets/step2.png";
 import step3 from "../assets/step3.png";
 import arrowicon from "../assets/arrowicon.png";
-import testimonialVideo from "../assets/testimonial.mp4";
+import hp1 from "../assets/hp1.mp4";
+import hp2 from "../assets/hp2.mp4";
+import hp3 from "../assets/hp3.mp4";
+import hp4 from "../assets/hp4.mp4";
+import hp5 from "../assets/hp5.mp4";
 import bgProfessional from "../assets/pro-bg.png";
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
@@ -80,7 +85,7 @@ const setStoredUser = (user) => {
 const Services = () => {
   const navigate = useNavigate();
   // const activeIndex = 0;
-  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
   const [activeIndex, setActiveIndex] = useState(0);
   const [responseLoader, setResponseLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -90,7 +95,7 @@ const Services = () => {
   const [joinedOtp, setJoinedOTP] = useState(null);
   const [otpValue, setOtpValue] = useState(null);
 
-  const videos = [testimonialVideo, testimonialVideo, testimonialVideo];
+  const videos = [hp1, hp2, hp3, hp4, hp5];
   // const [houseNumber, setHouseNumber] = useState("");
   // const [landmark, setLandmark] = useState("");
   // const [locationRequested, setLocationRequested] = useState(false);
@@ -109,7 +114,7 @@ const Services = () => {
   const [showSlotModal, setShowSlotModal] = useState(false);
   const { setSelectedSlot } = useSelectedSlotContext();
 
-  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
 
   // const [latitude, setLatitude] = useState(null);
   // const [longitude, setLongitude] = useState(null);
@@ -1630,61 +1635,8 @@ useEffect(() => {
         </h2>
         <p className="hm-svc-tm-sub">What People Say About Us</p>
 
-        {/* Desktop: 3-up video carousel */}
-        <div className="hm-lg-only" style={{ margin: "0 20px" }}>
-          <Carousel indicators={true} controls={false} interval={6000} className="testimonial-carousel">
-            {[0, 1].map((slide) => (
-              <Carousel.Item key={slide}>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{ padding: "0 5%", gap: "30px", flexWrap: "nowrap", overflowX: "hidden" }}
-                >
-                  {[...Array(3)].map((_, idx) => (
-                    <div key={idx}>
-                      <video
-                        src={testimonialVideo}
-                        width="644"
-                        height="412"
-                        controls
-                        muted
-                        preload="auto"
-                        style={{ objectFit: "cover", borderRadius: "20px", display: "block" }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </div>
-
-        {/* Mobile: swiper */}
-        <div className="hm-sm-only">
-          <Swiper
-            slidesPerView={1.2}
-            spaceBetween={10}
-            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-            style={{ paddingLeft: "20px", marginBottom: "20px" }}
-          >
-            {videos.map((vid, index) => (
-              <SwiperSlide key={index}>
-                <video src={vid} height="220" controls muted style={{ borderRadius: "15px", objectFit: "cover", width: "100%" }} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-            {videos.map((_, index) => (
-              <div
-                key={index}
-                style={{
-                  width: activeIndex === index ? "30px" : "20px", height: "4px",
-                  backgroundColor: activeIndex === index ? "red" : "#ccc",
-                  borderRadius: "5px", transition: "width 0.3s",
-                }}
-              />
-            ))}
-          </div>
-        </div>
+        {/* One-video-at-a-time slider with side arrows; loops (last → first) */}
+        <TestiVideoSlider videos={videos} />
 
         <style>{`
           /* — mobile (base) — */
@@ -2203,7 +2155,7 @@ export default Services;
 // const Services = () => {
 //   const navigate = useNavigate();
 //   // const activeIndex = 0;
-//   const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+//   const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
 //   const [activeIndex, setActiveIndex] = useState(0);
 //   const [responseLoader, setResponseLoader] = useState(false);
 //   const [showModal, setShowModal] = useState(false);
@@ -2232,7 +2184,7 @@ export default Services;
 //   const [showSlotModal, setShowSlotModal] = useState(false);
 //   const { setSelectedSlot } = useSelectedSlotContext();
 
-//   const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+//   const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
 
 //   const [latitude, setLatitude] = useState(null);
 //   const [longitude, setLongitude] = useState(null);

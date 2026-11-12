@@ -16,12 +16,24 @@ import Packersmovers from "./pages/Packersmovers";
 import TermsAndConditions from "./pages/Terms";
 import PrivacyPolicy from "./pages/privacypolicy";
 import About from "./pages/About";
+import Reviews from "./pages/Reviews";
+import Faq from "./pages/Faq";
+import RecentProjects from "./pages/RecentProjects";
 import Checkout from "./pages/Checkout";
 import DeepCleaningPackages from "./pages/DeepCleaningPackages";
 import Checkoutdeepcleaning from "./pages/Checkoutdeepcleaning";
 import Interiorcheckout from "./pages/Interiorcheckout";
 
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
+
+// Scroll to top whenever the route changes (fixes Terms/Privacy etc. opening mid-page)
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (!window.location.hash) window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 import PaymentCheckout from "./pages/PaymentCheckout";
 import CheckoutPaymentRouter from "./pages/CheckoutPaymentRouter";
 import VendorRatings from "./pages/VendorRatings";
@@ -31,6 +43,8 @@ import AdminCleaningCatalogEditor from "./components/AdminCleaningCatalogEditor"
 
 const AppRoutes = () => {
   const location = useLocation();
+  // Header owns the Book Now modal; capture its opener so other pages can trigger it.
+  const bookNowRef = useRef(() => {});
 
   // List of paths where Footer should be hidden
   const hideFooterRoutes = ["/checkout", "/vendor-ratings", "/wallet-recharge"];
@@ -41,17 +55,35 @@ const AppRoutes = () => {
 
   return (
     <>
-      {!shouldHideHeaderOnRatings && <Header />}
+      <ScrollToTop />
+      {!shouldHideHeaderOnRatings && (
+        <Header onShowModal={(fn) => (bookNowRef.current = fn)} />
+      )}
       <div style={{ marginTop: !hideRating ? "20px" : 0 }}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Home handleShow={() => bookNowRef.current?.()} />}
+          />
           <Route path="/services" element={<Services />} />
           <Route path="/deepcleaning" element={<Deepcleaning />} />
           <Route path="/home-interior" element={<Homeinterior />} />
           <Route path="/packers-movers" element={<Packersmovers />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/aboutus" element={<About />} />
+          <Route
+            path="/aboutus"
+            element={<About handleShow={() => bookNowRef.current?.()} />}
+          />
+          <Route
+            path="/reviews"
+            element={<Reviews handleShow={() => bookNowRef.current?.()} />}
+          />
+          <Route path="/faq" element={<Faq />} />
+          <Route
+            path="/projects"
+            element={<RecentProjects handleShow={() => bookNowRef.current?.()} />}
+          />
           <Route path="/checkout" element={<Checkout />} />
           {/* <Route
             path="/checkout/payment/:bookingId/:date/:pay_type"

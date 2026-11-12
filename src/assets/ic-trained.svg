@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#000" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- hard hat dome -->
+  <path d="M27 41 Q27 14 50 14 Q73 14 73 41"/>
+  <!-- hat panel gaps (curved, framing centre panel) -->
+  <path d="M42 41 C41 28 43 20 47 16"/>
+  <path d="M58 41 C59 28 57 20 53 16"/>
+  <!-- top knob -->
+  <path d="M46 15 Q50 10 54 15"/>
+  <!-- brim -->
+  <rect x="22" y="41" width="56" height="7.5" rx="3.75"/>
+  <!-- face -->
+  <path d="M33 49 Q33 71 50 71 Q67 71 67 49"/>
+  <!-- collar -->
+  <path d="M40 67 L50 78 L60 67"/>
+  <path d="M43 70 L47 79 M57 70 L53 79"/>
+  <!-- shoulders / body -->
+  <path d="M15 87 A27 27 0 0 1 42 71"/>
+  <path d="M58 71 A27 27 0 0 1 78 79"/>
+  <path d="M15 87 H40"/>
+  <circle cx="35" cy="87" r="0.6"/>
+  <!-- shield with check -->
+  <path d="M67 60 L82 65 V76 C82 85 75 88 67 91 C59 88 52 85 52 76 V65 Z"/>
+  <path d="M60 74 L65 79 L74 70"/>
+</svg>

@@ -101,10 +101,10 @@ const AddressModal = ({
 
   // Construct dynamic Google Maps embed URL
   const mapUrl = searchInput
-    ? `https://www.google.com/maps/embed/v1/place?key=AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g=${encodeURIComponent(
+    ? `https://www.google.com/maps/embed/v1/place?key=AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI&q=${encodeURIComponent(
         searchInput
       )}&zoom=14`
-    : `https://www.google.com/maps/embed/v1/place?key=AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g=India&zoom=4`;
+    : `https://www.google.com/maps/embed/v1/place?key=AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI&q=India&zoom=4`;
 
   if (!show) return null;
   // console.log("searchInput", searchInput);
@@ -133,10 +133,18 @@ const AddressModal = ({
           borderRadius: 20,
           boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
           overflow: "hidden",
-          padding: "30px",
           transition: "all 0.3s ease-in-out",
         }}
+        className="addr-modal-box"
       >
+        <style>{`
+          .addr-modal-box { padding: 30px; }
+          .addr-modal-map { height: 400px !important; }
+          @media (max-width: 768px) {
+            .addr-modal-box { padding: 16px; }
+            .addr-modal-map { height: 260px !important; }
+          }
+        `}</style>
         <Row>
           <Col md={6}>
             {/* Search Input for Location */}
@@ -163,7 +171,7 @@ const AddressModal = ({
             )} */}
 
             {/* Google Map iframe */}
-            <div style={{ position: "relative", height: "400px" }}>
+            <div className="addr-modal-map" style={{ position: "relative", height: "400px" }}>
               <iframe
                 title="map"
                 width="100%"

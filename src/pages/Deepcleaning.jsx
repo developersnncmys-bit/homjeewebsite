@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import TestiVideoSlider from "../components/TestiVideoSlider";
 import { useNavigate } from "react-router-dom";
 import { Button, Carousel, Form, Modal } from "react-bootstrap";
 import icSatisfaction from "../assets/ic-satisfaction.svg";
@@ -36,7 +37,11 @@ import step1 from "../assets/step1.png";
 import step2 from "../assets/step2.png";
 import step3 from "../assets/step3.png";
 import arrowicon from "../assets/arrowicon.png";
-import testimonialVideo from "../assets/testimonial.mp4";
+import testi1 from "../assets/testi1.mp4";
+import testi2 from "../assets/testi2.mp4";
+import testi3 from "../assets/testi3.mp4";
+import testi4 from "../assets/testi4.mp4";
+import testi5 from "../assets/testi5.mp4";
 import bgProfessional from "../assets/pro-bg.png";
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
@@ -95,7 +100,7 @@ const Deepcleaning = () => {
   // const [searchInput, setSearchInput] = useState("");
   const [userName, setUserName] = useState("");
   const [isLocationModalVisible, setIsLocationModalVisible] = useState(false);
-  const videos = [testimonialVideo, testimonialVideo, testimonialVideo];
+  const videos = [testi1, testi2, testi3, testi4, testi5];
   const { setAddressDataContext } = useAddressContext();
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [userAddress, setUserAddress] = useState(null);
@@ -120,8 +125,8 @@ const Deepcleaning = () => {
   const [showSlotModal, setShowSlotModal] = useState(false);
   const { setSelectedSlot } = useSelectedSlotContext();
 
-  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
-  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+  const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
+  const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
 
   const inputRefs = useRef([]);
   const openAddressAfterOptionCloseRef = useRef(false);
@@ -2771,248 +2776,14 @@ const Deepcleaning = () => {
         </div>
       </div>
 
-      {/* testimonals */}
-      <div className="d-none d-lg-block">
-        <div
-          style={{
-            background: "#fff",
-            padding: "60px 20px",
-            textAlign: "center",
-          }}
-        >
-          {/* Title Section */}
-          <h2
-            style={{
-              fontSize: "40px",
-              fontWeight: "bold",
-              fontFamily: "Poppins, sans-serif",
-              marginBottom: "10px",
-              position: "relative",
-              display: "inline-block",
-            }}
-          >
-            Testimonials
-            <img
-              src={vectoricon}
-              alt=""
-              style={{
-                position: "absolute",
-                bottom: "-14px",
-                left: "35px",
-                width: "180px",
-                height: "auto",
-                borderRadius: "10px",
-                pointerEvents: "none",
-              }}
-            />
-          </h2>
-
-          <p
-            style={{
-              fontWeight: 600,
-              fontSize: "20px",
-              marginTop: "20px",
-              marginBottom: "40px",
-            }}
-          >
-            What People Say About Us
-          </p>
-          <div style={{ margin: "0 20px" }}>
-            {/* Carousel */}
-            <Carousel
-              indicators={true}
-              controls={false}
-              interval={6000}
-              className="testimonial-carousel"
-            >
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    padding: "0 5%",
-                    gap: "30px",
-                    flexWrap: "nowrap", // prevents wrapping
-                    overflowX: "hidden", // allows horizontal scroll on smaller screens
-                  }}
-                >
-                  {[...Array(3)].map((_, idx) => (
-                    <div key={idx}>
-                      <video
-                        src={testimonialVideo}
-                        width="644"
-                        height="412"
-                        controls
-                        muted
-                        preload="auto"
-                        style={{
-                          objectFit: "cover",
-                          borderRadius: "20px",
-                          display: "block",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-
-              <Carousel.Item>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    padding: "0 5%",
-                    gap: "30px",
-                    flexWrap: "nowrap",
-                    overflowX: "hidden",
-                  }}
-                >
-                  {[...Array(3)].map((_, idx) => (
-                    <div key={idx}>
-                      <video
-                        src={testimonialVideo}
-                        width="644"
-                        height="412"
-                        controls
-                        muted
-                        preload="auto"
-                        style={{
-                          objectFit: "cover",
-                          borderRadius: "20px",
-                          display: "block",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-            </Carousel>
-          </div>
-
-          {/* Custom Styling */}
-          <style>{`
-       .testimonial-carousel .carousel-indicators {
-         bottom: -60px;
-       }
-       .testimonial-carousel .carousel-indicators [data-bs-target] {
-         width: 30px;
-         height: 4px;
-         border-radius: 5px;
-         background-color: #ccc;
-         margin: 0 5px;
-       }
-       .testimonial-carousel .carousel-indicators .active {
-         background-color: red;
-         width: 40px;
-       }
-     `}</style>
-        </div>
-      </div>
-      <div
-        className="d-block d-lg-none"
-        style={{
-          background: "#fff",
-          padding: "40px 20px",
-          textAlign: "center",
-        }}
-      >
-        {/* Title Section */}
-        <h2
-          style={{
-            fontSize: "30px",
-            fontWeight: "bold",
-            fontFamily: "Poppins, sans-serif",
-            marginBottom: "10px",
-            position: "relative",
-            display: "inline-block",
-          }}
-        >
+      {/* testimonials */}
+      <div style={{ background: "#fff", padding: "40px 20px 20px", textAlign: "center" }}>
+        <h2 style={{ fontSize: "clamp(30px, 4vw, 40px)", fontWeight: "bold", fontFamily: "Poppins, sans-serif", marginBottom: "10px", position: "relative", display: "inline-block" }}>
           Testimonials
-          <img
-            src={vectoricon}
-            alt=""
-            style={{
-              position: "absolute",
-              bottom: "-12px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "130px",
-              height: "auto",
-              pointerEvents: "none",
-            }}
-          />
+          <img src={vectoricon} alt="" style={{ position: "absolute", bottom: "-12px", left: "50%", transform: "translateX(-50%)", width: "150px", height: "auto", pointerEvents: "none" }} />
         </h2>
-
-        <p
-          style={{
-            fontWeight: 600,
-            fontSize: "16px",
-            marginTop: "2px",
-            // marginBottom: '30px'
-          }}
-        >
-          What People Say About Us
-        </p>
-        <Swiper
-          slidesPerView={1.2}
-          spaceBetween={10}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-          style={{ paddingLeft: "20px", marginBottom: "20px" }}
-        >
-          {videos.map((vid, index) => (
-            <SwiperSlide key={index}>
-              <video
-                src={vid}
-                height="220"
-                controls
-                muted
-                style={{
-                  borderRadius: "15px",
-                  objectFit: "cover",
-                  width: "100%",
-                }}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        {/* Custom Indicator Bar */}
-        <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-          {videos.map((_, index) => (
-            <div
-              key={index}
-              style={{
-                width: activeIndex === index ? "30px" : "20px",
-                height: "4px",
-                backgroundColor: activeIndex === index ? "red" : "#ccc",
-                borderRadius: "5px",
-                transition: "width 0.3s",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Indicator Styling */}
-        <style>{`
-    .testimonial-carousel-mobile .carousel-inner {
-      overflow: visible;
-    }
-    .testimonial-carousel-mobile .carousel-item {
-      transition: transform 0.5s ease-in-out;
-    }
-    .testimonial-carousel-mobile .carousel-indicators {
-      bottom: -35px;
-    }
-    .testimonial-carousel-mobile .carousel-indicators [data-bs-target] {
-      width: 20px;
-      height: 4px;
-      border-radius: 5px;
-      background-color: #ccc;
-      margin: 0 5px;
-    }
-    .testimonial-carousel-mobile .carousel-indicators .active {
-      background-color: red;
-      width: 30px;
-    }
-  `}</style>
+        <p style={{ fontWeight: 600, fontSize: "18px", marginTop: "16px", marginBottom: "30px" }}>What People Say About Us</p>
+        <TestiVideoSlider videos={videos} />
       </div>
 
       {/* ourrecent projects */}
@@ -4323,8 +4094,8 @@ export default Deepcleaning;
 //   const [showSlotModal, setShowSlotModal] = useState(false);
 //   const { setSelectedSlot } = useSelectedSlotContext();
 
-//   const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
-//   const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+//   const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
+//   const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
 
 //   const inputRefs = useRef([]);
 //   const openAddressAfterOptionCloseRef = useRef(false);
@@ -4348,8 +4119,8 @@ export default Deepcleaning;
 //     showChangeButton: false,
 //   });
 
-//   // const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
-//   // const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI_g";
+//   // const GOOGLE_MAPS_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
+//   // const GOOGLE_API_KEY = "AIzaSyCo2SFPxHrv9Hf9Jroo6X_eb7YgnMVUwJI";
 
 //   // const handleProceedClick = async () => {
 //   //   try {

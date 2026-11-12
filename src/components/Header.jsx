@@ -113,7 +113,9 @@ const Header = ({ onShowModal }) => {
         {/* Navigation */}
         <Nav className="d-flex align-items-center gap-1" style={{marginLeft:'10%'}}>
           <Nav.Link href="/aboutus" style={{ fontWeight: 500, color: '#000', fontSize:'14px' }}>About Us</Nav.Link>
-          <Nav.Link href="" style={{ fontWeight: 500, color: '#000',fontSize:'14px'  }}>Recent Projects</Nav.Link>
+          <Nav.Link href="/reviews" style={{ fontWeight: 500, color: '#000', fontSize:'14px' }}>Reviews</Nav.Link>
+          <Nav.Link href="/faq" style={{ fontWeight: 500, color: '#000', fontSize:'14px' }}>FAQs</Nav.Link>
+          <Nav.Link href="/projects" style={{ fontWeight: 500, color: '#000',fontSize:'14px'  }}>Recent Projects</Nav.Link>
           
 <NavDropdown
   title={<span style={{ color: '#000', fontWeight: 500, fontSize: '14px' }}>Our Services</span>}
@@ -205,8 +207,6 @@ const Header = ({ onShowModal }) => {
   `}</style>
 </NavDropdown>
 
-          <Nav.Link href="" style={{ fontWeight: 500, color: '#000', fontSize:'14px'  }}>Reviews</Nav.Link>
-          <Nav.Link href="" style={{ fontWeight: 500, color: '#000', fontSize:'14px'  }}>FAQ</Nav.Link>
           <div
             style={{
               border: '1px solid red',
@@ -221,17 +221,15 @@ const Header = ({ onShowModal }) => {
             }}
           >
             <BsTelephoneFill style={{ marginRight: '8px', color: 'red', }} />
-            95 95 95 1104
+            95 95 95 1304
           </div>
-        </Nav>
 
-        {/* Call and Button */}
-        <div className="d-flex align-items-center gap-3">
-        
-
+          {/* Book Now — kept right beside the phone button so there is no
+              large empty gap between them in the header. */}
           <Button
             variant=""
             style={{
+              marginLeft: '12px',
               padding: '8px 18px',
               borderRadius: '30px',
               fontWeight: 500,
@@ -239,12 +237,21 @@ const Header = ({ onShowModal }) => {
               fontSize:'16px',
               color:'white',
               boxShadow: '0 4px 8px rgba(255, 0, 0, 0.3)',
+              transition: 'background-color .2s ease, transform .2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#c50000';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'red';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}
             onClick={handleShow}
           >
             BOOK NOW
           </Button>
-        </div>
+        </Nav>
       </div>
 
       {/* Booking Modal */}
@@ -314,7 +321,7 @@ const Header = ({ onShowModal }) => {
         {/* Phone */}
         <div style={{ display: 'flex', alignItems: 'center', color: '#000', fontWeight: '450', fontSize: '16px' }}>
           <BsTelephoneFill color="#e60000" style={{ marginRight: '6px' }} />
-          95 95 95 1104
+          95 95 95 1304
         </div>
 
       </div>
@@ -340,7 +347,27 @@ const Header = ({ onShowModal }) => {
             <Link to="/aboutus" style={linkStyle} onClick={handleLinkClick}>About</Link>
             </li>
             <li style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>
-            <Link to="/services" style={linkStyle} onClick={handleLinkClick}>Services</Link>
+            <Link to="/reviews" style={linkStyle} onClick={handleLinkClick}>Reviews</Link>
+            </li>
+            <li style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>
+            <Link to="/faq" style={linkStyle} onClick={handleLinkClick}>FAQs</Link>
+            </li>
+            <li style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>
+              <div style={{ ...linkStyle, marginBottom: '6px', fontWeight: 600 }}>Services</div>
+              <ul style={{ listStyle: 'none', padding: '0 0 0 14px', margin: 0 }}>
+                <li style={{ padding: '6px 0' }}>
+                  <Link to="/services" style={{ ...linkStyle, fontSize: '14px' }} onClick={handleLinkClick}>House Painting</Link>
+                </li>
+                <li style={{ padding: '6px 0' }}>
+                  <Link to="/deepcleaning" style={{ ...linkStyle, fontSize: '14px' }} onClick={handleLinkClick}>Deep Cleaning</Link>
+                </li>
+                <li style={{ padding: '6px 0' }}>
+                  <Link to="/home-interior" style={{ ...linkStyle, fontSize: '14px' }} onClick={handleLinkClick}>Home Interior</Link>
+                </li>
+                <li style={{ padding: '6px 0' }}>
+                  <Link to="/packers-movers" style={{ ...linkStyle, fontSize: '14px' }} onClick={handleLinkClick}>Packers &amp; Movers</Link>
+                </li>
+              </ul>
             </li>
             <li style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>
             <Link to="/projects" style={linkStyle} onClick={handleLinkClick}>Projects</Link>

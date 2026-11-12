@@ -53,7 +53,7 @@ const FurnishedBungalowModal = ({ pkgGroup, closeModal }) => {
         style={{
           backgroundColor: "#fff",
           borderRadius: "10px",
-          width: "500px",
+          width: "min(500px, calc(100vw - 24px))",
           maxHeight: "90vh",
           display: "flex",
           flexDirection: "column",

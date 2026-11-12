@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FaFacebookF, FaInstagram, FaYoutube, FaEnvelope, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
 import homjeeLogo from '../assets/homjee-logo.png'; 
-import locationIcon from '../assets/location.png';
 import chat from '../assets/sms.png'
 import Phone from '../assets/call.png';
 import facebook from '../assets/facebook.png';
@@ -39,19 +38,11 @@ const Footer = () => {
         {/* Address + Contact */}
         <div style={{ flex: '1', minWidth: '250px' }}>
           <img src={homjeeLogo} alt="Homjee Logo" style={{ height: '51px', marginBottom: '20px' }} />
-          <p style={{ fontSize: '14px', margin: '10px 0', lineHeight: '1.6' }}>
-          <img 
-    src={locationIcon} 
-    alt="Location" 
-    style={{ width: '18px', height: '18px', marginRight: '8px' }} 
-  />
-            B-101, Esquire Vastukalp, Pimple Nilakh,<br /> Pune - 411027
-          </p>
           <p style={{ fontSize: '14px', margin: '10px 0' }}>
-          <img 
-    src={chat} 
-    alt="Location" 
-    style={{ width: '18px', height: '18px', marginRight: '8px' }} 
+          <img
+    src={chat}
+    alt="Location"
+    style={{ width: '18px', height: '18px', marginRight: '8px' }}
   />
             hello@homjee.com
           </p>
@@ -61,7 +52,7 @@ const Footer = () => {
     alt="Location" 
     style={{ width: '18px', height: '18px', marginRight: '8px' }} 
   />
-            95 95 95 1104
+            95 95 95 1304
           </p>
         </div>
 
@@ -75,7 +66,17 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#" style={{ color: '#ccc', textDecoration: 'none' }}>
+              <a href="/reviews" style={{ color: '#ccc', textDecoration: 'none' }}>
+                Reviews
+              </a>
+            </li>
+            <li>
+              <a href="/faq" style={{ color: '#ccc', textDecoration: 'none' }}>
+                FAQs
+              </a>
+            </li>
+            <li>
+              <a href="/projects" style={{ color: '#ccc', textDecoration: 'none' }}>
                 Recent Projects
               </a>
             </li>
@@ -120,16 +121,6 @@ const Footer = () => {
                 </ul>
               )}
             </li>
-            <li>
-              <a href="#" style={{ color: '#ccc', textDecoration: 'none' }}>
-                Reviews
-              </a>
-            </li>
-            <li>
-              <a href="#" style={{ color: '#ccc', textDecoration: 'none' }}>
-                FAQ
-              </a>
-            </li>
           </ul>
         </div>
 
@@ -161,13 +152,13 @@ const Footer = () => {
       {/* Bottom Copyright */}
  <div style={{ textAlign: 'center', marginTop: '50px', fontSize: '13px', color: '#999' }}>
           <span 
-            onClick={() => { navigate('/terms'); window.location.reload(); }} 
+            onClick={() => { navigate('/terms'); }} 
             style={{ textDecoration: 'none', color: '#999', cursor: 'pointer' }}
           >
             Terms & Conditions
           </span> | 
           <span 
-            onClick={() => { navigate('/privacy-policy'); window.location.reload(); }} 
+            onClick={() => { navigate('/privacy-policy'); }} 
             style={{ textDecoration: 'none', color: '#999', cursor: 'pointer' }}
           >
             Privacy Policy
@@ -200,19 +191,15 @@ const Footer = () => {
           <img src={homjeeLogo} alt="Homjee Logo" style={{ height: '40px', marginBottom: '20px' }} />
           <p style={{ fontSize: '14px', margin: '10px 0', lineHeight: '1.6' }}>
             <img
-              src={locationIcon}
-              alt="Location"
+              src={chat}
+              alt="Email"
               style={{ width: '20px', height: '20px', marginRight: '8px' }}
             />
-            B-101, Esquire Vastukalp, Pimple Nilakh,<br /> Pune - 411027
-          </p>
-          <p style={{ fontSize: '14px', margin: '10px 0' }}>
-            <img src={chat} alt="Chat" style={{ width: '20px', height: '20px', marginRight: '8px' }} />
             hello@homjee.com
           </p>
           <p style={{ fontSize: '14px', margin: '10px 0' }}>
             <img src={Phone} alt="Phone" style={{ width: '20px', height: '20px', marginRight: '8px' }} />
-            95 95 95 1104
+            95 95 95 1304
           </p>
         </div>
 
@@ -226,7 +213,17 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#" style={{ color: '#ccc', textDecoration: 'none' }}>
+              <a href="/reviews" style={{ color: '#ccc', textDecoration: 'none' }}>
+                Reviews
+              </a>
+            </li>
+            <li>
+              <a href="/faq" style={{ color: '#ccc', textDecoration: 'none' }}>
+                FAQs
+              </a>
+            </li>
+            <li>
+              <a href="/projects" style={{ color: '#ccc', textDecoration: 'none' }}>
                 Recent Projects
               </a>
             </li>
@@ -269,16 +266,6 @@ const Footer = () => {
                   </li>
                 </ul>
               )}
-            </li>
-            <li>
-              <a href="#" style={{ color: '#ccc', textDecoration: 'none' }}>
-                Reviews
-              </a>
-            </li>
-            <li>
-              <a href="#" style={{ color: '#ccc', textDecoration: 'none' }}>
-                FAQ
-              </a>
             </li>
           </ul>
         </div>
@@ -327,13 +314,13 @@ const Footer = () => {
       {/* Bottom Copyright */}
        <div style={{ textAlign: 'center', marginTop: '50px', fontSize: '13px', color: '#999' }}>
           <span 
-            onClick={() => { navigate('/terms'); window.location.reload(); }} 
+            onClick={() => { navigate('/terms'); }} 
             style={{ textDecoration: 'none', color: '#999', cursor: 'pointer' }}
           >
             Terms & Conditions
           </span> | 
           <span 
-            onClick={() => { navigate('/privacy-policy'); window.location.reload(); }} 
+            onClick={() => { navigate('/privacy-policy'); }} 
             style={{ textDecoration: 'none', color: '#999', cursor: 'pointer' }}
           >
             Privacy Policy

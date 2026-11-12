@@ -30,7 +30,7 @@ const MiniServicesModal = ({ pkgGroup, closeModal }) => {
         style={{
           backgroundColor: "#fff",
           borderRadius: "10px",
-          width: "450px",
+          width: "min(450px, calc(100vw - 24px))",
           maxHeight: "80vh",
           display: "flex",
           flexDirection: "column",

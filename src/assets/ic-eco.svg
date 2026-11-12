@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs><path id="t2top" d="M 20.33 38.01 A 32 32 0 0 1 79.67 38.01"/><path id="t2bot" d="M 20.33 61.99 A 32 32 0 0 0 79.67 61.99"/></defs>
+  <path d="M 90 50 A 9.97 9.97 0 0 1 86.04 67.36 A 9.97 9.97 0 0 1 74.94 81.27 A 9.97 9.97 0 0 1 58.9 89 A 9.97 9.97 0 0 1 41.1 89 A 9.97 9.97 0 0 1 25.06 81.27 A 9.97 9.97 0 0 1 13.96 67.36 A 9.97 9.97 0 0 1 10 50 A 9.97 9.97 0 0 1 13.96 32.64 A 9.97 9.97 0 0 1 25.06 18.73 A 9.97 9.97 0 0 1 41.1 11 A 9.97 9.97 0 0 1 58.9 11 A 9.97 9.97 0 0 1 74.94 18.73 A 9.97 9.97 0 0 1 86.04 32.64 A 9.97 9.97 0 0 1 90 50 Z" fill="none" stroke="#000" stroke-width="3.4"/>
+  <text font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="800" letter-spacing="0.5" fill="#000"><textPath href="#t2top" startOffset="50%" text-anchor="middle">NO HARMFUL</textPath></text>
+  <text font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="800" letter-spacing="0.5" fill="#000"><textPath href="#t2bot" startOffset="50%" text-anchor="middle">CHEMICALS</textPath></text>
+  <path d="M50 66 V44" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M50 47 Q57 40 50 33 Q43 40 50 47Z" fill="none" stroke="#000" stroke-width="2.2"/>
+  <path d="M50 47 L50 33" fill="none" stroke="#000" stroke-width="1.6"/>
+  <path d="M50 52 Q45.65 43.9 37 47 Q41.35 55.1 50 52Z" fill="none" stroke="#000" stroke-width="2.2"/>
+  <path d="M50 52 L37 47" fill="none" stroke="#000" stroke-width="1.6"/>
+  <path d="M50 52 Q58.65 55.1 63 47 Q54.35 43.9 50 52Z" fill="none" stroke="#000" stroke-width="2.2"/>
+  <path d="M50 52 L63 47" fill="none" stroke="#000" stroke-width="1.6"/>
+  <path d="M26 42 A26 26 0 0 0 26 60" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+  <path d="M74 42 A26 26 0 0 1 74 60" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+</svg>

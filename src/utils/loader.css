@@ -1,28 +1,45 @@
-/* loader.css */
+/* loader.css — bouncing Homjee icon, mirroring the Android app loader. */
 .global-loader-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: transparent;
+  /* Same translucent wash as the app's PageLoader overlay. */
+  background-color: rgba(252, 252, 252, 0.55);
   z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.global-spinner {
-  width: 60px;
-  height: 60px;
-  border: 6px solid #ddd;
-  border-top: 6px solid #3498db;
+/* The app bounces the icon translateY 0 → -20 → 0, 500ms each way, looping,
+   ease-in-out. Reproduced here. */
+.global-loader-bounce {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: hj-bounce 1s ease-in-out infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+.global-loader-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+@keyframes hj-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
   }
 }

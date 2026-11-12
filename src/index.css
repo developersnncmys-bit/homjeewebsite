@@ -35,8 +35,11 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* NOTE: Vite's starter CSS set `display:flex; place-items:center` here,
+     which vertically centered the whole #root. On any page shorter than the
+     viewport (e.g. checkout) that pushed the header and content to the middle,
+     leaving a large empty gap above the header. Content must flow from the
+     top, so the flex-centering is removed. */
   min-width: 320px;
   min-height: 100vh;
 }

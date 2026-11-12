@@ -1,7 +1,18 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Button, Carousel } from "react-bootstrap";
+import TestiVideoSlider from "../components/TestiVideoSlider";
 import vediopainting from "../assets/vediopainting.mp4";
+// 2 videos taken from each service's own testimonial set (House Painting / Deep Cleaning / Home Interior / Packers)
+import hPaint1 from "../assets/hp1.mp4";
+import hPaint2 from "../assets/hp2.mp4";
+import hClean1 from "../assets/testi1.mp4";
+import hClean2 from "../assets/testi2.mp4";
+import hInt1 from "../assets/int1.mp4";
+import hInt2 from "../assets/int2.mp4";
+import hMove1 from "../assets/pm1.mp4";
+import hMove2 from "../assets/pm2.mp4";
 import arrow from "../assets/arrow.png";
 import brush from "../assets/brush.svg";
 import cleaning from "../assets/cleaning.svg";
@@ -133,7 +144,72 @@ const Home = ({ handleShow }) => {
   };
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const videos = [testimonialVideo, testimonialVideo, testimonialVideo];
+  // 8 testimonial videos — exactly 2 per category, interleaved (no two same-category adjacent)
+  const videos = [hPaint1, hClean1, hInt1, hMove1, hPaint2, hClean2, hInt2, hMove2];
+
+  // Hero video: click-to-play (with audio) + float-to-corner on scroll.
+  // The floating window is portaled to <body> so it stays ABOVE every section.
+  const heroVideoRef = useRef(null); // inline video
+  const floatRef = useRef(null);     // floating mini-player video
+  const heroMediaRef = useRef(null);
+  const [heroPlaying, setHeroPlaying] = useState(false);
+  const [heroFloating, setHeroFloating] = useState(false);
+  const heroFloatingRef = useRef(false);
+  const handoffTimeRef = useRef(0);
+  useEffect(() => { heroFloatingRef.current = heroFloating; }, [heroFloating]);
+
+  const enterFloat = () => {
+    const v = heroVideoRef.current;
+    handoffTimeRef.current = v ? v.currentTime : 0;
+    if (v) v.pause();
+    setHeroFloating(true);
+  };
+  const exitFloat = (resume) => {
+    const flo = floatRef.current;
+    handoffTimeRef.current = flo ? flo.currentTime : handoffTimeRef.current;
+    setHeroFloating(false);
+    const v = heroVideoRef.current;
+    if (v) {
+      try { v.currentTime = handoffTimeRef.current; } catch (e) {}
+      if (resume) { v.muted = false; v.play().catch(() => {}); }
+    }
+  };
+
+  // scroll away while playing → float; scroll back into view → dock inline
+  useEffect(() => {
+    const el = heroMediaRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (heroFloatingRef.current) exitFloat(true);
+        } else {
+          const v = heroVideoRef.current;
+          if (v && !v.paused && !heroFloatingRef.current) enterFloat();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // start the floating mini-player from the exact handoff time once it mounts
+  useEffect(() => {
+    if (heroFloating && floatRef.current) {
+      const flo = floatRef.current;
+      try { flo.currentTime = handoffTimeRef.current || 0; } catch (e) {}
+      flo.muted = false;
+      flo.play().catch(() => {});
+    }
+  }, [heroFloating]);
+
+  const onHeroClick = () => {
+    const v = heroVideoRef.current;
+    if (!v) return;
+    if (v.paused) { v.muted = false; v.play().catch(() => {}); }
+    else { v.pause(); }
+  };
   const icons = [
     { src: brush, style: { top: "5%", left: "35%" } },
     { src: cleaning, style: { top: "30%", left: "42%" } },
@@ -252,17 +328,47 @@ const Home = ({ handleShow }) => {
         </div>
 
         {/* Line-art backdrop + looping video */}
-        <div className="hm-hero-media">
+        <div className="hm-hero-media" ref={heroMediaRef}>
           <img src={lineicon} alt="" className="hm-hero-lines" />
-          <video
-            src={vediopainting}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="hm-hero-video"
-          />
+          <div className="hm-hero-videowrap" onClick={onHeroClick}>
+            <video
+              ref={heroVideoRef}
+              src={vediopainting}
+              playsInline
+              preload="metadata"
+              className="hm-hero-video"
+              onPlay={() => setHeroPlaying(true)}
+              onPause={() => setHeroPlaying(false)}
+              onEnded={() => setHeroPlaying(false)}
+            />
+            {!heroPlaying && (
+              <button type="button" className="hm-hero-playbtn" aria-label="Play video">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+              </button>
+            )}
+          </div>
         </div>
+
+        {heroFloating &&
+          createPortal(
+            <div
+              className="hm-herofloat"
+              onClick={() =>
+                heroMediaRef.current &&
+                heroMediaRef.current.scrollIntoView({ behavior: "smooth", block: "center" })
+              }
+            >
+              <video
+                ref={floatRef}
+                src={vediopainting}
+                playsInline
+                className="hm-herofloat-video"
+                onEnded={() => { exitFloat(false); setHeroPlaying(false); }}
+              />
+              <span className="hm-herofloat-hint">▲ Back to video</span>
+            </div>,
+            document.body
+          )}
 
         {/* Floating service icons (positions per breakpoint in CSS) */}
         {icons.map((icon, idx) => (
@@ -310,8 +416,40 @@ const Home = ({ handleShow }) => {
             object-fit: cover; z-index: 0; pointer-events: none;
           }
           .hm-hero-video {
-            border-radius: 15px; width: 100%; height: 240px; object-fit: cover;
-            position: relative; z-index: 1; display: block;
+            border-radius: 15px; width: 100%; height: auto; display: block;
+            position: relative; z-index: 1;
+          }
+          .hm-hero-videowrap { position: relative; cursor: pointer; }
+          .hm-hero-playbtn {
+            position: absolute; inset: 0; margin: auto; width: 72px; height: 72px;
+            border: none; border-radius: 50%; background: rgba(0,0,0,.55);
+            display: flex; align-items: center; justify-content: center;
+            pointer-events: none; z-index: 2;
+          }
+          .hm-hero-playbtn svg { width: 30px; height: 30px; fill: #fff; margin-left: 4px; }
+          .hm-hero-videowrap.is-floating {
+            position: fixed; bottom: 20px; right: 20px; width: 320px; margin: 0 !important;
+            z-index: 4000; border-radius: 14px; overflow: hidden; cursor: pointer;
+            box-shadow: 0 12px 34px rgba(0,0,0,.4);
+          }
+          .hm-hero-videowrap.is-floating .hm-hero-video {
+            height: 190px !important; margin-top: 0 !important; width: 100%; border-radius: 14px;
+          }
+          .hm-hero-returnhint {
+            position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,.65); color: #fff;
+            font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px;
+            pointer-events: none; z-index: 3;
+          }
+          .hm-hero-videospacer { height: 240px; }
+          .hm-herofloat {
+            position: fixed; bottom: 20px; right: 20px; width: 300px;
+            z-index: 2147483000; border-radius: 14px; overflow: hidden; cursor: pointer;
+            box-shadow: 0 14px 40px rgba(0,0,0,.45);
+          }
+          .hm-herofloat-video { width: 100%; height: 190px; object-fit: cover; display: block; background: #000; }
+          .hm-herofloat-hint {
+            position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,.65); color: #fff;
+            font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; pointer-events: none;
           }
           .hm-hero-float {
             position: absolute; width: 35px; height: 35px; background: #fff;
@@ -343,7 +481,9 @@ const Home = ({ handleShow }) => {
               border-radius: 20px; margin: -17% 0 0; z-index: 1;
             }
             .hm-hero-lines { top: 0; left: 0; width: 100%; height: 87%; }
-            .hm-hero-video { margin-top: 38%; border-radius: 20px; height: 360px; }
+            .hm-hero-video { border-radius: 20px; }
+            .hm-hero-videowrap { margin: 40% auto 0; width: 100%; max-width: 600px; }
+            .hm-hero-videospacer { height: 0; }
             .hm-hero-float { width: 50px; height: 50px; display: flex; z-index: 0; }
             .hm-hero-float img { width: 28px; height: 28px; }
             .hm-hero-float-0 { top: 5%; left: 35%; }
@@ -1460,89 +1600,8 @@ const Home = ({ handleShow }) => {
 
         <p className="hm-testi-sub">What People Say About Us</p>
 
-        {/* Desktop: 3-up video carousel */}
-        <div className="hm-lg-only">
-          <div style={{ margin: "0 40px" }}>
-            <Carousel
-              indicators={true}
-              controls={false}
-              interval={6000}
-              className="testimonial-carousel"
-            >
-              {[0, 1].map((slide) => (
-                <Carousel.Item key={slide}>
-                  <div
-                    className="d-flex justify-content-center align-items-center"
-                    style={{
-                      padding: "0 5%",
-                      gap: "30px",
-                      flexWrap: "nowrap",
-                      overflowX: "hidden",
-                    }}
-                  >
-                    {[...Array(3)].map((_, idx) => (
-                      <div key={idx}>
-                        <video
-                          src={testimonialVideo}
-                          width="644"
-                          height="312"
-                          controls
-                          muted
-                          preload="auto"
-                          style={{
-                            objectFit: "cover",
-                            borderRadius: "20px",
-                            display: "block",
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          </div>
-        </div>
-
-        {/* Mobile: swiper with live indicator bar */}
-        <div className="hm-sm-only">
-          <Swiper
-            slidesPerView={1.2}
-            spaceBetween={10}
-            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-            style={{ paddingLeft: "20px", marginBottom: "20px" }}
-          >
-            {videos.map((vid, index) => (
-              <SwiperSlide key={index}>
-                <video
-                  src={vid}
-                  height="220"
-                  controls
-                  muted
-                  style={{
-                    borderRadius: "15px",
-                    objectFit: "cover",
-                    width: "100%",
-                  }}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-            {videos.map((_, index) => (
-              <div
-                key={index}
-                style={{
-                  width: activeIndex === index ? "30px" : "20px",
-                  height: "4px",
-                  backgroundColor: activeIndex === index ? "red" : "#ccc",
-                  borderRadius: "5px",
-                  transition: "width 0.3s",
-                }}
-              />
-            ))}
-          </div>
-        </div>
+        {/* One-video-at-a-time slider with side arrows; loops (last → first) */}
+        <TestiVideoSlider videos={videos} />
 
         <style>{`
           /* — mobile (base) — */
@@ -1556,6 +1615,13 @@ const Home = ({ handleShow }) => {
             width: 130px; height: auto; pointer-events: none;
           }
           .hm-testi-sub { font-weight: 600; font-size: 16px; margin-top: 2px; }
+          .hm-testivid { position: relative; cursor: pointer; }
+          .hm-testivid-play {
+            position: absolute; inset: 0; margin: auto; width: 64px; height: 64px;
+            border-radius: 50%; background: rgba(0,0,0,.55);
+            display: flex; align-items: center; justify-content: center; pointer-events: none;
+          }
+          .hm-testivid-play svg { width: 26px; height: 26px; fill: #fff; margin-left: 3px; }
 
           /* — desktop — */
           @media (min-width: 992px) {

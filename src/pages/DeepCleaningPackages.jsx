@@ -534,6 +534,7 @@ const DeepCleaningPackages = () => {
 
   return (
     <div
+      className="dcp-layout"
       style={{
         maxWidth: "1400px",
         margin: "0 auto",
@@ -545,6 +546,16 @@ const DeepCleaningPackages = () => {
         fontFamily: "Arial, sans-serif",
       }}
     >
+      <style>{`
+        /* Deep Cleaning packages: 3 columns on desktop, stacked on mobile. */
+        @media (max-width: 991px) {
+          .dcp-layout { flex-direction: column; padding: 12px !important; margin-top: 16px !important; gap: 14px !important; }
+          .dcp-col-left { width: 100% !important; max-height: none !important; }
+          .dcp-col-mid { max-width: 100% !important; }
+          .dcp-col-mid-inner { width: 100% !important; max-height: none !important; }
+          .dcp-col-right { width: 100% !important; max-height: none !important; }
+        }
+      `}</style>
       {/* Left Sidebar - Service Selection */}
       <div
         style={{
@@ -558,7 +569,7 @@ const DeepCleaningPackages = () => {
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
-        className="hide-scrollbar"
+        className="hide-scrollbar dcp-col-left"
       >
         <style>
           {`
@@ -613,6 +624,7 @@ const DeepCleaningPackages = () => {
 
       {/* Middle Section - Service Details */}
       <div
+        className="dcp-col-mid"
         style={{
           flex: 1,
           maxWidth: "900px",
@@ -628,7 +640,7 @@ const DeepCleaningPackages = () => {
             marginBottom: "30px",
             position: "relative", // Ensure the container is positioned for sticky child
           }}
-          className="scroll-section"
+          className="scroll-section dcp-col-mid-inner"
         >
           {Object.keys(cleaningServices).map((service, serviceIndex) => (
             <div
@@ -1010,6 +1022,7 @@ const DeepCleaningPackages = () => {
         </div>
       </div>
       <div
+        className="dcp-col-right"
         style={{
           width: "450px",
           backgroundColor: "#fff",

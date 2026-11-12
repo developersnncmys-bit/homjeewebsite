@@ -15,13 +15,16 @@ export default function VendorRatings() {
   const [isResLoading, setIsResLoading] = useState(false);
   const [showCustomPopup, setShowCustomPopup] = useState(false);
   const query = new URLSearchParams(location.search);
-  const vendorId = query.get("vendorId");
   const bookingId = query.get("bookingId");
-  const customerId = query.get("customerId");
-  const vendorName = query.get("vendorName") || "Vendor";
-  const vendorPhoto =
-    // "https://idaindia.org.in/wp-content/uploads/2022/08/indian-testimonial-pranav-img-02-v01.png";
-    query.get("vendorPhoto"); // optional
+  // The WhatsApp "Rate Our Service" button can only carry ONE dynamic value
+  // (the bookingId), so vendorId/customerId/name may be missing from the URL.
+  // Seed from the URL and resolve the rest from the booking (effect below).
+  const [vendorId, setVendorId] = useState(query.get("vendorId") || "");
+  const [customerId, setCustomerId] = useState(query.get("customerId") || "");
+  const [vendorName, setVendorName] = useState(
+    query.get("vendorName") || "Vendor",
+  );
+  const vendorPhoto = query.get("vendorPhoto"); // optional
 
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
@@ -29,7 +32,28 @@ export default function VendorRatings() {
   const [existingRating, setExistingRating] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  console.log("customerId", customerId);
+  // When the link only carries bookingId (WhatsApp feedback button), resolve
+  // the vendor + customer (and vendor name) from the booking itself.
+  useEffect(() => {
+    if (!bookingId || (vendorId && customerId)) return;
+    (async () => {
+      try {
+        const res = await axios.get(
+          `${API_BASE_URL}${API_ENDPOINTS.GET_BOOKINGS_BY_BOOKING_ID}${bookingId}`,
+        );
+        const b = res?.data?.booking;
+        if (b) {
+          if (!vendorId)
+            setVendorId(b.assignedProfessional?.professionalId || "");
+          if (!customerId) setCustomerId(b.customer?._id || "");
+          if (b.assignedProfessional?.name)
+            setVendorName(b.assignedProfessional.name);
+        }
+      } catch (err) {
+        console.log("Could not resolve booking for rating:", err?.message);
+      }
+    })();
+  }, [bookingId]);
 
   useEffect(() => {
     async function fetchRating() {
@@ -81,8 +105,8 @@ export default function VendorRatings() {
         bookingId,
         customerId,
         rating: effectiveRating,
-        // For 4-5 we can send empty string for feedback (server handles)
-        feedback: effectiveRating >= 4 ? "" : (feedback || "").trim(),
+        // For 3-5 we can send empty string for feedback (server handles)
+        feedback: effectiveRating >= 3 ? "" : (feedback || "").trim(),
       };
 
       const res = await axios.post(
@@ -153,8 +177,8 @@ export default function VendorRatings() {
     // set rating in UI (optimistic)
     setRating(value);
 
-    // If 4-5 stars, auto-save + redirect — pass value to submit
-    if (value >= 4) {
+    // If 3-5 stars, auto-save + redirect — pass value to submit
+    if (value >= 3) {
       const result = await handleSubmit(value);
 
       // if server didn't redirect but returned success, you can still redirect
@@ -166,7 +190,7 @@ export default function VendorRatings() {
       return;
     }
 
-    // For 1-3 stars: just set rating and let user add feedback then press Post
+    // For 1-2 stars: just set rating and let user add feedback then press Post
     // (we don't auto-submit here)
     setRating(value);
   };

@@ -69,14 +69,15 @@ const SlotSelectiondeepcleaning = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 600,
+          width: "min(600px, calc(100vw - 24px))",
+          boxSizing: "border-box",
           backgroundColor: "#fff",
           borderRadius: 8,
           padding: 20,
           boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
           zIndex: 1001,
           fontFamily: "'Roboto', sans-serif",
-          maxHeight: "80vh",
+          maxHeight: "90vh",
           overflowY: "auto",
         }}
       >
@@ -162,14 +163,11 @@ const SlotSelectiondeepcleaning = ({
         >
           Select start time of service
         </h4>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 10,
-            marginBottom: 20,
-          }}
-        >
+        <style>{`
+          .dc-slot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+          @media (max-width: 480px) { .dc-slot-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } }
+        `}</style>
+        <div className="dc-slot-grid">
           {timeSlots.map((time, index) => (
             <button
               key={index}

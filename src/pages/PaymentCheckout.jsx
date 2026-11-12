@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FiPhone, FiMapPin, FiCheckCircle, FiClock } from "react-icons/fi";
+import { FiPhone, FiMapPin, FiCheckCircle, FiClock, FiEdit2 } from "react-icons/fi";
 import { AiOutlineMessage } from "react-icons/ai";
 import { PiPaintBrushHousehold } from "react-icons/pi";
 import { BiRupee } from "react-icons/bi";
@@ -17,35 +17,25 @@ import { GoDotFill } from "react-icons/go";
 import "./payment-checkout.css";
 import { Modal } from "react-bootstrap";
 import SlotSelectionModal from "./SlotSelectionModal";
+import AddressPickerModal from "../components/AddressPickerModal";
 import axios from "axios";
 import { CiCircleInfo } from "react-icons/ci";
 import { payWithRazorpay } from "../payments/payWithRazorpay";
 
 const avatarSrc = "/mnt/data/WhatsApp Image 2025-11-25 at 4.53.03 PM.jpeg";
 
-// const housePaintingcancellationsData = [
-//   {
-//     id: 1,
-//     title: "More than 3 hrs before the service",
-//     fee: "Free",
-//   },
-//   {
-//     id: 2,
-//     title: "Within 3 hrs of the service",
-//     fee: "100% of Cart Value",
-//   },
-// ];
-
+// #6 — House Painting cancellation policy: Free if cancelled more than 3 hrs
+// before the service, 100% of cart value within 3 hrs.
 const housePaintingcancellationsData = [
   {
     id: 1,
-    title: "More than 24 hrs before the service",
+    title: "More than 3 hrs before the service",
     fee: "Free",
   },
   {
     id: 2,
-    title: "Within 24 hrs of the service",
-    fee: "10% of Cart Value",
+    title: "Within 3 hrs of the service",
+    fee: "100% of Cart Value",
   },
 ];
 
@@ -69,6 +59,7 @@ function PaymentCheckout() {
   const [finalizedQoute, setFinalizedQuote] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isResLoading, setIsResLoading] = useState(false);
+  const [confirming, setConfirming] = useState(false);
   const [showCustomPopup, setShowCustomPopup] = useState(false);
   const [showPolicy, setShowPolicy] = useState(false);
   const [popupType, setPopupType] = useState(null);
@@ -78,6 +69,9 @@ function PaymentCheckout() {
   const assignedProfessionalId =
     bookingData?.assignedProfessional?.professionalId;
   const [showSlotModal, setShowSlotModal] = useState(false);
+  // #3/#4 — address picker + one-time on-open checks (address + slot validity)
+  const [showAddressModal, setShowAddressModal] = useState(false);
+  const openChecksDone = useRef(false);
 
   const handleCloseSlotModal = () => {
     setShowSlotModal(false);
@@ -142,6 +136,43 @@ function PaymentCheckout() {
       fetchFinalizedQuote();
     }
   }, [bookingId]);
+
+  // #3 + #4 — run once when the booking loads:
+  //  (3) if there's no address, prompt the customer to pick one first;
+  //  (4) else verify the booked slot is still available and, if not, prompt
+  //      the customer to choose a new slot.
+  useEffect(() => {
+    if (!bookingData) return;
+    if (openChecksDone.current) return;
+    openChecksDone.current = true;
+
+    (async () => {
+      try {
+        const addr = bookingData.address || {};
+        const coords = addr?.location?.coordinates;
+        const hasCoords =
+          Array.isArray(coords) &&
+          coords.length === 2 &&
+          Number(coords[0]) !== 0 &&
+          Number(coords[1]) !== 0;
+        const hasAddress = !!(addr.streetArea || addr.houseFlatNumber) && hasCoords;
+
+        if (!hasAddress) {
+          setShowAddressModal(true);
+          return;
+        }
+
+        // #4 — Do NOT auto-open the slot-selection popup when the customer
+        // opens this page to make a payment. Opening a payment link should go
+        // straight to paying; the slot was already chosen at booking time. The
+        // customer can still change the slot via the explicit reschedule button
+        // (handleProceedToSlotSelection). The previous on-open availability
+        // check that forced the slot modal has been removed.
+      } catch (e) {
+        console.error("on-open booking checks failed:", e);
+      }
+    })();
+  }, [bookingData]);
 
   const getLatLngFromBooking = () => {
     try {
@@ -247,7 +278,12 @@ function PaymentCheckout() {
               ...basePayload,
               services: mapServicesForSlots(bookingData?.service || []),
             }
-          : basePayload;
+          : {
+              // #2 — House Painting slot availability needs the city to read the
+              // pricing config; without it the API 400s and no slots show.
+              ...basePayload,
+              city: bookingData?.address?.city || "",
+            };
 
       console.log("Slots payload =>", payload);
 
@@ -322,6 +358,36 @@ function PaymentCheckout() {
     } catch (err) {
       console.error(err);
       alert("Failed to reschedule booking");
+    }
+  };
+
+  // #3 — save a new/edited address onto the booking, then force the customer
+  // to choose a fresh slot (availability depends on the address).
+  const handleSaveAddressFromModal = async (payload) => {
+    try {
+      const body = {
+        houseFlatNumber: payload?.houseNumber || "",
+        streetArea: payload?.address || "",
+        landMark: payload?.landmark || "",
+        city: payload?.city || "",
+        lat: Number(payload?.lat),
+        lng: Number(payload?.lng),
+      };
+      const res = await axios.put(
+        `${API_BASE_URL}/bookings/update-address/${bookingData._id}`,
+        body,
+      );
+      if (!res?.data?.success) {
+        alert(res?.data?.message || "Failed to update address");
+        return;
+      }
+      setShowAddressModal(false);
+      await fetchBookingDetails();
+      // Address changed → the previously chosen slot may no longer be valid.
+      setShowSlotModal(true);
+    } catch (err) {
+      console.error("update address failed:", err);
+      alert("Failed to update address");
     }
   };
 
@@ -486,6 +552,24 @@ function PaymentCheckout() {
   const currency = (n) => `₹ ${Number(n ?? 0).toLocaleString("en-IN")}`;
   const category = bookingData?.service?.[0]?.category;
 
+  // #6 — For House Painting the cart-value cancellation policy only applies
+  // once the survey has started (before that the customer has only paid the
+  // site-visit charge). Deep Cleaning has no survey, so its policy always shows.
+  const surveyStarted = [
+    "Survey Ongoing",
+    "Survey Completed",
+    "Negotiation",
+    "Hired",
+    "Pending Hiring",
+    "Project Ongoing",
+    "Waiting for final payment",
+    "Project Completed",
+    "Job Ongoing",
+    "Job Completed",
+  ].includes(bd?.status);
+  const showCancellationPolicy =
+    category === "House Painting" ? surveyStarted : true;
+
   let currentInstallmentLabel = "";
   let currentInstallmentAmount = 0;
 
@@ -599,7 +683,7 @@ function PaymentCheckout() {
             </span>
           </div>
           <div className="d-flex justify-content-between small mb-2">
-            <span>Amount Paid1</span>
+            <span>Amount Paid</span>
             <span className="fw-semibold">{currency(bd?.paidAmount || 0)}</span>
           </div>
           <div className="d-flex justify-content-between small mb-2">
@@ -658,7 +742,7 @@ function PaymentCheckout() {
             <span className="fw-semibold">{currency(newTotal)}</span>
           </div>
           <div className="d-flex justify-content-between small mb-2">
-            <span>Amount Paid2</span>
+            <span>Amount Paid</span>
             <span className="fw-semibold">{currency(bd?.paidAmount || 0)}</span>
           </div>
           {bd?.amountYetToPay !== 0 && bd.status !== "Project Completed" && (
@@ -706,7 +790,7 @@ function PaymentCheckout() {
             <span className="fw-semibold">{currency(bd?.finalTotal || 0)}</span>
           </div>
           <div className="d-flex justify-content-between small mb-2">
-            <span>Amount Paid4</span>
+            <span>Amount Paid</span>
             <span className="fw-semibold">{currency(bd?.paidAmount || 0)}</span>
           </div>
           <div className="d-flex justify-content-between small mb-2">
@@ -1017,6 +1101,25 @@ function PaymentCheckout() {
     }
   };
 
+  // #1 — Confirm a House Painting enquiry that has a ZERO site-visit charge:
+  // nothing to pay, so just convert the enquiry to a confirmed lead.
+  const handleConfirmZeroSiteVisit = async () => {
+    try {
+      setConfirming(true);
+      await postRequest(API_ENDPOINTS.PAY_AND_CONVERT_ENQUIRY_TO_LEAD, {
+        bookingId,
+        paymentMethod: "None",
+        paidAmount: 0,
+      });
+      setShowSuccessModal(true);
+      await fetchBookingDetails();
+    } catch (error) {
+      console.error("Confirm booking failed:", error);
+    } finally {
+      setConfirming(false);
+    }
+  };
+
   return (
     <div className="bg-light" style={{ minHeight: "100vh" }}>
       {isPageLoading || (isResLoading && <GlobalLoader />)}
@@ -1042,7 +1145,19 @@ function PaymentCheckout() {
                 <FiMapPin style={{ fontSize: 15 }} />
               </span>
               <span className="small">
-                {address.houseFlatNumber}, {address.streetArea}
+                {address.houseFlatNumber
+                  ? `${address.houseFlatNumber}, `
+                  : ""}
+                {address.streetArea || "No address added"}
+              </span>
+              {/* #3 — edit the address; saving forces a new slot selection */}
+              <span
+                role="button"
+                title="Edit address"
+                onClick={() => setShowAddressModal(true)}
+                style={{ cursor: "pointer", color: "#0d6efd" }}
+              >
+                <FiEdit2 style={{ fontSize: 14 }} />
               </span>
             </div>
             <div className="small flex-shrink-0" style={{ minWidth: "90px" }}>
@@ -1100,13 +1215,38 @@ function PaymentCheckout() {
                     ))}
                   </div>
                 )}
-                {/* STATUS */}
+                {/* STATUS (#1) — an unpaid enquiry is NOT yet confirmed. */}
                 <div className="small text-secondary mt-3">Status</div>
                 <div className="text-primary small fw-semibold">
-                  {bookingData?.bookingDetails?.status === "Pending"
-                    ? "Booking confirmed"
-                    : bookingData?.bookingDetails?.status || "-"}
+                  {(() => {
+                    const unpaidEnquiry =
+                      bookingData?.isEnquiry && bd?.paymentStatus !== "Paid";
+                    const hpZeroSiteVisit =
+                      category === "House Painting" &&
+                      (Number(bd?.siteVisitCharges) || 0) === 0;
+                    if (unpaidEnquiry && hpZeroSiteVisit)
+                      return "Awaiting Confirmation";
+                    if (unpaidEnquiry)
+                      return "Awaiting Payment for Confirmation";
+                    if (bd?.status === "Pending") return "Booking confirmed";
+                    return bd?.status || "-";
+                  })()}
                 </div>
+
+                {/* #1 — a House Painting enquiry with ZERO site-visit charge has
+                    nothing to pay, so offer a Confirm button instead. */}
+                {bookingData?.isEnquiry &&
+                  bd?.paymentStatus !== "Paid" &&
+                  category === "House Painting" &&
+                  (Number(bd?.siteVisitCharges) || 0) === 0 && (
+                    <button
+                      className="btn btn-primary btn-sm mt-2"
+                      disabled={confirming}
+                      onClick={handleConfirmZeroSiteVisit}
+                    >
+                      {confirming ? "Confirming..." : "Confirm Booking"}
+                    </button>
+                  )}
                 {/* ..............reschedule and cancel............ */}
                 {(bd.status === "Pending" || bd.status === "Confirmed") && (
                   <div className="row gap-2 mt-3">
@@ -1268,7 +1408,11 @@ function PaymentCheckout() {
                 </div>
               </div>
             )}
-            {(canShowPayNow || bookingData?.isEnquiry) && (
+            {/* #5 — never offer Pay Now once the booking is cancelled. */}
+            {!["Cancelled", "Customer Cancelled", "Admin Cancelled"].includes(
+              bd?.status,
+            ) &&
+              (canShowPayNow || bookingData?.isEnquiry) && (
               <div className="mt-3 p-3 bg-light rounded d-flex justify-content-between align-items-center">
                 <div>
                   <div className="small text-primary">
@@ -1327,15 +1471,24 @@ function PaymentCheckout() {
                     </div>
 
                     <div className="d-flex gap-2">
-                      <button
-                        onClick={() => {
-                          setPopupType("pay");
-                          setShowSuccessModal(true);
-                        }}
-                        className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
-                      >
-                        <FiPhone /> Call
-                      </button>
+                      {/* #8 — real call link; hidden on terminal statuses. */}
+                      {![
+                        "project completed",
+                        "cancelled",
+                        "customer cancelled",
+                        "admin cancelled",
+                        "customer denied",
+                        "no answer",
+                        "no pick up",
+                      ].includes(String(bd?.status || "").toLowerCase()) &&
+                        bookingData?.assignedProfessional?.phone && (
+                          <a
+                            href={`tel:${bookingData.assignedProfessional.phone}`}
+                            className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                          >
+                            <FiPhone /> Call
+                          </a>
+                        )}
                     </div>
                   </div>
                 </div>
@@ -1368,6 +1521,7 @@ function PaymentCheckout() {
           </div>
         )}
 
+        {showCancellationPolicy && (
         <div className="card shadow-sm mb-3 p-3">
           <h5 style={{ fontSize: "16px" }}>Cancellation policy</h5>
           <p
@@ -1377,7 +1531,7 @@ function PaymentCheckout() {
             }}
           >
             Free cancellations if done more than{" "}
-            {bookingData?.serviceType === "deep_cleaning" ? "24" : "24"} hrs
+            {bookingData?.serviceType === "deep_cleaning" ? "24" : "3"} hrs
             before the service or if a professional isn't assigned. A fee will
             be charged otherwise.
           </p>
@@ -1459,6 +1613,7 @@ function PaymentCheckout() {
             </div>
           )}
         </div>
+        )}
 
         {/* Tips Section */}
         <div className="card shadow-sm">
@@ -1488,6 +1643,18 @@ function PaymentCheckout() {
                     User ID: {userId} • Booking ID: {bookingId} • Date: {date}
                 </div> */}
       </div>
+
+      {/* #3 — address picker (opens on load if no address, or via edit arrow) */}
+      <AddressPickerModal
+        show={showAddressModal}
+        onClose={() => setShowAddressModal(false)}
+        initialLatLng={getLatLngFromBooking() || { lat: 12.9716, lng: 77.5946 }}
+        initialAddress={bookingData?.address?.streetArea || ""}
+        initialHouseFlat={bookingData?.address?.houseFlatNumber || ""}
+        initialLandmark={bookingData?.address?.landMark || ""}
+        initialCity={bookingData?.address?.city || ""}
+        onSave={handleSaveAddressFromModal}
+      />
 
       <SlotSelectionModal
         show={showSlotModal}

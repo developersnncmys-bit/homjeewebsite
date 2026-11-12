@@ -496,7 +496,10 @@ const SlotSelectionModal = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 600,
+          width: "min(600px, calc(100vw - 24px))",
+          maxHeight: "90vh",
+          overflowY: "auto",
+          boxSizing: "border-box",
           background: "#fff",
           borderRadius: 10,
           padding: 20,
@@ -558,8 +561,18 @@ const SlotSelectionModal = ({
           </p>
         )}
 
-        {/* Date Selection */}
-        <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
+        {/* Date Selection — horizontally scrollable so the 8 days never
+            overflow a narrow phone screen. */}
+        <div
+          style={{
+            display: "flex",
+            gap: 10,
+            marginBottom: 20,
+            overflowX: "auto",
+            paddingBottom: 4,
+            WebkitOverflowScrolling: "touch",
+          }}
+        >
           {dates.map((d) => (
             <button
               key={d.value}
@@ -567,6 +580,7 @@ const SlotSelectionModal = ({
               style={{
                 width: 60,
                 height: 60,
+                flexShrink: 0,
                 borderRadius: 8,
                 border:
                   selectedDate === d.value ? "2px solid red" : "1px solid #ccc",
@@ -588,6 +602,15 @@ const SlotSelectionModal = ({
           @keyframes slotSpin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+          }
+          .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+          }
+          @media (max-width: 480px) {
+            .slot-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
           }
         `}</style>
 
@@ -630,14 +653,7 @@ const SlotSelectionModal = ({
             {slotReason || "No slots available for this date"}
           </p>
         ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: 10,
-              marginBottom: 20,
-            }}
-          >
+          <div className="slot-grid">
             {filteredSlots.map(({ time, available }) => {
               const isSelected = selectedTimeSlot === time;
               return (
