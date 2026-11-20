@@ -7,6 +7,7 @@ import { BiRupee } from "react-icons/bi";
 import { getRequest, postRequest } from "../ApiService/apiHelper";
 import { API_ENDPOINTS, API_BASE_URL } from "../ApiService/apiConstants";
 import GlobalLoader from "../utils/GlobalLoader";
+import { getStatusColor } from "../utils/statusColor";
 import { MdCleaningServices } from "react-icons/md";
 import moment from "moment";
 import { FaUser } from "react-icons/fa";
@@ -1217,7 +1218,12 @@ function PaymentCheckout() {
                 )}
                 {/* STATUS (#1) — an unpaid enquiry is NOT yet confirmed. */}
                 <div className="small text-secondary mt-3">Status</div>
-                <div className="text-primary small fw-semibold">
+                {/* #11 — colour the status by the actual lead status instead of
+                    the fixed blue `text-primary` (which made every status blue). */}
+                <div
+                  className="small fw-semibold"
+                  style={{ color: getStatusColor(bd?.status) }}
+                >
                   {(() => {
                     const unpaidEnquiry =
                       bookingData?.isEnquiry && bd?.paymentStatus !== "Paid";
